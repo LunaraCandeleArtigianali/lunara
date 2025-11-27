@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lunara — Candele artigianali</title>
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" href="assets/images/hero.png" type="image/png">
+</head>
+<body>
+<header class="site-header container" id="site-header">
+  <div class="brand">
+    <a href="#hero">Lunara</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false">
+    <span class="hamburger-lines" aria-hidden="true">☰</span>
+  </button>
+  <nav class="site-nav" id="site-nav" role="navigation" aria-label="Menu principale">
+      <a class="nav-link" href="#chi-siamo">Chi siamo</a>
+      <a class="nav-link" href="#catalogo">Catalogo</a>
+      <a class="nav-link" href="#why">Contatti</a>
+      <a class="nav-link ext" href="https://www.vinted.it/brand/26207323-lunara-candele-artigianali" target="_blank" rel="noopener">Vinted</a>
+      <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-copy">
+      <h1>Candele artigianali — design e profumi naturali</h1>
+      <p class="lede">Produciamo candele in piccole serie con ingredienti selezionati e cura artigianale. Packaging elegante e fragranze durature.</p>
+      <div class="cta">
+        <a class="btn primary" href="#catalogo">Scopri il catalogo</a>
+        <a class="btn ghost" href="#chi-siamo">Chi siamo</a>
+      </div>
+    </div>
+    <div class="hero-preview" aria-hidden="true">
+      <img id="hero-img" src="assets/images/hero.png" alt="Candela Lunara" />
+    </div>
+  </section>
+
+    <!-- CHI SIAMO -->
+    <section id="chi-siamo" class="section chi-siamo">
+      <h2>Chi siamo</h2>
+
+      <div class="chi-siamo-content">
+        <div class="chi-siamo-text">
+          <p class="lede">Lunara nasce dall’amore per l’artigianato e la magia delle candele fatte a mano. Ogni creazione è curata nei dettagli: dalle cere naturali alle miscele di fragranze, fino al packaging raffinato.</p>
+
+          <ul class="chi-siamo-highlights">
+            <li>
+              <span class="icon" aria-hidden="true">🕯️</span>
+              <div>
+                <strong>Artigianalità</strong>
+                <p>Produzione manuale e cura di ogni singolo pezzo: ogni candela è unica.</p>
+              </div>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">🌿</span>
+              <div>
+                <strong>Materie prime</strong>
+                <p>Cere naturali e fragranze selezionate per un profumo pulito e persistente.</p>
+              </div>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">🎁</span>
+              <div>
+                <strong>Packaging</strong>
+                <p>Confezioni eleganti, curate per regalo e personalizzabili su richiesta.</p>
+              </div>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">🎁</span>
+              <div>
+                <strong>Altro</strong>
+                <p>Scrivi altro qui xx x a a s re reeeea.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="chi-siamo-images">
+          <img src="assets/images/chi-siamo-1.jpg" alt="Candela artigianale" />
+          <img src="assets/images/product-2.jpg" alt="Candela artigianale" />
+          <img src="assets/images/product-8.jpg" alt="Candela artigianale" />
+        </div>
+      </div>
+    </section>
+
+
+  <!-- CATALOGO -->
+  <section id="catalogo" class="section">
+    <h2>Catalogo</h2>
+    <p class="muted">Clicca su un prodotto per i dettagli. L'acquisto viene gestito su Vinted.</p>
+    <div id="product-grid" class="grid" aria-live="polite"></div>
+  </section>
+
+    <!-- WHY -->
+    <section id="why" class="section why">
+      <h3>Perché scegliere Lunara</h3>
+      <div class="why-content">
+        <p class="lede">Lunara trasforma la luce in emozione: esperienza olfattiva, estetica raffinata e materiali selezionati per ogni ambiente.</p>
+        <div class="why-cards">
+          <div class="why-card"><span class="icon">🕯️</span><p><strong>Made by hand</strong> — cura manuale e attenzione ai materiali.</p></div>
+          <div class="why-card"><span class="icon">🌿</span><p><strong>Fragranze</strong> — combinazioni naturali e durature.</p></div>
+          <div class="why-card"><span class="icon">🎁</span><p><strong>Regalo perfetto</strong> — packaging elegante e personalizzabile.</p></div>
+        </div>
+      </div>
+    </section>
+
+  <!-- CONTATTI + SOCIAL -->
+  <section id="contatti" class="section contact-social">
+    <div class="contact-block">
+      <h2>Contattaci</h2>
+      <form id="contact-form" class="contact-form" aria-label="Modulo contatti">
+        <input type="text" name="name" placeholder="Nome" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" placeholder="Messaggio" required></textarea>
+        <button class="btn primary" type="submit">Invia</button>
+      </form>
+    </div>
+
+    <aside class="social-block" aria-label="Social">
+      <h3>I nostri Social</h3>
+      <div class="social-links">
+        <a class="social-link" href="https://www.vinted.it/brand/26207323-lunara-candele-artigianali" target="_blank">Vinted</a>
+        <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank">Instagram</a>
+        <a class="social-link" href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni.">Email</a>
+        <a class="social-link" href="https://wa.me/391234567890" target="_blank">WhatsApp</a>
+        <a class="social-link" href="https://linktr.ee/LunaraCandeleArtigianali" target="_blank">I nostri link</a>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<!-- MODAL PRODOTTO -->
+<div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Chiudi">&times;</button>
+    <div class="modal-carousel">
+      <button class="carousel-prev" aria-label="Immagine precedente">‹</button>
+      <div class="modal-images" aria-live="polite"></div>
+      <button class="carousel-next" aria-label="Immagine successiva">›</button>
+    </div>
+    <h3 class="modal-title"></h3>
+    <p class="modal-meta muted"></p>
+    <p class="modal-description muted"></p>
+    <div class="modal-actions">
+      <a class="btn primary modal-buy" href="#" target="_blank">Compra su Vinted</a>
+      <a class="btn ghost modal-message" href="#" target="_blank">Scrivici su Instagram</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer container">
+  <div>© Lunara — Candele artigianali</div>
+  <div class="legal muted">Tutti i diritti riservati.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
