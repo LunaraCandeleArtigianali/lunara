@@ -105,6 +105,16 @@ main.container{padding-top:calc(var(--header-h) + 20px)}
 /* FOOTER */
 .site-footer{margin-top:40px;padding:18px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
 
+/* INVIO MAIL CONTATTACI */
+.form-success {
+  display: none;
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
 /* RESPONSIVE */
 @media(max-width:980px){
   .hero{grid-template-columns:1fr}
@@ -123,3 +133,5 @@ main.container{padding-top:calc(var(--header-h) + 20px)}
   .chi-siamo-content{flex-direction:column-reverse}
   .chi-siamo-images img{width:100%;height:auto}
 }
+
+
