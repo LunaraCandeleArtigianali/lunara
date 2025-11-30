@@ -132,6 +132,18 @@
     modal.setAttribute('aria-hidden','true');
   }
 
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+  
+    form.addEventListener('submit', function() {
+      // mostra messaggio di conferma subito dopo l’invio
+      success.style.display = 'block';
+    });
+  });
+
+  
   modalClose.addEventListener('click',closeModal);
   modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal()});
 
