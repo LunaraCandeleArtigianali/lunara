@@ -92,7 +92,7 @@
   <!-- CATALOGO -->
   <section id="catalogo" class="section">
     <h2>Catalogo</h2>
-    <p class="muted">Clicca su un prodotto per i dettagli. L'acquisto viene gestito su Vinted.</p>
+    <p class="muted">Clicca su un prodotto per i dettagli. L'acquisto viene gestito tramite Instragram o Vinted, contattaci per tutte le info!</p>
     <div id="product-grid" class="grid" aria-live="polite"></div>
   </section>
 
@@ -111,28 +111,32 @@
 
   <!-- CONTATTI + SOCIAL -->
   <section id="contatti" class="section contact-social">
+    
     <div class="contact-block">
       <h2>Contattaci</h2>
-      <form id="contact-form" class="contact-form" aria-label="Modulo contatti">
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/xblngrbe" method="POST" aria-label="Modulo contatti">
         <input type="text" name="name" placeholder="Nome" required />
         <input type="email" name="email" placeholder="Email" required />
         <textarea name="message" placeholder="Messaggio" required></textarea>
         <button class="btn primary" type="submit">Invia</button>
       </form>
-    </div>
+      <p id="form-success" class="form-success">Messaggio inviato con successo!</p>
+    </div>  
 
     <aside class="social-block" aria-label="Social">
       <h3>I nostri Social</h3>
       <div class="social-links">
-        <a class="social-link" href="https://www.vinted.it/brand/26207323-lunara-candele-artigianali" target="_blank">Vinted</a>
         <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank">Instagram</a>
         <a class="social-link" href="https://www.facebook.com" target="_blank">Facebook</a>
-        <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni.">Email</a>
-        <a class="social-link" href="https://wa.me/391234567890" target="_blank">WhatsApp</a>
+        <a class="social-link" href="https://www.vinted.it/brand/26207323-lunara-candele-artigianali" target="_blank">Vinted</a>        
+        <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni riguardo.....">Email</a>
+        <a class="social-link" href="https://wa.me/393483471201" target="_blank">WhatsApp</a>
         <a class="social-link" href="https://linktr.ee/LunaraCandeleArtigianali" target="_blank">I nostri link</a>
       </div>
     </aside>
+    
   </section>
+  
 </main>
 
 <!-- MODAL PRODOTTO -->
@@ -155,7 +159,7 @@
 </div>
 
 <footer class="site-footer container">
-  <div>© Lunara — Candele artigianali</div>
+  <div>Lunara — Candele artigianali</div>
   <div class="legal muted">Tutti i diritti riservati.</div>
 </footer>
 
