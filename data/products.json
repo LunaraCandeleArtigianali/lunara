@@ -7,7 +7,9 @@
     "description": "Cialdine realizzate a mano con cera di qualità, arricchite da spezie e decorazioni botaniche naturali. Disponibili con stoppino in cotone/legno oppure senza stoppino per usarle come essenze solide da armadio o da sciogliere. Profumazione intensa, stile elegante e perfette come piccoli regali.",
     "images": [
       "assets/images/Cialdine1.jpeg",
-      "assets/images/Cialdine1.jpeg",
+      "assets/images/Cialdine2.jpeg",
+      "assets/images/Cialdine3.jpeg",
+      "assets/images/Cialdine4.jpeg",
       "assets/images/fragranze.jpeg",
       "assets/images/logo.jpeg"
     ],
@@ -150,7 +152,7 @@
     "weight": "7×8 cm • NA g",
     "description": "Candele lavorate a mano in cera d’oliva, disponibili nelle forme Renna o Fiocco di Neve. Possibilità di realizzarle con stoppino oppure come essenza solida profumata.",
     "images": [
-      "assets/images/fiocco2.jpeg",
+      "assets/images/fiocco1.jpeg",
       "assets/images/fiocco2.jpeg",
       "assets/images/fragranze.jpeg",
       "assets/images/logo.jpeg"
@@ -159,6 +161,23 @@
   },
   {
     "id": "p12",
+    "title": "Bouquet Natalizio Profumato in Cera d’Oliva",
+    "price": 45,
+    "weight": "NAxNA cm • NA g",
+    "description": "Bouquet natalizio realizzato a mano con fiori e forme tipiche delle feste in cera d’oliva profumata. Ogni composizione è completamente personalizzabile: puoi scegliere colori, elementi decorativi e tutti i piccoli pezzi in cera che preferisci. Un’idea originale e artigianale per decorare la casa o fare un regalo unico. (Prezzo indicativo, variabile in base alla personalizzazione)",
+    "images": [
+      "assets/images/bouquet1.jpeg",
+      "assets/images/bouquet2.jpeg",
+      "assets/images/bouquet3.jpeg",
+      "assets/images/bouquet4.jpeg",
+      "assets/images/bouquet5.jpeg",
+      "assets/images/fragranze.jpeg",
+      "assets/images/logo.jpeg"
+    ],
+    "vinted_link": "https://www.vinted.it/member/313415363"
+  },
+  {
+    "id": "p13",
     "title": "Gift Card, scegli tu il taglio!",
     "price": 0,
     "weight": "",
@@ -167,5 +186,5 @@
       "assets/images/logo.jpeg"
     ],
     "vinted_link": "https://www.vinted.it/member/313415363"
-  }
+  }  
 ]
