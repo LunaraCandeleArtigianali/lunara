@@ -1,0 +1,204 @@
+✅ CHECKLIST TECNICA COMPLETA PER IL SITO LUNARA
+1. Priorità Alta (fondamentali)
+1.1 Contenuti
+
+ Rimuovere ogni testo provvisorio / placeholder (“Scrivi altro qui…”).
+
+ Aggiungere descrizioni complete dei prodotti (materiali, dimensioni, durata, fragranza, packaging).
+
+ Indicare chiaramente disponibilità, prezzo, modalità di spedizione e tempi di consegna.
+
+1.2 Fiducia e conformità legale
+
+ Aggiungere una pagina Privacy Policy conforme al GDPR.
+
+ Inserire Termini e condizioni di vendita.
+
+ Aggiungere pagina Resi & Spedizioni.
+
+ Indicare informazioni sul venditore (ragione sociale o nome, contatto email, eventuale P.IVA).
+
+1.3 Struttura e navigazione
+
+ Inserire link chiari nel footer verso le pagine legali.
+
+ Migliorare la navbar rendendo più evidente l’accesso al catalogo.
+
+ Aggiungere breadcrumb nel catalogo (opzionale ma utile).
+
+2. Priorità Media (ottimizzazione e branding)
+2.1 Miglioramento visivo
+
+ Foto professionali dei prodotti (multiple angolazioni).
+
+ Inserire foto ambientate (candele accese, contesto d’arredo).
+
+ Uniformare lo stile delle immagini (stessi colori, luce e sfondo).
+
+2.2 SEO (search engine optimization)
+
+ Aggiungere tag title unici e descrittivi per ogni pagina.
+
+ Compilare meta-description efficaci e non duplicate.
+
+ Strutturare meglio i titoli H1/H2/H3.
+
+ Aggiungere testi più ricchi nelle pagine principali.
+
+ Ottimizzare il nome dei file immagine (es. candela-lavanda.jpg).
+
+ Aggiungere attributi alt descrittivi a tutte le immagini.
+
+2.3 Velocità e performance
+
+ Comprimere immagini di grandi dimensioni.
+
+ Evitare script non necessari.
+
+ Attivare lazy-loading per le immagini.
+
+3. Priorità Bassa (ma consigliate per professionalità e conversione)
+3.1 Branding
+
+ Rafforzare la sezione “Chi siamo” con storytelling (origine del brand, filosofia, materiali).
+
+ Aggiungere una sezione “Dietro le quinte / Processo produttivo”.
+
+ Inserire una palette colore coerente e costante.
+
+3.2 E-commerce
+
+ Valutare migrazione da vendita su Vinted a un sistema integrato (Shopify, WooCommerce, ecc.).
+
+ Aggiungere pulsanti chiari “Aggiungi al carrello” (se integrerai un e-commerce interno).
+
+ Implementare opzioni di pagamento sicure e riconoscibili (PayPal, carta, ecc.).
+
+3.3 Engagement e contenuti aggiuntivi
+
+ Aggiungere una newsletter.
+
+ Aprire una sezione blog (es. consigli su candele, fragranze, cura della cera).
+
+ Inserire recensioni o testimonianze reali.
+
+📌 Versione pronta da usare: checklist da incollare in un task manager
+
+Se vuoi, posso trasformare questa checklist in:
+
+un file Excel
+
+un file PDF
+
+una kanban board (Trello/Jira style)
+
+una versione pronta per GitHub Issues
+
+Vuoi che te la generi in uno di questi formati?
+
+ChatGPT può commettere errori. Assicurati di verifica
+
+
+
+
+-----------
+
+
+Ecco un piano pratico di 30 giorni per aumentare la visibilità del tuo sito Lunara su GitHub Pages, combinando SEO, contenuti e social marketing. Ho organizzato le azioni in blocchi settimanali per rendere tutto gestibile.
+
+Settimana 1 – Fondamenta SEO e struttura
+
+Giorno 1–2:
+
+Controlla e completa tutti i meta tag: <title>, <meta description> per ogni pagina.
+
+Assicurati che H1/H2 siano presenti e descrittivi.
+
+Giorno 3:
+
+Rinomina file e URL in modo leggibile (es. /catalogo-candele.html invece di /page1.html).
+
+Aggiungi alt descrittivi a tutte le immagini.
+
+Giorno 4–5:
+
+Crea una sitemap (sitemap.xml) e caricala nel repository.
+
+Registrati su Google Search Console e invia la sitemap.
+
+Giorno 6–7:
+
+Installa Google Analytics o un’alternativa leggera (es. Plausible) per tracciare visitatori.
+
+Testa la velocità del sito con PageSpeed Insights
+ e comprimi immagini troppo grandi.
+
+Settimana 2 – Contenuti e branding
+
+Giorno 8–10:
+
+Aggiorna descrizioni prodotti con dettagli: materiali, dimensioni, profumi, packaging.
+
+Scrivi almeno un articolo/blog sul processo artigianale o consigli sull’uso delle candele.
+
+Giorno 11–12:
+
+Aggiorna il footer con contatti, social e testo chiaro tipo “Lunara – Candele artigianali, tutti i diritti riservati.”
+
+Assicurati che tutte le pagine siano coerenti nello stile (colori, font, icone).
+
+Giorno 13–14:
+
+Migliora foto prodotto: almeno 2–3 angolazioni e una foto ambientata per ogni candela.
+
+Verifica mobile responsiveness su smartphone e tablet.
+
+Settimana 3 – Social e promozione
+
+Giorno 15–17:
+
+Apri/ottimizza profili social (Instagram, Pinterest, TikTok).
+
+Pubblica foto dei prodotti, dietro le quinte e mini video.
+
+Giorno 18–20:
+
+Crea contenuti “evergreen” da condividere sui social e linkare al sito (es. guida alle fragranze, cura delle candele).
+
+Inserisci link al sito nei profili social.
+
+Giorno 21:
+
+Contatta micro-influencer nel settore lifestyle/artigianato per recensioni o collaborazioni.
+
+Settimana 4 – Link building e analisi
+
+Giorno 22–24:
+
+Cerca blog o siti di settore per ottenere backlink.
+
+Partecipa a community (Reddit, gruppi Facebook) condividendo consigli utili, non spam.
+
+Giorno 25–26:
+
+Analizza dati Google Analytics: quali pagine visitano di più, da dove arrivano i visitatori.
+
+Migliora le pagine poco visitate o aggiungi call-to-action più chiare.
+
+Giorno 27–28:
+
+Controlla e correggi eventuali errori SEO con Search Console (404, link rotti, pagine non indicizzate).
+
+Giorno 29–30:
+
+Pubblica un contenuto speciale sul blog o social (offerta, nuova candela, dietro le quinte).
+
+Valuta l’uso di newsletter o modulo iscrizione per raccogliere contatti.
+
+Suggerimenti extra
+
+Mantieni costanza: anche dopo i 30 giorni continua a pubblicare contenuti e aggiornare prodotti.
+
+Monitora regolarmente Analytics e Search Console per capire cosa funziona.
+
+Foto e storytelling sono molto potenti per un brand artigianale come Lunara.

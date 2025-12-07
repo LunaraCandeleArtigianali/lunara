@@ -115,6 +115,36 @@ main.container{padding-top:calc(var(--header-h) + 20px)}
 }
 
 
+.visualizza-wrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch; /* scorrimento fluido su iOS */
+}
+
+.visualizza-menu {
+  display: flex;
+  gap: 12px;
+}
+
+.visualizza-menu button.opt {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.visualizza-menu button.opt:hover {
+  background: var(--accent);
+  color: white;
+}
+
+
+
 /* RESPONSIVE */
 @media(max-width:980px){
   .hero{grid-template-columns:1fr}
