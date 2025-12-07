@@ -158,8 +158,6 @@
   nextBtn.addEventListener('click',()=>{currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg)});
 })();
 
-
-
 const scrollMenu = document.querySelector('.visualizza-menu');
 let isDown = false;
 let startX;
@@ -177,12 +175,16 @@ scrollMenu.addEventListener('mousemove', (e) => {
   if(!isDown) return;
   e.preventDefault();
   const x = e.pageX - scrollMenu.offsetLeft;
-  const walk = (x - startX) * 1.5;
+  const walk = (x - startX) * 1.5; 
   scrollMenu.scrollLeft = scrollLeft - walk;
 });
 
 // Touch
-scrollMenu.addEventListener('touchstart', e => startX = e.touches[0].pageX - scrollMenu.offsetLeft, { passive: true });
+scrollMenu.addEventListener('touchstart', e => {
+  startX = e.touches[0].pageX - scrollMenu.offsetLeft;
+  scrollLeft = scrollMenu.scrollLeft;
+}, { passive: true });
+
 scrollMenu.addEventListener('touchmove', e => {
   const x = e.touches[0].pageX - scrollMenu.offsetLeft;
   const walk = (x - startX) * 1.5;
