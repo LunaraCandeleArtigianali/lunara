@@ -1,4 +1,5 @@
-(async function() {
+document.addEventListener('DOMContentLoaded', async () => {
+
   const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('site-nav');
   const header = document.getElementById('site-header');
@@ -30,15 +31,31 @@
     });
   });
 
-  // Fetch products
+  // --- FETCH PRODOTTI DAL GOOGLE SHEET (o JSON locale) ---
   async function fetchProducts() {
     try {
-      const r = await fetch('data/products.json');
-      if (!r.ok) throw new Error('products.json non trovato');
-      return await r.json();
-    } catch (e) { console.warn(e); return []; }
+      const url = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
+      const res = await fetch(url);
+      const text = await res.text();
+      const json = JSON.parse(text.substring(47).slice(0, -2));
+      const rows = json.table.rows;
+
+      return rows.map(r => ({
+        id: r.c[0]?.v,
+        title: r.c[1]?.v,
+        measure: r.c[2]?.v,
+        weight: r.c[3]?.v,
+        description: r.c[4]?.v,
+        vinted_link: r.c[6]?.v,
+        price: r.c[7]?.v
+      }));
+    } catch (e) {
+      console.warn('Errore caricamento prodotti', e);
+      return [];
+    }
   }
 
+  // --- FUNZIONI UTILI ---
   function formatPrice(p) {
     return (p !== undefined && p !== null && p !== '') ? Number(p).toFixed(2) + '€' : 'NA';
   }
@@ -47,12 +64,41 @@
     return `${weight || 'NA'} • ${formatPrice(price)}`;
   }
 
+  // --- LOGICA PER PRENDERE LE IMMAGINI LOCALI ---
+  function sanitizeFolderName(name) {
+    return name.replace(/[\/\\\:\*\?"<>\|]/g, "_");
+  }
+
+  function getImagesFromFolder(title, maxImages = 12, exts = ['jpeg', 'png']) {
+    const folder = sanitizeFolderName(title);
+    const images = [];
+    for (let i = 1; i <= maxImages; i++) {
+      for (const ext of exts) {
+        images.push(`assets/images/${folder}/${i}.${ext}`);
+      }
+    }
+    return images;
+  }
+
+  async function filterExistingImages(paths) {
+    return Promise.all(
+      paths.map(src =>
+        new Promise(resolve => {
+          const img = new Image();
+          img.onload = () => resolve(src);
+          img.onerror = () => resolve(null);
+          img.src = src;
+        })
+      )
+    ).then(res => res.filter(Boolean));
+  }
+
   function createCard(product) {
     const article = document.createElement('article');
     article.className = 'card';
 
     const img = document.createElement('img');
-    img.src = (product.images && product.images[0]) ? product.images[0] : 'assets/images/placeholder.jpg';
+    img.src = product.images[0] || 'assets/images/placeholder.jpeg';
     img.alt = product.title || 'Candela';
     img.addEventListener('click', () => openModal(product));
     article.appendChild(img);
@@ -88,11 +134,17 @@
     return article;
   }
 
+  // --- INSERIMENTO PRODOTTI ---
   const grid = document.getElementById('product-grid');
   const products = await fetchProducts();
-  products.forEach(p => grid.appendChild(createCard(p)));
 
-  // MODAL
+  for (const p of products) {
+    const possibleImages = getImagesFromFolder(p.id);
+    p.images = await filterExistingImages(possibleImages);
+    grid.appendChild(createCard(p));
+  }
+
+  // --- MODAL PRODOTTO ---
   const modal = document.getElementById('product-modal');
   const modalClose = modal.querySelector('.modal-close');
   const modalTitle = modal.querySelector('.modal-title');
@@ -132,20 +184,8 @@
     modal.setAttribute('aria-hidden','true');
   }
 
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
-    const success = document.getElementById('form-success');
-  
-    form.addEventListener('submit', function() {
-      // mostra messaggio di conferma subito dopo l’invio
-      success.style.display = 'block';
-    });
-  });
-
-  
-  modalClose.addEventListener('click',closeModal);
-  modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal()});
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if(e.target===modal) closeModal(); });
 
   const prevBtn = modal.querySelector('.carousel-prev');
   const nextBtn = modal.querySelector('.carousel-next');
@@ -154,39 +194,18 @@
     const imgs = modalImages.querySelectorAll('img');
     imgs.forEach((img,i)=>img.style.display=(i===index)?'block':'none');
   }
-  prevBtn.addEventListener('click',()=>{currentImg=(currentImg-1+modalImgs.length)%modalImgs.length; showImg(currentImg)});
-  nextBtn.addEventListener('click',()=>{currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg)});
-})();
+  prevBtn.addEventListener('click', ()=>{currentImg=(currentImg-1+modalImgs.length)%modalImgs.length; showImg(currentImg)});
+  nextBtn.addEventListener('click', ()=>{currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg)});
 
-const scrollMenu = document.querySelector('.visualizza-menu');
-let isDown = false;
-let startX;
-let scrollLeft;
+  // --- FORM CONTATTI ---
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
 
-scrollMenu.addEventListener('mousedown', (e) => {
-  isDown = true;
-  scrollMenu.classList.add('active');
-  startX = e.pageX - scrollMenu.offsetLeft;
-  scrollLeft = scrollMenu.scrollLeft;
+  if (form) {
+    form.addEventListener('submit', function(ev) {
+      ev.preventDefault();
+      success.style.display = 'block';
+    });
+  }
+
 });
-scrollMenu.addEventListener('mouseleave', () => isDown = false);
-scrollMenu.addEventListener('mouseup', () => isDown = false);
-scrollMenu.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - scrollMenu.offsetLeft;
-  const walk = (x - startX) * 1.5; 
-  scrollMenu.scrollLeft = scrollLeft - walk;
-});
-
-// Touch
-scrollMenu.addEventListener('touchstart', e => {
-  startX = e.touches[0].pageX - scrollMenu.offsetLeft;
-  scrollLeft = scrollMenu.scrollLeft;
-}, { passive: true });
-
-scrollMenu.addEventListener('touchmove', e => {
-  const x = e.touches[0].pageX - scrollMenu.offsetLeft;
-  const walk = (x - startX) * 1.5;
-  scrollMenu.scrollLeft = scrollLeft - walk;
-}, { passive: true });
