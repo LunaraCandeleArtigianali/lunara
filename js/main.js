@@ -43,11 +43,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       return rows.map(r => ({
         id: r.c[0]?.v,
         title: r.c[1]?.v,
-        measure: r.c[2]?.v,
-        weight: r.c[3]?.v,
-        description: r.c[4]?.v,
-        vinted_link: r.c[6]?.v,
-        price: r.c[7]?.v
+        measures: r.c[2]?.v,
+        description: r.c[3]?.v,
+        price: r.c[4]?.v
       }));
     } catch (e) {
       console.warn('Errore caricamento prodotti', e);
@@ -60,8 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     return (p !== undefined && p !== null && p !== '') ? Number(p).toFixed(2) + '€' : 'NA';
   }
 
-  function formatMeta(weight, price) {
-    return `${weight || 'NA'} • ${formatPrice(price)}`;
+  function formatMeta(measures, price) {
+    return `${measures || 'NA'} • ${formatPrice(price)}`;
   }
 
   // --- LOGICA PER PRENDERE LE IMMAGINI LOCALI ---
@@ -109,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const meta = document.createElement('p');
     meta.className = 'meta';
-    meta.textContent = formatMeta(product.weight, product.price);
+    meta.textContent = formatMeta(product.measures, product.price);
     article.appendChild(meta);
 
     const actions = document.createElement('div');
@@ -123,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const buyBtn = document.createElement('a');
     buyBtn.className = 'btn primary';
     buyBtn.textContent = 'Compra';
-    buyBtn.href = product.vinted_link || '#';
+    buyBtn.href = 'https://www.instagram.com/c.a.lunara/';
     buyBtn.target='_blank';
     buyBtn.rel='noopener';
 
@@ -160,8 +158,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   function openModal(product){
     modalTitle.textContent = product.title || '';
     modalDescription.textContent = product.description || '';
-    modalMeta.textContent = formatMeta(product.weight, product.price);
-    modalBuy.href = product.vinted_link || '#';
+    modalMeta.textContent = formatMeta(product.measures, product.price);
+    modalBuy.href = 'https://www.instagram.com/c.a.lunara/';
     modalMessage.href = 'https://www.instagram.com/c.a.lunara/';
 
     modalImages.innerHTML = '';
