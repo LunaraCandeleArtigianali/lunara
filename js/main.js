@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         measures: r.c[2]?.v ?? '',
         description: r.c[3]?.v ?? '',
         price: r.c[4]?.v ?? null,
-        is_new: r.c[5]?.v ?? false,
-        is_low_stock: r.c[6]?.v ?? false,
-        collection: r.c[7]?.v ?? '',
-        image_folder: r.c[8]?.v ?? null
+        is_new: r.c[6]?.v ?? false,
+        is_low_stock: r.c[7]?.v ?? false,
+        collection: r.c[8]?.v ?? '',
+        image_folder: r.c[9]?.v ?? null
       }));
     } catch (e) {
       console.error('Errore parse gViz:', e);
