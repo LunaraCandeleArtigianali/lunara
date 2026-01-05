@@ -1,23 +1,23 @@
+
 document.addEventListener('DOMContentLoaded', async () => {
 
   const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('site-nav');
   const header = document.getElementById('site-header');
 
-  // Hamburger mobile
+  /* === MOBILE NAV === */
   hamburger?.addEventListener('click', () => {
     const expanded = hamburger.getAttribute('aria-expanded') === 'true';
     hamburger.setAttribute('aria-expanded', String(!expanded));
     nav.classList.toggle('show');
   });
 
-  // Smooth scroll
+  /* === SMOOTH SCROLL con offset header === */
   function offsetScrollTo(targetEl) {
     const headerHeight = header.offsetHeight;
     const top = targetEl.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
     window.scrollTo({ top, behavior: 'smooth' });
   }
-
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (ev) => {
       const href = a.getAttribute('href');
@@ -31,7 +31,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Fetch products
+  /* === CHI SIAMO: reveal immagini in viewport === */
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && reveals.length) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
+  }
+
+  /* === FETCH PRODOTTI (Google Sheet gviz) === */
   async function fetchProducts() {
     try {
       const url = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
@@ -52,12 +68,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  function formatPrice(p) { return (p!=null && p!=='') ? Number(p).toFixed(2)+'€' : 'NA'; }
-  function formatMeta(measures, price) { return `${measures||'NA'} • ${formatPrice(price)}`; }
+  const fmtPrice = (p) => (p!=null && p!=='')
+    ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p))
+    : 'NA';
+  const formatMeta = (measures, price) => `${measures||'NA'} • ${fmtPrice(price)}`;
 
-  function sanitizeFolderName(name) { return name.replace(/[\/\\\:\*\?"<>\|]/g, "_"); }
-  function getImagesFromFolder(title, maxImages=10, exts=['jpeg']){
-    const folder = sanitizeFolderName(title);
+  function sanitizeFolderName(name) { return (name||'').toString().replace(/[\/\\:\*\?"<>\|]/g, "_"); }
+  function getImagesFromFolder(idOrTitle, maxImages=10, exts=['jpeg','jpg','png']){
+    const folder = sanitizeFolderName(idOrTitle);
     const images=[];
     for(let i=1;i<=maxImages;i++){
       for(const ext of exts){
@@ -66,23 +84,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     return images;
   }
-
   async function filterExistingImages(paths){
-    return Promise.all(paths.map(src=>new Promise(res=>{
+    const results = await Promise.all(paths.map(src=>new Promise(res=>{
       const img = new Image();
       img.onload=()=>res(src);
       img.onerror=()=>res(null);
       img.src=src;
-    }))).then(r=>r.filter(Boolean));
+    })));
+    return results.filter(Boolean);
   }
 
+  /* === RENDER PRODOTTI === */
   function createCard(product){
     const article=document.createElement('article');
     article.className='card';
 
     const img=document.createElement('img');
-    img.src=product.images[0]||'assets/images/placeholder.jpeg';
-    img.alt=product.title||'Candela';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.src=product.images?.[0] || 'assets/images/placeholder.jpeg';
+    img.alt=product.title || 'Candela';
     img.addEventListener('click',()=>openModal(product));
     article.appendChild(img);
 
@@ -102,16 +123,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     return article;
   }
 
-  // Insert products
   const grid=document.getElementById('product-grid');
   const products=await fetchProducts();
   for(const p of products){
     const possibleImages=getImagesFromFolder(p.id);
-    p.images=await filterExistingImages(possibleImages);
+    const found = await filterExistingImages(possibleImages);
+    p.images = found.length ? found : ['assets/images/placeholder.jpeg'];
     grid.appendChild(createCard(p));
   }
 
-  // Modal
+  /* === MODAL === */
   const modal=document.getElementById('product-modal');
   const modalClose=modal.querySelector('.modal-close');
   const modalTitle=modal.querySelector('.modal-title');
@@ -138,9 +159,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     modal.style.display='flex'; modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
   }
 
-  function closeModal(){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+  function closeModal(){ 
+    modal.style.display='none'; 
+    modal.setAttribute('aria-hidden','true'); 
+    document.body.style.overflow = '';
+  }
   modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', e=>{if(e.target===modal) closeModal();});
 
@@ -153,18 +179,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   prevBtn.addEventListener('click',()=>{currentImg=(currentImg-1+modalImgs.length)%modalImgs.length; showImg(currentImg)});
   nextBtn.addEventListener('click',()=>{currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg)});
 
-  // Touch swipe for mobile
-  let startX=0;
-  modalImages.addEventListener('touchstart', e=>{startX=e.touches[0].clientX;});
-  modalImages.addEventListener('touchend', e=>{
-    const endX=e.changedTouches[0].clientX;
-    if(endX-startX>50){ currentImg=(currentImg-1+modalImgs.length)%modalImgs.length; showImg(currentImg);}
-    else if(startX-endX>50){ currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg);}
+  // Tastiera: ESC per chiudere, frecce per navigare immagini
+  document.addEventListener('keydown', (e) => {
+    if (modal.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') { currentImg=(currentImg-1+modalImgs.length)%modalImgs.length; showImg(currentImg); }
+    if (e.key === 'ArrowRight'){ currentImg=(currentImg+1)%modalImgs.length; showImg(currentImg); }
   });
 
-  // Contact form
+  /* === CONTACT FORM (Formspree) === */
   const form=document.getElementById('contact-form');
   const success=document.getElementById('form-success');
-  if(form){ form.addEventListener('submit', ev=>{ ev.preventDefault(); success.style.display='block'; }); }
-
+  const errorMsg=document.getElementById('form-error');
+  if(form){
+    form.addEventListener('submit', async (ev)=>{
+      ev.preventDefault();
+      success.style.display='none'; errorMsg.style.display='none';
+      try{
+        const data = new FormData(form);
+        const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
+        if(res.ok){
+          success.style.display='block';
+          form.reset();
+        } else {
+          errorMsg.style.display='block';
+        }
+      }catch(e){
+        console.warn('Errore invio form', e);
+        errorMsg.style.display='block';
+      }
+    });
+  }
 });
