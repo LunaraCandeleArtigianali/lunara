@@ -36,7 +36,7 @@ h3{font-size:20px}
 .site-header{
   position:fixed; inset:0 0 auto 0; height:var(--header-h);
   backdrop-filter: blur(10px);
-  background:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.92); /* più opaco per contrasto */
   border-bottom:1px solid rgba(0,0,0,0.05);
   z-index:2000;
 }
@@ -50,21 +50,104 @@ h3{font-size:20px}
 .nav-link:hover{color:var(--text); background:rgba(0,0,0,0.05)}
 .nav-link.ext{border:1px solid rgba(0,0,0,0.08)}
 
-/* Mobile hamburger + full-screen overlay menu */
-.hamburger{display:none; background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:999px; height:36px; padding:0 12px; cursor:pointer}
-.mobile-menu{position:fixed; inset:0; display:none; z-index:2200}
-.mobile-menu.open{display:block}
-.mobile-backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.5)}
-.mobile-nav{
-  position:absolute; top:0; left:0; right:0; height:100%;
-  background:#fff; padding:24px; display:flex; flex-direction:column; gap:12px;
+/* ===== Mobile hamburger + overlay/drawer ===== */
+/* Hamburger OPACO e ben visibile */
+.hamburger{
+  display:none;                      /* visibile solo sotto 980px */
+  background:#ffffff;                /* OPACO */
+  border:1px solid rgba(0,0,0,0.15);
+  border-radius:999px;
+  height:40px;
+  padding:0 14px;
+  cursor:pointer;
+  position:relative;
+  z-index:2300;                      /* sopra backdrop/drawer */
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  align-items:center;
 }
-.mobile-link{color:var(--text); text-decoration:none; padding:14px; border-radius:12px; font-weight:600}
-.mobile-link:hover{background:rgba(0,0,0,0.05)}
-.mobile-link.ext{border:1px solid rgba(0,0,0,0.08)}
+.hamburger .hamburger-lines{
+  color:#1f1f1f; font-weight:700; line-height:1;
+}
+.hamburger:focus-visible,
+.hamburger:active{
+  outline:2px solid #1e90ff;
+  outline-offset:2px;
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(30,144,255,0.15);
+}
+
+/* Contenitore overlay */
+.mobile-menu{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:2200; /* sotto hamburger, sopra contenuto */
+}
+.mobile-menu.open{ display:block; }
+
+/* Backdrop scuro */
+.mobile-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+/* Drawer (pannello) che scorre da destra */
+.mobile-drawer{
+  position:absolute;
+  top:0; right:0; bottom:0;
+  width:min(86vw, 360px);
+  background:#fff;
+  box-shadow:-16px 0 40px rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  padding:16px;
+  transform:translateX(100%);       /* chiuso */
+  opacity:0;
+  transition:transform .28s ease, opacity .2s ease;
+}
+.mobile-menu.open .mobile-drawer{
+  transform:translateX(0);          /* aperto */
+  opacity:1;
+}
+
+/* Header del drawer */
+.mobile-drawer-header{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
 .mobile-close{
-  position:absolute; top:16px; right:16px;
-  background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:999px; width:40px; height:40px; cursor:pointer; font-size:22px
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.12);
+  border-radius:999px;
+  width:40px; height:40px;
+  cursor:pointer; font-size:22px;
+}
+
+/* Lista link */
+.mobile-nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:8px;
+}
+.mobile-link{
+  color:var(--text);
+  text-decoration:none;
+  padding:12px 10px;
+  border-radius:12px;
+  font-weight:600;
+}
+.mobile-link:hover{ background:rgba(0,0,0,0.05); }
+.mobile-link.ext{ border:1px solid rgba(0,0,0,0.08); }
+
+/* SR-only per titoli non visivi */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
 /* HERO */
@@ -194,6 +277,10 @@ h3{font-size:20px}
   .reviews{grid-template-columns:repeat(2,1fr)}
   .about{grid-template-columns:1fr}
   .contact-social{grid-template-columns:1fr}
+}
+@media (min-width:981px){
+  .hamburger{display:none !important;}     /* forza invisibile su desktop */
+  .site-nav{display:flex !important;}
 }
 @media (max-width:640px){
   .grid{grid-template-columns:1fr}

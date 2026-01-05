@@ -1,28 +1,65 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE ===== */
+  /* ===== MENU MOBILE (drawer) ===== */
   const header = document.getElementById('site-header');
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileBackdrop = document.getElementById('mobile-backdrop');
   const mobileClose = document.getElementById('mobile-close');
+  const mobileDrawer = document.querySelector('.mobile-drawer');
 
-  const openMobileMenu = () => {
+  let lastFocus = null;
+
+  function lockBodyScroll(lock) { document.body.style.overflow = lock ? 'hidden' : ''; }
+
+  function openMobileMenu() {
+    if (!mobileMenu) return;
+    lastFocus = document.activeElement;
     mobileMenu.classList.add('open');
-    mobileMenu.setAttribute('aria-hidden','false');
-    hamburger.setAttribute('aria-expanded','true');
-    document.body.style.overflow = 'hidden';
-  };
-  const closeMobileMenu = () => {
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    lockBodyScroll(true);
+    mobileClose?.focus();
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu) return;
     mobileMenu.classList.remove('open');
-    mobileMenu.setAttribute('aria-hidden','true');
-    hamburger.setAttribute('aria-expanded','false');
-    document.body.style.overflow = '';
-  };
-  hamburger?.addEventListener('click', openMobileMenu);
-  mobileClose?.addEventListener('click', closeMobileMenu);
-  mobileBackdrop?.addEventListener('click', closeMobileMenu);
-  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMobileMenu));
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    lockBodyScroll(false);
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  hamburger?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = mobileMenu.classList.contains('open');
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+  mobileClose?.addEventListener('click', (e) => { e.preventDefault(); closeMobileMenu(); });
+  mobileBackdrop?.addEventListener('click', (e) => { e.preventDefault(); closeMobileMenu(); });
+  document.querySelectorAll('#mobile-menu .mobile-nav a')
+    .forEach(a => a.addEventListener('click', () => closeMobileMenu()));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) closeMobileMenu();
+  });
+
+  // Focus trap nel drawer
+  function trapFocus(e) {
+    if (!mobileMenu.classList.contains('open')) return;
+    const focusables = mobileDrawer.querySelectorAll(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last  = focusables[focusables.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+    }
+  }
+  document.addEventListener('keydown', trapFocus);
 
   // Smooth scroll con offset header
   const offsetScrollTo = (el) => {
@@ -44,9 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && reveals.length) {
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }});
     }, { threshold: 0.2 });
     reveals.forEach(el => io.observe(el));
   } else {
@@ -54,14 +89,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ===== DATA (Google Sheet gviz) ===== */
-  // Atteso ordine colonne (facoltative oltre le prime 5):
-  // id, title, measures, description, price, is_new, is_low_stock, collection, image_folder
+  // Colonne attese: id, title, measures, description, price, is_new, is_low_stock, collection, image_folder
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
   const CACHE_KEY = 'lunara_products_v4';
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 ore
 
   const parseGViz = (text) => {
-    // gViz prefix "/*O_o*/\ngoogle.visualization.Query.setResponse(...);"
     try {
       const json = JSON.parse(text.substring(47).slice(0, -2));
       const rows = json.table.rows || [];
@@ -120,14 +153,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formatMeta = (measures, price) => `${measures || 'NA'} • ${fmtPrice(price)}`;
   const sanitize = (s) => (s || '').toString().replace(/[\/\\:\*\?"<>\|]/g, "_").trim();
 
-  const getImageCandidates = (product, max = 10, exts = ['jpeg','jpg','png']) => {
+  const getImageCandidates = (product, max = 10, exts = ['jpeg']) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];
     for (let i=1; i<=max; i++) for (const ext of exts) out.push(`assets/images/${folder}/${i}.${ext}`);
     return out;
   };
 
-  const pickExistingImages = async (paths, limit = 6) => {
+  const pickExistingImages = async (paths, limit = 10) => {
     const checks = paths.slice(0, limit).map(src => new Promise(res => {
       const im = new Image();
       im.onload = () => res(src);
@@ -239,18 +272,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // Precarica prima immagine
+  // Precarica fino a 10 immagini
   for (const p of allProducts) {
-    const candidates = getImageCandidates(p);
-    const firsts = await pickExistingImages(candidates, 4);
-    p.images = firsts.length ? firsts : ['assets/images/placeholder.jpeg'];
+    const candidates = getImageCandidates(p, 10);
+    const found = await pickExistingImages(candidates, 10);
+    p.images = found.length ? found : ['assets/images/placeholder.jpeg'];
   }
 
-  // Popola collezioni (unica dichiarazione!)
+  // Popola collezioni
   const collections = Array.from(new Set(
     allProducts.map(p => (p.collection || '').trim()).filter(Boolean)
   )).sort();
-
   collections.forEach(c => {
     const opt = document.createElement('option');
     opt.value = c; opt.textContent = c;
@@ -300,18 +332,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let currentImg = 0;
   let modalImgs = [];
-  let lastFocus = null;
+  let lastFocusModal = null;
   let currentProduct = null;
+
   const bodyScroll = (lock) => { document.body.style.overflow = lock ? 'hidden' : ''; };
 
   const openModal = (product) => {
     currentProduct = product;
-    lastFocus = document.activeElement;
+    lastFocusModal = document.activeElement;
     modalTitle.textContent = product.title || '';
     modalDescription.textContent = product.description || '';
     modalMeta.textContent = formatMeta(product.measures, product.price);
     lowStockAlert.hidden = !(product.is_low_stock === true || product.is_low_stock === 'true');
 
+    // Usa TUTTE le immagini (fino a 10) già rilevate
     modalImgs = product.images || [];
     modalImages.innerHTML = '';
     modalImgs.forEach((src,i) => {
@@ -335,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
     bodyScroll(false);
-    if (lastFocus) lastFocus.focus();
+    if (lastFocusModal) lastFocusModal.focus();
   };
   modal.querySelector('.carousel-prev').addEventListener('click', () => {
     currentImg = (currentImg - 1 + modalImgs.length) % modalImgs.length; showImg(currentImg);
@@ -361,7 +395,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const WHATSAPP_NUMBER = '393483471201';
   const INSTAGRAM_PROFILE = 'https://www.instagram.com/c.a.lunara/';
-  const TIKTOK_PROFILE = 'https://www.tiktok.com/@lunara';
+  const TIKTOK_PROFILE = 'https://www.tiktok.com/@lunara.candele';
 
   const openBuyModal = (product) => {
     currentProduct = product;
@@ -396,4 +430,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   openBuyModalBtn?.addEventListener('click', () => { if (currentProduct) openBuyModal(currentProduct); });
+
+  /* ===== CONTATTI (Formspree) ===== */
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('form-success');
+  const errorMsg = document.getElementById('form-error');
+  if (form) {
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      successMsg.style.display = 'none'; errorMsg.style.display = 'none';
+      try {
+        const data = new FormData(form);
+        const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
+        if (res.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      } catch (e) {
+        console.warn('Errore invio form', e);
+        errorMsg.style.display = 'block';
+      }
+    });
+  }
 });

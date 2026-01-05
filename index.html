@@ -40,8 +40,7 @@
       <!-- Desktop nav -->
       <nav class="site-nav" id="site-nav" aria-label="Menu principale">
         <a class="nav-link" href="#catalogo">Catalogo</a>
-        <a class="nav-link" href="#chi-siamo">Chi siamo</a>
-        <a class="nav-link" href="#benefits">Perché Lunara</a>
+        <a class="nav-link" href="#benefits">La nostra Storia</a>
         <a class="nav-link" href="#contatti">Contatti</a>
         <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
         <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
@@ -53,18 +52,24 @@
       </button>
     </div>
 
-    <!-- Mobile overlay menu (full screen) -->
+    <!-- Mobile menu (overlay + drawer) -->
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <div class="mobile-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
-      <nav class="mobile-nav" aria-label="Menu principale mobile">
-        <a class="mobile-link" href="#catalogo">Catalogo</a>
-        <a class="mobile-link" href="#chi-siamo">Chi siamo</a>
-        <a class="mobile-link" href="#benefits">Perché Lunara</a>
-        <a class="mobile-link" href="#contatti">Contatti</a>
-        <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-        <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
-      </nav>
-      <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">×</button>
+
+      <aside class="mobile-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+        <div class="mobile-drawer-header">
+          <h2 id="mobile-menu-title" class="sr-only">Menu principale</h2>
+          <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">×</button>
+        </div>
+
+        <nav class="mobile-nav" aria-label="Menu principale mobile">
+          <a class="mobile-link" href="#catalogo">Catalogo</a>
+          <a class="mobile-link" href="#benefits">La nostra Storia</a>
+          <a class="mobile-link" href="#contatti">Contatti</a>
+          <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
+          <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+        </nav>
+      </aside>
     </div>
   </header>
 
@@ -78,11 +83,12 @@
           <p class="lede">Cera naturale, fragranze selezionate e packaging elegante: Lunara crea atmosfere memorabili per la tua casa.</p>
           <div class="cta">
             <a class="btn primary" href="#catalogo">Scopri il catalogo</a>
-            <a class="btn ghost" href="#chi-siamo">La nostra storia</a>
+            <a class="btn ghost" href="#benefits">La nostra Storia</a>
           </div>
         </div>
-        <div class="hero-image">
-          <img src="assets/images/Candela_Rosa/3.jpeg" alt="Candela Lunara ambientata" loading="eager" />
+        <!-- Mantengo il tuo blocco immagine/logo come da ultimo file -->
+        <div class="hero">
+          <img src="assets/images/logo_tras.png" alt="Lunara logo grande" />
         </div>
       </div>
       <div class="hero-bg" aria-hidden="true"></div>
@@ -209,7 +215,9 @@
             <a class="social-link" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
             <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni%20riguardo.....">Email</a>
             <a class="social-link" href="https://wa.me/393483471201" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="social-link" href="https://www.tiktok.com/@lunara" target="_blank" rel="noopener">TikTok</a>
+            <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener">TikTok</a>
+            <!-- Linktree richiesto -->
+            <a class="social-link" href="https://linktr.ee/lunaracandeleartigianali" target="_blank" rel="noopener">I nostri link</a>
           </div>
         </aside>
       </div>
