@@ -1,271 +1,169 @@
-
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lunara — Candele artigianali italiane</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width,initial-scale=1" />
+   <title>Lunara — Candele artigianali italiane</title>
 
-  <!-- SEO base -->
-  <meta name="description" content="Candele artigianali Lunara: fragranze premium, cera naturale e packaging elegante. Scopri il catalogo e acquista via Instagram o WhatsApp." />
-  <meta name="theme-color" content="#B59A6A" />
+   <!-- Informazioni base per SEO, incluse descrizione e colore del tema -->
+   <meta name="description" content="Candele artigianali Lunara: fragranze premium, cera naturale e packaging elegante. Scopri il catalogo e acquista via Instagram o WhatsApp." />
+   <meta name="theme-color" content="#B59A6A" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Lunara — Candele artigianali" />
-  <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo Lunara." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/Candela_Rosa/3.jpeg" />
-  <meta property="og:locale" content="it_IT" />
-  <meta name="twitter:card" content="summary_large_image" />
+   <!-- Metadati per il social sharing nelle piattaforme Open Graph e Twitter -->
+   <meta property="og:title" content="Lunara — Candele artigianali" />
+   <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo Lunara." />
+   <meta property="og:type" content="website" />
+   <meta property="og:image" content="assets/images/Candela_Rosa/3.jpeg" />
+   <meta property="og:locale" content="it_IT" />
+   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+   <!-- Collegamenti per i font utilizzati nel sito -->
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
-  <!-- Styles & Favicon -->
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="assets/images/logo_tras.png" type="image/png" />
+   <!-- Collegamenti per il file CSS e la favicon del sito -->
+   <link rel="stylesheet" href="css/styles.css" />
+   <link rel="icon" href="assets/images/logo_tras.png" type="image/png" />
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header" id="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#hero">
-        <img src="assets/images/logo_tras.png" alt="Lunara logo" width="28" height="28" />
-        <span>Lunara</span>
-      </a>
+   <!-- HEADER: Include logo, menu principale e mobile -->
+   <header class="site-header" id="site-header">
+     <div class="container header-inner">
+       <!-- Logo del brand con link alla sezione hero -->
+       <a class="brand" href="#hero">
+         <img src="assets/images/logo_tras.png" alt="Lunara logo" width="28" height="28" />
+         <span>Lunara</span>
+       </a>
 
-      <!-- Desktop nav -->
-      <nav class="site-nav" id="site-nav" aria-label="Menu principale">
-        <a class="nav-link" href="#catalogo">Catalogo</a>
-        <a class="nav-link" href="#benefits">La nostra Storia</a>
-        <a class="nav-link" href="#contatti">Contatti</a>
-        <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-        <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
-      </nav>
+       <!-- Navigazione principale per desktop -->
+       <nav class="site-nav" id="site-nav" aria-label="Menu principale">
+         <a class="nav-link" href="#catalogo">Catalogo</a>
+         <a class="nav-link" href="#benefits">La nostra Storia</a>
+         <a class="nav-link" href="#contatti">Contatti</a>
+         <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
+         <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+       </nav>
 
-      <!-- Mobile hamburger -->
-      <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="hamburger-lines" aria-hidden="true">☰</span>
-      </button>
-    </div>
+       <!-- Pulsante hamburger per il menu mobile -->
+       <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+         <span class="hamburger-lines" aria-hidden="true">☰</span>
+       </button>
+     </div>
 
-    <!-- Mobile menu (overlay + drawer) -->
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-      <div class="mobile-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
+     <!-- Menu mobile, incluso sfondo e pannello laterale -->
+     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+       <div class="mobile-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
 
-      <aside class="mobile-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
-        <div class="mobile-drawer-header">
-          <h2 id="mobile-menu-title" class="sr-only">Menu principale</h2>
-          <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">×</button>
-        </div>
+       <aside class="mobile-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+         <div class="mobile-drawer-header">
+           <h2 id="mobile-menu-title" class="sr-only">Menu principale</h2>
+           <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">×</button>
+         </div>
 
-        <nav class="mobile-nav" aria-label="Menu principale mobile">
-          <a class="mobile-link" href="#catalogo">Catalogo</a>
-          <a class="mobile-link" href="#benefits">La nostra Storia</a>
-          <a class="mobile-link" href="#contatti">Contatti</a>
-          <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-          <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
-        </nav>
-      </aside>
-    </div>
-  </header>
+         <!-- Navigazione mobile -->
+         <nav class="mobile-nav" aria-label="Menu principale mobile">
+           <a class="mobile-link" href="#catalogo">Catalogo</a>
+           <a class="mobile-link" href="#benefits">La nostra Storia</a>
+           <a class="mobile-link" href="#contatti">Contatti</a>
+           <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
+           <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+         </nav>
+       </aside>
+     </div>
+   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="hero" role="banner">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <span class="eyebrow">Candele artigianali italiane</span>
-          <h1>Accendi momenti di puro relax</h1>
-          <p class="lede">Cera naturale, fragranze selezionate e packaging elegante: Lunara crea atmosfere memorabili per la tua casa.</p>
-          <div class="cta">
-            <a class="btn primary" href="#catalogo">Scopri il catalogo</a>
-            <a class="btn ghost" href="#benefits">La nostra Storia</a>
-          </div>
-        </div>
-        <!-- Mantengo il tuo blocco immagine/logo come da ultimo file -->
-        <div class="hero">
-          <img src="assets/images/logo_tras.png" alt="Lunara logo grande" />
-        </div>
-      </div>
-      <div class="hero-bg" aria-hidden="true"></div>
-    </section>
+   <main>
+     <!-- HERO SECTION: Descrizione e funzione introduttiva -->
+     <section class="hero" id="hero" role="banner">
+       <div class="container hero-inner">
+         <!-- Testo promozionale -->
+         <div class="hero-copy">
+           <span class="eyebrow">Candele artigianali italiane</span>
+           <h1>Accendi momenti di puro relax</h1>
+           <p class="lede">Cera naturale, fragranze selezionate e packaging elegante: Lunara crea atmosfere memorabili per la tua casa.</p>
+           <div class="cta">
+             <a class="btn primary" href="#catalogo">Scopri il catalogo</a>
+             <a class="btn ghost" href="#benefits">La nostra Storia</a>
+           </div>
+         </div>
+         <!-- Immagine o logo grande per il branding -->
+         <div class="hero">
+           <img src="assets/images/logo_tras.png" alt="Lunara logo grande" />
+         </div>
+       </div>
+       <div class="hero-bg" aria-hidden="true"></div>
+     </section>
 
-    <!-- CATALOGO -->
-    <section class="section" id="catalogo">
-      <div class="container">
-        <div class="section-head">
-          <h2>Catalogo</h2>
-          <p class="muted">Clicca su un prodotto per i dettagli. L’acquisto avviene via Instagram, WhatsApp o TikTok.</p>
-        </div>
+     <!-- SEZIONE CATALOGO: Spazio per filtrare e visualizzare prodotti -->
+     <section class="section" id="catalogo">
+       <div class="container">
+         <div class="section-head">
+           <h2>Catalogo</h2>
+           <p class="muted">Clicca su un prodotto per i dettagli. L’acquisto avviene via Instagram, WhatsApp o TikTok.</p>
+         </div>
 
-        <div class="filters" aria-label="Filtri catalogo">
-          <input type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti" />
-          <select id="filter-collection" aria-label="Filtra per collezione">
-            <option value="">Tutte le collezioni</option>
-          </select>
-          <select id="sort" aria-label="Ordina per">
-            <option value="default">Consigliati</option>
-            <option value="price-asc">Prezzo ↑</option>
-            <option value="price-desc">Prezzo ↓</option>
-            <option value="new-first">Novità</option>
-          </select>
-        </div>
+         <!-- Filtri e opzioni di ordinamento per il catalogo -->
+         <div class="filters" aria-label="Filtri catalogo">
+           <input type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti" />
+           <select id="filter-collection" aria-label="Filtra per collezione">
+             <option value="">Tutte le collezioni</option>
+           </select>
+           <select id="sort" aria-label="Ordina per">
+             <option value="default">Consigliati</option>
+             <option value="price-asc">Prezzo ↑</option>
+             <option value="price-desc">Prezzo ↓</option>
+             <option value="new-first">Novità</option>
+           </select>
+         </div>
 
-        <div id="grid-skeleton" class="grid">
-          <article class="card skeleton"></article>
-          <article class="card skeleton"></article>
-          <article class="card skeleton"></article>
-          <article class="card skeleton"></article>
-          <article class="card skeleton"></article>
-          <article class="card skeleton"></article>
-        </div>
-        <div id="product-grid" class="grid" aria-live="polite" aria-busy="true"></div>
-      </div>
-    </section>
+         <!-- Placeholder per il catalogo prodotti con animazioni fittizie -->
+         <div id="grid-skeleton" class="grid">
+           <article class="card skeleton"></article>
+           <article class="card skeleton"></article>
+           <article class="card skeleton"></article>
+           <article class="card skeleton"></article>
+           <article class="card skeleton"></article>
+           <article class="card skeleton"></article>
+         </div>
+         <div id="product-grid" class="grid" aria-live="polite" aria-busy="true"></div>
+       </div>
+     </section>
 
-    <!-- BENEFIT -->
-    <section class="section" id="benefits">
-      <div class="container">
-        <h2>Perché scegliere Lunara</h2>
-        <div class="benefits">
-          <article class="benefit"><span class="icon">🕯️</span><h3>Artigianalità</h3><p>Ogni candela è rifinita a mano, unica e curata nei dettagli.</p></article>
-          <article class="benefit"><span class="icon">🌿</span><h3>Ingredienti</h3><p>Cera naturale e fragranze selezionate, profumo pulito e avvolgente.</p></article>
-          <article class="benefit"><span class="icon">🎁</span><h3>Regalo perfetto</h3><p>Packaging elegante e personalizzabile per ogni occasione.</p></article>
-          <article class="benefit"><span class="icon">🇮🇹</span><h3>Made in Italy</h3><p>Prodotto nel nostro laboratorio, con passione e qualità.</p></article>
-        </div>
-      </div>
-    </section>
+     <!-- SEZIONE BENEFIT: Perché scegliere Lunara? -->
+     <section class="section" id="benefits">
+       <div class="container">
+         <h2>Perché scegliere Lunara</h2>
+         <div class="benefits">
+           <article class="benefit"><span class="icon">🕯️</span><h3>Artigianalità</h3><p>Ogni candela è rifinita a mano, unica e curata nei dettagli.</p></article>
+           <article class="benefit"><span class="icon">🌿</span><h3>Ingredienti</h3><p>Cera naturale e fragranze selezionate, profumo pulito e avvolgente.</p></article>
+           <article class="benefit"><span class="icon">🎁</span><h3>Regalo perfetto</h3><p>Packaging elegante e personalizzabile per ogni occasione.</p></article>
+           <article class="benefit"><span class="icon">🇮🇹</span><h3>Made in Italy</h3><p>Prodotto nel nostro laboratorio, con passione e qualità.</p></article>
+         </div>
+       </div>
+     </section>
 
-    <!-- CHI SIAMO -->
-    <section class="section" id="chi-siamo">
-      <div class="container about">
-        <div class="about-text">
-          <h2>La nostra storia</h2>
-          <p class="lede">Lunara nasce dall’amore per l’artigianato e la magia della luce. Realizziamo candele con design essenziale e fragranze studiate per accompagnare le tue giornate.</p>
-          <ul class="highlights">
-            <li><strong>Qualità</strong> — cere naturali, stoppini selezionati.</li>
-            <li><strong>Design</strong> — linee pulite, materiali premium.</li>
-            <li><strong>Personalizzazione</strong> — messaggi e confezioni su misura.</li>
-          </ul>
-        </div>
-        <div class="about-gallery">
-          <figure class="reveal">
-            <img src="assets/images/Candela_Rosa/3.jpeg" alt="Collezione Rosa" loading="lazy" />
-            <figcaption>Collezione Rosa</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Bouquet_fiori_(Natale)/3.jpeg" alt="Edizione Bouquet" loading="lazy" />
-            <figcaption>Edizione Bouquet</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Schiaccianoci/3.jpeg" alt="Collezione Schiaccianoci" loading="lazy" />
-            <figcaption>Collezione Schiaccianoci</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Rosa/1.jpeg" alt="Dettaglio packaging" loading="lazy" />
-            <figcaption>Dettaglio packaging</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
+     <!-- SEZIONE CHI SIAMO: Racconto del brand -->
+     <section class="section" id="chi-siamo">
+       <div class="container about">
+         <div class="about-text">
+           <h2>La nostra storia</h2>
+           <p class="lede">Lunara nasce dall’amore per l’artigianato e la magia della luce. Realizziamo candele con design essenziale e fragranze studiate per accompagnare le tue giornate.</p>
+         </div>
+         <div class="about-gallery">
+           <figure class="reveal">
+             <img src="assets/images/Candela_Rosa/3.jpeg" alt="Collezione Rosa" loading="lazy" />
+             <figcaption>Collezione Rosa</figcaption>
+           </figure>
+           <figure class="reveal">
+             <img src="assets/images/Candela_Bouquet_fiori_(Natale)/3.jpeg" alt="Collezione Natale" loading="lazy" />
+             <figcaption>Collezione Natale</figcaption>
+           </figure>
+         </div>
+       </div>
+     </section>
 
-    <!-- RECENSIONI -->
-    <section class="section" id="reviews">
-      <div class="container">
-        <h2>Cosa dicono i clienti</h2>
-        <div class="reviews">
-          <blockquote class="review">
-            <p>“Profumo meraviglioso e confezione curata nei dettagli. Perfetta come regalo.”</p>
-            <cite>— Martina</cite>
-          </blockquote>
-          <blockquote class="review">
-            <p>“Accesa la sera, crea un’atmosfera rilassante e calda. Consigliatissima.”</p>
-            <cite>— Luca</cite>
-          </blockquote>
-          <blockquote class="review">
-            <p>“Fragranze eleganti, e il design minimal è stupendo. Ricomprerò!”</p>
-            <cite>— Giulia</cite>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTATTI -->
-    <section class="section" id="contatti">
-      <div class="container contact-social">
-        <div class="contact-block">
-          <h2>Contattaci</h2>
-          <form id="contact-form" class="contact-form" action="https://formspree.io/f/xblngrbe" method="POST" aria-label="Modulo contatti">
-            <input type="text" name="name" placeholder="Nome" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <textarea name="message" placeholder="Messaggio" required></textarea>
-            <button class="btn primary" type="submit">Invia</button>
-          </form>
-          <p id="form-success" class="form-success" role="status" aria-live="polite">Messaggio inviato con successo!</p>
-          <p id="form-error" class="form-error" role="alert">Si è verificato un errore, riprova più tardi.</p>
-        </div>
-        <aside class="social-block" aria-label="Social">
-          <h3>I nostri Social</h3>
-          <div class="social-links">
-            <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-            <a class="social-link" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
-            <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni%20riguardo.....">Email</a>
-            <a class="social-link" href="https://wa.me/393483471201" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener">TikTok</a>
-            <!-- Linktree richiesto -->
-            <a class="social-link" href="https://linktr.ee/lunaracandeleartigianali" target="_blank" rel="noopener">I nostri link</a>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
-
-  <!-- QUICK VIEW MODAL -->
-  <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
-    <div class="modal-content">
-      <button class="modal-close" aria-label="Chiudi">&times;</button>
-      <div class="modal-carousel">
-        <button class="carousel-prev" aria-label="Immagine precedente">‹</button>
-        <div class="modal-images" aria-live="polite"></div>
-        <button class="carousel-next" aria-label="Immagine successiva">›</button>
-      </div>
-      <h3 id="modal-title" class="modal-title"></h3>
-      <p class="modal-meta muted"></p>
-      <p class="low-stock-alert" id="low-stock-alert" hidden>⚠️ Ultimi pezzi disponibili</p>
-      <p class="modal-description muted"></p>
-      <div class="modal-actions">
-        <button class="btn primary" id="open-buy-modal">Acquista</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- BUY CHANNELS MODAL -->
-  <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="buy-modal-title">
-    <div class="modal-content">
-      <button class="modal-close" id="buy-modal-close" aria-label="Chiudi">&times;</button>
-      <h3 id="buy-modal-title" class="modal-title">Scegli come contattarci</h3>
-      <p class="muted">Seleziona il canale preferito per completare l’acquisto.</p>
-      <div class="modal-actions">
-        <button class="btn primary" id="buy-whatsapp">WhatsApp</button>
-        <button class="btn ghost" id="buy-instagram">Instagram</button>
-        <button class="btn ghost" id="buy-tiktok">TikTok</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>© Lunara — Candele artigianali</div>
-      <div class="legal muted">Tutti i diritti riservati.</div>
-    </div>
-  </footer>
-
-  <!-- Script -->
-  <script src="js/main.js"></script>
+   </main>
 </body>
 </html>
