@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE (drawer) ===== */
+  /* ===== MENU MOBILE (drawer/fullscreen) ===== */
   const header = document.getElementById('site-header');
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) closeMobileMenu();
   });
 
-  // Focus trap nel drawer
+  // Focus trap nel drawer/fullscreen
   function trapFocus(e) {
     if (!mobileMenu.classList.contains('open')) return;
     const focusables = mobileDrawer.querySelectorAll(
-      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1")]'
     );
     if (!focusables.length) return;
     const first = focusables[0];
@@ -60,22 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   document.addEventListener('keydown', trapFocus);
-
-  // Smooth scroll con offset header
-  const offsetScrollTo = (el) => {
-    const top = el.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 12;
-    window.scrollTo({ top, behavior: 'smooth' });
-  };
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (ev) => {
-      const href = a.getAttribute('href');
-      if (!href || href === '#' || href.startsWith('http')) return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      ev.preventDefault();
-      offsetScrollTo(target);
-    });
-  });
 
   /* ===== REVEAL ABOUT ===== */
   const reveals = document.querySelectorAll('.reveal');
@@ -89,9 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ===== DATA (Google Sheet gviz) ===== */
-  // Colonne attese: id, title, measures, description, price, is_new, is_low_stock, collection, image_folder
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
-  const CACHE_KEY = 'lunara_products_v4';
+  const CACHE_KEY = 'lunara_products_v6';
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 ore
 
   const parseGViz = (text) => {
@@ -134,10 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const res = await fetch(SHEET_URL, { cache: 'no-store' });
       const text = await res.text();
       const parsed = parseGViz(text);
-      if (parsed) {
-        setCache(parsed);
-        return parsed;
-      }
+      if (parsed) { setCache(parsed); return parsed; }
       console.warn('Parse gViz fallito, uso cache se esiste.');
       return cached || [];
     } catch (e) {
@@ -153,14 +133,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formatMeta = (measures, price) => `${measures || 'NA'} • ${fmtPrice(price)}`;
   const sanitize = (s) => (s || '').toString().replace(/[\/\\:\*\?"<>\|]/g, "_").trim();
 
-  const getImageCandidates = (product, max = 10, exts = ['jpeg']) => {
+  const getImageCandidates = (product, max = 6, exts = ['webp','jpeg']) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];
     for (let i=1; i<=max; i++) for (const ext of exts) out.push(`assets/images/${folder}/${i}.${ext}`);
     return out;
   };
 
-  const pickExistingImages = async (paths, limit = 10) => {
+  const pickExistingImages = async (paths, limit = 6) => {
     const checks = paths.slice(0, limit).map(src => new Promise(res => {
       const im = new Image();
       im.onload = () => res(src);
@@ -170,6 +150,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const results = await Promise.all(checks);
     return results.filter(Boolean);
   };
+
+  async function runInBatches(items, batchSize, worker){
+    for (let i=0; i<items.length; i+=batchSize){
+      const slice = items.slice(i, i + batchSize);
+      await Promise.all(slice.map(worker));
+    }
+  }
 
   /* ===== ELEMENTI DOM ===== */
   const grid = document.getElementById('product-grid');
@@ -264,22 +251,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ===== CARICAMENTO PRODOTTI ===== */
   let allProducts = await fetchProducts();
-
   if (!allProducts.length) {
-    console.warn('Nessun prodotto caricato. Verifica Pubblica sul web e URL gViz.');
     skeleton.style.display = 'none';
     grid.innerHTML = '<p class="muted">Nessun prodotto disponibile al momento.</p>';
     return;
   }
 
-  // Precarica fino a 10 immagini
-  for (const p of allProducts) {
-    const candidates = getImageCandidates(p, 10);
-    const found = await pickExistingImages(candidates, 10);
+  await runInBatches(allProducts, 8, async (p) => {
+    const candidates = getImageCandidates(p, 6);
+    const found = await pickExistingImages(candidates, 6);
     p.images = found.length ? found : ['assets/images/placeholder.jpeg'];
-  }
+  });
 
-  // Popola collezioni
   const collections = Array.from(new Set(
     allProducts.map(p => (p.collection || '').trim()).filter(Boolean)
   )).sort();
@@ -289,7 +272,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     filterCollection.appendChild(opt);
   });
 
-  // Render iniziale
   renderList(allProducts);
 
   /* ===== FILTRI / ORDINAMENTO ===== */
@@ -329,23 +311,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modalImages = modal.querySelector('.modal-images');
   const lowStockAlert = document.getElementById('low-stock-alert');
   const openBuyModalBtn = document.getElementById('open-buy-modal');
+  const modalContent = modal.querySelector('.modal-content');
 
-  let currentImg = 0;
-  let modalImgs = [];
-  let lastFocusModal = null;
-  let currentProduct = null;
-
+  let currentImg = 0; let modalImgs = []; let lastFocusModal = null; let currentProduct = null;
   const bodyScroll = (lock) => { document.body.style.overflow = lock ? 'hidden' : ''; };
+  function setBackgroundInert(state){
+    const main = document.querySelector('main');
+    const headerEl = document.getElementById('site-header');
+    [main, headerEl].forEach(el => el && el.setAttribute('aria-hidden', state ? 'true' : 'false'));
+  }
+  function trapFocusIn(container, e){
+    const f = container.querySelectorAll('a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    const first = f[0]; const last = f[f.length - 1];
+    if (e.key === 'Tab'){
+      if (e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    }
+  }
 
   const openModal = (product) => {
-    currentProduct = product;
-    lastFocusModal = document.activeElement;
+    currentProduct = product; lastFocusModal = document.activeElement;
     modalTitle.textContent = product.title || '';
     modalDescription.textContent = product.description || '';
     modalMeta.textContent = formatMeta(product.measures, product.price);
     lowStockAlert.hidden = !(product.is_low_stock === true || product.is_low_stock === 'true');
 
-    // Usa TUTTE le immagini (fino a 10) già rilevate
     modalImgs = product.images || [];
     modalImages.innerHTML = '';
     modalImgs.forEach((src,i) => {
@@ -358,6 +349,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
+    setBackgroundInert(true);
     bodyScroll(true);
     modalClose.focus();
   };
@@ -368,6 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const closeModal = () => {
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
+    setBackgroundInert(false);
     bodyScroll(false);
     if (lastFocusModal) lastFocusModal.focus();
   };
@@ -381,10 +374,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
+    trapFocusIn(modalContent, e);
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowLeft') { currentImg = (currentImg - 1 + modalImgs.length) % modalImgs.length; showImg(currentImg); }
     if (e.key === 'ArrowRight'){ currentImg = (currentImg + 1) % modalImgs.length; showImg(currentImg); }
   });
+
+  /* ===== Swipe gestures on modal images (mobile) ===== */
+  (function enableModalSwipe(){
+    let startX = 0, startY = 0, swiping = false; const threshold = 40; // px
+    function getPoint(e){ if (e.touches && e.touches[0]){ return { x: e.touches[0].clientX, y: e.touches[0].clientY }; } return { x: e.clientX, y: e.clientY }; }
+    function onDown(e){ const p = getPoint(e); startX = p.x; startY = p.y; swiping = true; }
+    function onMove(e){
+      if (!swiping) return;
+      const p = getPoint(e); const dx = p.x - startX; const dy = p.y - startY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > threshold){
+        if (dx < 0){ currentImg = (currentImg + 1) % modalImgs.length; }
+        else { currentImg = (currentImg - 1 + modalImgs.length) % modalImgs.length; }
+        showImg(currentImg); swiping = false; e.preventDefault();
+      }
+    }
+    function onUp(){ swiping = false; }
+    if (window.PointerEvent){
+      modalImages.addEventListener('pointerdown', onDown);
+      modalImages.addEventListener('pointermove', onMove);
+      modalImages.addEventListener('pointerup', onUp);
+      modalImages.addEventListener('pointercancel', onUp);
+    } else {
+      modalImages.addEventListener('touchstart', onDown, { passive:true });
+      modalImages.addEventListener('touchmove',  onMove, { passive:false });
+      modalImages.addEventListener('touchend',   onUp,   { passive:true });
+      modalImages.addEventListener('touchcancel',onUp,   { passive:true });
+    }
+  })();
 
   /* ===== BUY CHANNELS MODAL ===== */
   const buyModal = document.getElementById('buy-modal');
@@ -392,6 +414,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buyWhatsappBtn = document.getElementById('buy-whatsapp');
   const buyInstagramBtn = document.getElementById('buy-instagram');
   const buyTikTokBtn = document.getElementById('buy-tiktok');
+  const buyModalContent = buyModal.querySelector('.modal-content');
 
   const WHATSAPP_NUMBER = '393483471201';
   const INSTAGRAM_PROFILE = 'https://www.instagram.com/c.a.lunara/';
@@ -401,18 +424,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentProduct = product;
     buyModal.classList.add('open');
     buyModal.setAttribute('aria-hidden','false');
+    setBackgroundInert(true);
     bodyScroll(true);
     buyModalClose.focus();
   };
   const closeBuyModal = () => {
     buyModal.classList.remove('open');
     buyModal.setAttribute('aria-hidden','true');
+    setBackgroundInert(false);
     bodyScroll(false);
   };
   buyModalClose.addEventListener('click', closeBuyModal);
   buyModal.addEventListener('click', e => { if (e.target === buyModal) closeBuyModal(); });
   document.addEventListener('keydown', e => {
-    if (buyModal.classList.contains('open') && e.key === 'Escape') closeBuyModal();
+    if (buyModal.classList.contains('open')){
+      trapFocusIn(buyModalContent, e);
+      if (e.key === 'Escape') closeBuyModal();
+    }
   });
 
   buyWhatsappBtn.addEventListener('click', () => {

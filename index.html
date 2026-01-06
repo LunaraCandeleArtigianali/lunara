@@ -10,13 +10,20 @@
   <meta name="description" content="Candele artigianali Lunara: fragranze premium, cera naturale e packaging elegante. Scopri il catalogo e acquista via Instagram o WhatsApp." />
   <meta name="theme-color" content="#B59A6A" />
 
+  <!-- Canonical & OG (SOSTITUISCI con il tuo dominio reale) -->
+  <link rel="canonical" href="https://lunara.example/" />
+  <meta property="og:url" content="https://lunara.example/" />
+
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Lunara — Candele artigianali" />
   <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo Lunara." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/Candela_Rosa/3.jpeg" />
+  <meta property="og:image" content="https://lunara.example/assets/images/Candela_Rosa/3.jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="it_IT" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://lunara.example/assets/images/Candela_Rosa/3.jpeg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,6 +36,9 @@
 </head>
 <body>
 
+  <!-- Skip link per accessibilità -->
+  <a class="skip-link" href="#catalogo">Salta al contenuto</a>
+
   <!-- HEADER -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
@@ -40,10 +50,10 @@
       <!-- Desktop nav -->
       <nav class="site-nav" id="site-nav" aria-label="Menu principale">
         <a class="nav-link" href="#catalogo">Catalogo</a>
-        <a class="nav-link" href="#benefits">La nostra Storia</a>
+        <a class="nav-link" href="#chi-siamo">La nostra Storia</a>
         <a class="nav-link" href="#contatti">Contatti</a>
-        <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-        <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+        <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
       </nav>
 
       <!-- Mobile hamburger -->
@@ -52,7 +62,7 @@
       </button>
     </div>
 
-    <!-- Mobile menu (overlay + drawer) -->
+    <!-- Mobile menu (fullscreen) -->
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <div class="mobile-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
 
@@ -64,10 +74,10 @@
 
         <nav class="mobile-nav" aria-label="Menu principale mobile">
           <a class="mobile-link" href="#catalogo">Catalogo</a>
-          <a class="mobile-link" href="#benefits">La nostra Storia</a>
+          <a class="mobile-link" href="#chi-siamo">La nostra Storia</a>
           <a class="mobile-link" href="#contatti">Contatti</a>
-          <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-          <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+          <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
         </nav>
       </aside>
     </div>
@@ -75,7 +85,7 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero" id="hero" role="banner">
+    <section class="hero" id="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
           <span class="eyebrow">Candele artigianali italiane</span>
@@ -83,11 +93,10 @@
           <p class="lede">Cera naturale, fragranze selezionate e packaging elegante: Lunara crea atmosfere memorabili per la tua casa.</p>
           <div class="cta">
             <a class="btn primary" href="#catalogo">Scopri il catalogo</a>
-            <a class="btn ghost" href="#benefits">La nostra Storia</a>
+            <a class="btn ghost" href="#chi-siamo">La nostra Storia</a>
           </div>
         </div>
-        <!-- Mantengo il tuo blocco immagine/logo come da ultimo file -->
-        <div class="hero">
+        <div class="hero-visual">
           <img src="assets/images/logo_tras.png" alt="Lunara logo grande" />
         </div>
       </div>
@@ -127,19 +136,6 @@
       </div>
     </section>
 
-    <!-- BENEFIT -->
-    <section class="section" id="benefits">
-      <div class="container">
-        <h2>Perché scegliere Lunara</h2>
-        <div class="benefits">
-          <article class="benefit"><span class="icon">🕯️</span><h3>Artigianalità</h3><p>Ogni candela è rifinita a mano, unica e curata nei dettagli.</p></article>
-          <article class="benefit"><span class="icon">🌿</span><h3>Ingredienti</h3><p>Cera naturale e fragranze selezionate, profumo pulito e avvolgente.</p></article>
-          <article class="benefit"><span class="icon">🎁</span><h3>Regalo perfetto</h3><p>Packaging elegante e personalizzabile per ogni occasione.</p></article>
-          <article class="benefit"><span class="icon">🇮🇹</span><h3>Made in Italy</h3><p>Prodotto nel nostro laboratorio, con passione e qualità.</p></article>
-        </div>
-      </div>
-    </section>
-
     <!-- CHI SIAMO -->
     <section class="section" id="chi-siamo">
       <div class="container about">
@@ -172,6 +168,19 @@
         </div>
       </div>
     </section>
+
+    <!-- BENEFIT -->
+    <section class="section" id="benefits">
+      <div class="container">
+        <h2>Perché scegliere Lunara</h2>
+        <div class="benefits">
+          <article class="benefit"><span class="icon">🕯️</span><h3>Artigianalità</h3><p>Ogni candela è rifinita a mano, unica e curata nei dettagli.</p></article>
+          <article class="benefit"><span class="icon">🌿</span><h3>Ingredienti</h3><p>Cera naturale e fragranze selezionate, profumo pulito e avvolgente.</p></article>
+          <article class="benefit"><span class="icon">🎁</span><h3>Regalo perfetto</h3><p>Packaging elegante e personalizzabile per ogni occasione.</p></article>
+          <article class="benefit"><span class="icon">🇮🇹</span><h3>Made in Italy</h3><p>Prodotto nel nostro laboratorio, con passione e qualità.</p></article>
+        </div>
+      </div>
+    </section>    
 
     <!-- RECENSIONI -->
     <section class="section" id="reviews">
@@ -211,13 +220,12 @@
         <aside class="social-block" aria-label="Social">
           <h3>I nostri Social</h3>
           <div class="social-links">
-            <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-            <a class="social-link" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+            <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a class="social-link" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
             <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni%20riguardo.....">Email</a>
-            <a class="social-link" href="https://wa.me/393483471201" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener">TikTok</a>
-            <!-- Linktree richiesto -->
-            <a class="social-link" href="https://linktr.ee/lunaracandeleartigianali" target="_blank" rel="noopener">I nostri link</a>
+            <a class="social-link" href="https://wa.me/393483471201" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a class="social-link" href="https://linktr.ee/lunaracandeleartigianali" target="_blank" rel="noopener noreferrer">I nostri link</a>
           </div>
         </aside>
       </div>

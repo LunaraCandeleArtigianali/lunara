@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lunaracandeleartigianali.github.io/lunara/sitemap.xml
