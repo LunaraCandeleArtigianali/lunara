@@ -1,3 +1,4 @@
+
 :root{
   --bg:#FFFFFF; --card:#FFFFFF; --text:#111111; --muted:#666666;
   --accent:#111111; --accent-dark:#000000; --danger:#D14C4C; --line:#ECECEC;
@@ -163,24 +164,39 @@ h3{font-size:20px}
 .benefit{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 6px 16px rgba(0,0,0,0.03); display:flex; gap:12px; align-items:flex-start }
 .icon-circle{ width:38px; height:38px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 38px; background:#F1F1F1; color:#333; border:1px solid var(--line) }
 
-/* ABOUT */
+/* ABOUT (testo + feature) */
 .about-pro-inner{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:28px; align-items:start }
-.about-pro-text .about-bullets{ list-style:none; padding:0; margin:14px 0 18px }
-.about-pro-text .about-bullets li{ margin:6px 0 }
-.about-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
+.about-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px }
 .tag{ display:inline-flex; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; font-weight:600; color:#333; font-size:13px }
 
+/* Feature cards (Origini, Metodo, Valori) */
+.about-features{
+  margin-top:14px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+}
+.about-feature{
+  background: linear-gradient(180deg, #fff, #fafafa);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  display:flex; align-items:flex-start; gap:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.03);
+}
+.af-icon{
+  width:38px; height:38px; flex:0 0 38px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  background:#F3F3F3; border:1px solid var(--line);
+}
+.af-title{ font-family:"Playfair Display",serif; font-size:18px; margin:0 0 4px 0 }
+.af-text{ margin:0; color:var(--muted); line-height:1.5 }
+
+/* Media blocco a destra */
 .about-pro-media{ display:grid; grid-template-columns:1fr; gap:16px; align-items:center; }
 .about-pro-media .logo-big{
   background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px;
   display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(0,0,0,0.05);
 }
 .about-pro-media .logo-big img{ max-height:260px; object-fit:contain; }
-
-@media (max-width:980px){
-  .about-pro-inner{ grid-template-columns:1fr }
-  .about-pro-media .logo-big img{ max-height:220px }
-}
 
 /* REVIEWS */
 .reviews{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
@@ -231,7 +247,7 @@ h3{font-size:20px}
   position:relative; flex:1; display:flex; align-items:center; justify-content:center; min-height:360px; max-height:520px;
   background:#F7F7F7; border-radius:16px; overflow:hidden;
 }
-.modal-images img{ max-width:100%; max-height:100%; object-fit:contain; display:none } /* non già zoomate */
+.modal-images img{ max-width:100%; max-height:100%; object-fit:contain; display:none }
 .zoom-btn{
   position:absolute; right:12px; bottom:12px;
   background:#111; color:#fff; border:0; border-radius:999px; width:44px; height:44px; cursor:pointer;
@@ -275,38 +291,43 @@ h3{font-size:20px}
 /* Anchor offset */
 section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
 
-/* === MOBILE: TUTTO CENTRALE === */
+/* === MOBILE: centrature e layout === */
 @media (max-width:980px){
   .hero-inner{ grid-template-columns:1fr; gap:22px }
   .hero-copy, .section-head, .collection-header, .contact-card, .contact-aside { text-align:center }
+  .cta{ justify-content:center }  /* pulsanti hero centrati su mobile */
   .catalog-toolbar{ justify-content:center }
   .toolbar-left, .toolbar-right{ justify-content:center; width:100% }
-  .benefits{ grid-template-columns:repeat(2,1fr) }
-  .reviews{ grid-template-columns:repeat(2,1fr) }
+
+  /* Benefici e recensioni: UNA colonna su cellulare */
+  .benefits{ grid-template-columns:1fr }
+  .benefit{ flex-direction:column; align-items:center; text-align:center }
+
+  .reviews{ grid-template-columns:1fr }
+
   .about-pro-inner{ grid-template-columns:1fr }
+  .about-features{ grid-template-columns:1fr } /* card Origini/Metodo/Valori 1 per riga su mobile */
+  .about-pro-media .logo-big img{ max-height:220px }
+
   .contact-grid.equal{ grid-template-columns:1fr } /* stack su mobile */
   .grid .card{ align-items:center; text-align:center }
 }
 
-/* ============================
-   PATCH MOBILE (<= 640px):
-   Compatta WhatsApp e Contattaci
-   ============================ */
+/* PATCH MOBILE (<= 640px): Compatta WhatsApp e Contattaci */
 @media (max-width:640px){
-
-  .section{ padding: 28px 0; } /* prima 46px */
+  .section{ padding: 28px 0; }
 
   .contact-aside,
   .contact-card{
-    padding: 16px; /* prima 26px */
+    padding: 16px;
     border-radius: 14px;
   }
 
   .contact-cta h3,
   .contact-card h2{
-    font-size: 22px;    /* prima clamp */
+    font-size: 22px;
     line-height: 1.2;
-    margin-bottom: 6px; /* prima 10px */
+    margin-bottom: 6px;
   }
 
   .contact-cta .muted.center{
@@ -315,7 +336,7 @@ section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
   }
 
   .contact-cta .btn{
-    padding: 10px 14px; /* prima 12px 20px */
+    padding: 10px 14px;
     font-size: 14px;
     min-height: 40px;
     gap: 8px;
@@ -336,7 +357,7 @@ section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
 
   .contact-form{ gap: 8px; margin-top: 8px; }
   .form-row{ gap: 8px; flex-direction: column; }
-  .contact-form input, .contact-form textarea{
+  .contact-form input,.contact-form textarea{
     padding: 10px;
     font-size: 14px;
     border-radius: 10px;
@@ -350,7 +371,7 @@ section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
 
   .contact-grid.equal{ gap: 14px; }
 
-  /* Generale: bottoni più snelli su mobile */
+  /* Bottoni generali più snelli */
   .btn{
     padding: 10px 14px;
     font-size: 14px;

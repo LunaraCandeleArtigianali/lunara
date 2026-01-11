@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', async () => {
   /* ===== MENU MOBILE (tendina sotto header) ===== */
   const hamburger = document.getElementById('hamburger');

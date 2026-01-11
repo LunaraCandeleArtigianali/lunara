@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="it">
 <head>
@@ -25,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- CSS & Favicon -->
-  <link rel="stylesheet" href="css/styles.css?v=20260113-mc3" />
+  <link rel="stylesheet" href="css/styles.css?v=20260113-mc4" />
   <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
 
   <!-- iOS Icon -->
@@ -181,17 +182,39 @@
             Lunara nasce dall’amore per la luce e per l’artigianato. Ogni candela è il risultato
             di una ricerca accurata delle fragranze, colate attente e rifiniture manuali: ambienti eleganti, caldi e accoglienti.
           </p>
-          <ul class="about-bullets">
-            <li><strong>Origini</strong> — Laboratorio familiare, visione contemporanea.</li>
-            <li><strong>Metodo</strong> — Test olfattivi, selezione responsabile dei materiali.</li>
-            <li><strong>Valori</strong> — Qualità, estetica senza tempo e cura del cliente.</li>
-          </ul>
+
+          <!-- Nuove feature-card: Origini, Metodo, Valori -->
+          <div class="about-features">
+            <article class="about-feature">
+              <div class="af-icon">🏁</div>
+              <div class="af-body">
+                <h3 class="af-title">Origini</h3>
+                <p class="af-text">Laboratorio familiare con spirito contemporaneo. Uniamo tradizione e cura del dettaglio.</p>
+              </div>
+            </article>
+            <article class="about-feature">
+              <div class="af-icon">🧪</div>
+              <div class="af-body">
+                <h3 class="af-title">Metodo</h3>
+                <p class="af-text">Test olfattivi, selezione responsabile dei materiali e rifiniture manuali.</p>
+              </div>
+            </article>
+            <article class="about-feature">
+              <div class="af-icon">✨</div>
+              <div class="af-body">
+                <h3 class="af-title">Valori</h3>
+                <p class="af-text">Qualità, estetica senza tempo e attenzione dedicata ad ogni cliente.</p>
+              </div>
+            </article>
+          </div>
+
           <div class="about-tags">
             <span class="tag">Cera naturale</span>
             <span class="tag">Fragranze premium</span>
             <span class="tag">Packaging curato</span>
           </div>
         </div>
+
         <div class="about-pro-media">
           <figure class="logo-big">
             <img src="assets/images/logo_trans.png" alt="Logo Lunara" onerror="this.onerror=null;this.src='assets/images/logo_tras.png';" />
@@ -335,7 +358,6 @@
       <h3 id="buy-modal-title" class="modal-title">Scegli come contattarci</h3>
       <p class="muted">Seleziona il canale preferito per completare l’acquisto.</p>
       <div class="modal-actions centered">
-        <!-- WhatsApp ghost (non nero) -->
         <button class="btn ghost btn-icon" id="buy-whatsapp" aria-label="Acquista su WhatsApp">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M20.52 3.48A11.94 11.94 0 0 0 12.06 0C5.55 0 .28 5.27.28 11.78c0 2.08.54 4.08 1.57 5.86L0 24l6.54-1.76a11.7 11.7 0 0 0 5.52 1.41h.01c6.5 0 11.77-5.27 11.77-11.78 0-3.15-1.23-6.11-3.32-8.39zM12.07 21.3h-.01a9.5 9.5 0 0 1-4.85-1.32l-.35-.2-3.88 1.05 1.04-3.79-.23-.39a9.52 9.52 0 1 1 8.28 4.65zm5.41-7.12c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.69.15-.2.3-.79.98-.97 1.18-.18.2-.36.23-.66.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.61.14-.14.3-.36.45-.54.15-.18.2-.3.3-.51.1-.2.05-.38-.02-.54-.08-.15-.69-1.66-.95-2.28-.25-.6-.51-.52-.69-.53h-.58c-.2 0-.52.07-.78.36-.26.29-1 1-1 2.42s1.02 2.8 1.16 2.99c.14.2 2.01 3.08 4.87 4.28.68.29 1.21.46 1.63.59.69.22 1.31.19 1.81.12.55-.07 1.7-.69 1.96-1.36.25-.67.25-1.25.17-1.37-.09-.12-.28-.2-.6-.36z"/></svg>
           WhatsApp
@@ -361,6 +383,6 @@
   </footer>
 
   <!-- JS -->
-  <script src="js/main.js?v=20260113-mc3"></script>
+  <script src="js/main.js?v=20260113-mc4"></script>
 </body>
 </html>
