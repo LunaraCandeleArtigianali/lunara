@@ -1,4 +1,3 @@
-
 :root{
   --bg:#FFFFFF; --card:#FFFFFF; --text:#111111; --muted:#666666;
   --accent:#111111; --accent-dark:#000000; --danger:#D14C4C; --line:#ECECEC;
@@ -127,11 +126,11 @@ h3{font-size:20px}
 .collection-nav{ margin:12px 0 0; display:flex; gap:8px; flex-wrap:wrap }
 .chip-ancora{
   display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
-  border:1px solid var(--line); background:#fff; color:var(--text); font-weight:600; text-decoration:none;
+  border:1px solid var(--line); background:#fff; color:#111; font-weight:600; text-decoration:none;
 }
 .chip-ancora:hover{ background:#111; color:#fff; border-color:#111 }
 
-/* GRID (desktop 4, tablet 2, mobile 1 per riga — se vuoi 1 su mobile lascialo così) */
+/* GRID: desktop 4, tablet 2, mobile 1 per riga */
 .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px }
 @media (max-width:980px){ .grid{ grid-template-columns:repeat(2,1fr) } }
 @media (max-width:640px){ .grid{ grid-template-columns:1fr } }
@@ -288,7 +287,75 @@ section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
   .contact-grid.equal{ grid-template-columns:1fr } /* stack su mobile */
   .grid .card{ align-items:center; text-align:center }
 }
+
+/* ============================
+   PATCH MOBILE (<= 640px):
+   Compatta WhatsApp e Contattaci
+   ============================ */
 @media (max-width:640px){
-  .benefits{ grid-template-columns:1fr }
-  .reviews{ grid-template-columns:1fr }
+
+  .section{ padding: 28px 0; } /* prima 46px */
+
+  .contact-aside,
+  .contact-card{
+    padding: 16px; /* prima 26px */
+    border-radius: 14px;
+  }
+
+  .contact-cta h3,
+  .contact-card h2{
+    font-size: 22px;    /* prima clamp */
+    line-height: 1.2;
+    margin-bottom: 6px; /* prima 10px */
+  }
+
+  .contact-cta .muted.center{
+    font-size: 14px;
+    margin: 0 0 10px 0;
+  }
+
+  .contact-cta .btn{
+    padding: 10px 14px; /* prima 12px 20px */
+    font-size: 14px;
+    min-height: 40px;
+    gap: 8px;
+  }
+  .contact-cta .btn .icon{ width:16px; height:16px; }
+
+  .social-card{ padding: 12px; border-radius: 12px; }
+  .social-title-center{ font-size: 16px; margin: 0 0 8px 0; }
+  .social-buttons{ gap: 8px; }
+  .social-link{
+    padding: 8px 12px;
+    font-size: 14px;
+    min-height: 36px;
+    gap: 8px;
+    border-radius: 999px;
+  }
+  .social-link .icon{ width:16px; height:16px; }
+
+  .contact-form{ gap: 8px; margin-top: 8px; }
+  .form-row{ gap: 8px; flex-direction: column; }
+  .contact-form input, .contact-form textarea{
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+  .contact-form textarea{ min-height: 120px; }
+  .contact-form .btn.wide{
+    padding: 11px 14px;
+    font-size: 14px;
+    min-height: 40px;
+  }
+
+  .contact-grid.equal{ gap: 14px; }
+
+  /* Generale: bottoni più snelli su mobile */
+  .btn{
+    padding: 10px 14px;
+    font-size: 14px;
+    min-height: 40px;
+    gap: 8px;
+  }
+  .btn .icon{ width:16px; height:16px; }
 }

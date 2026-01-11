@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
   /* ===== MENU MOBILE (tendina sotto header) ===== */
   const hamburger = document.getElementById('hamburger');
@@ -18,8 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   hamburger?.addEventListener('click', (e) => {
     e.preventDefault();
-    const isOpen = mobileCollapse.classList.contains('open');
-    if (isOpen) closeMobile(); else openMobile();
+    mobileCollapse.classList.contains('open') ? closeMobile() : openMobile();
   });
   mobileCollapse?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMobile()));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         price: r.c[4]?.v ?? null,
         // r.c[5] libero
         is_new: r.c[6]?.v ?? false,
-        is_low_stock: r.c[7]?.v ?? false, // validiamo in seguito
+        is_low_stock: r.c[7]?.v ?? false, // validazione dopo
         collection: r.c[8]?.v ?? '',
         image_folder: r.c[9]?.v ?? null
       }));
@@ -96,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return false;
   }
 
-  const EXT_LIST = ['jpeg']//,'jpg','webp','png','JPEG','JPG','WEBP','PNG'];
+  const EXT_LIST = ['jpeg','jpg','webp','png','JPEG','JPG','WEBP','PNG'];
   const getImageCandidates = (product, max = 6, exts = EXT_LIST) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];
@@ -149,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const article = document.createElement('article');
     article.className = 'card';
 
-    // Badge (Novità / Ultimi pezzi)
+    // Badge (Novità / Ultimi pezzi) — low stock solo se TRUE/VERO/Y/YES
     const badgeText =
       isSheetTrue(product.is_new) ? 'Novità' :
       isSheetTrue(product.is_low_stock) ? 'Ultimi pezzi' :
