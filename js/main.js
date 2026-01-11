@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE (comprimibile: tendina sotto header) ===== */
+  /* ===== MENU MOBILE (tendina sotto header) ===== */
   const hamburger = document.getElementById('hamburger');
   const mobileCollapse = document.getElementById('mobile-collapse');
 
@@ -21,14 +21,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isOpen = mobileCollapse.classList.contains('open');
     if (isOpen) closeMobile(); else openMobile();
   });
-  // chiudi quando clicco un link
   mobileCollapse?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMobile()));
-  // chiusura con Esc
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
 
   /* ===== DATA (Google Sheet gviz) ===== */
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
-  const CACHE_KEY = 'lunara_products_collections_v14';
+  const CACHE_KEY = 'lunara_products_collections_v16';
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 ore
   const debug = window.location.search.includes('debug=1');
 
@@ -47,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         price: r.c[4]?.v ?? null,
         // r.c[5] libero
         is_new: r.c[6]?.v ?? false,
-        is_low_stock: r.c[7]?.v ?? false, // mostrato solo quando TRUE o VERO
+        is_low_stock: r.c[7]?.v ?? false, // validiamo in seguito
         collection: r.c[8]?.v ?? '',
         image_folder: r.c[9]?.v ?? null
       }));
@@ -88,17 +86,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fmtPrice = (p) => (p!=null && p!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p)) : 'NA';
   const sanitize = (s) => (s || '').toString().replace(/\.\.\//g,'').replace(/^\/+/,'').trim();
 
-  // TRUE o VERO (case-insensitive) o booleano true
+  // TRUE / VERO / Y / YES (case-insensitive) o boolean true
   function isSheetTrue(v){
     if (v === true) return true;
     if (typeof v === 'string') {
       const t = v.trim().toUpperCase();
-      return t === 'TRUE' || t === 'VERO';
+      return t === 'TRUE' || t === 'VERO' || t === 'Y' || t === 'YES';
     }
     return false;
   }
 
-  const EXT_LIST = ['jpeg','jpg','webp','png','JPEG','JPG','WEBP','PNG'];
+  const EXT_LIST = ['jpeg']//,'jpg','webp','png','JPEG','JPG','WEBP','PNG'];
   const getImageCandidates = (product, max = 6, exts = EXT_LIST) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];
@@ -151,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const article = document.createElement('article');
     article.className = 'card';
 
-    // Badge (Novità / Ultimi pezzi) — low stock solo se TRUE/VERO
+    // Badge (Novità / Ultimi pezzi)
     const badgeText =
       isSheetTrue(product.is_new) ? 'Novità' :
       isSheetTrue(product.is_low_stock) ? 'Ultimi pezzi' :
@@ -362,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalDescription.textContent = product.description || '';
     modalMeta.textContent = [product.measures, fmtPrice(product.price)].filter(Boolean).join(' • ');
 
-    // low stock SOLO se TRUE o VERO
+    // low stock SOLO se TRUE/VERO/Y/YES
     lowStockInline.hidden = !isSheetTrue(product.is_low_stock);
 
     // immagini
@@ -411,9 +409,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     lightboxImg.src = modalImgs[currentImg];
     lightboxImg.style.transform = `scale(${lbZoom})`;
   }
-  function closeLightbox(){
-    lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true');
-  }
+  function closeLightbox(){ lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true'); }
   function lightboxShow(i){
     currentImg = (i + modalImgs.length) % modalImgs.length;
     lightboxImg.src = modalImgs[currentImg];
