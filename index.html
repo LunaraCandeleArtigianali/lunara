@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="it">
 <head>
@@ -5,37 +6,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Lunara — Candele artigianali italiane</title>
 
-  <!-- SEO base -->
-  <meta name="description" content="Candele artigianali Lunara: fragranze premium, cera naturale e packaging elegante. Scopri il catalogo e acquista via Instagram o WhatsApp." />
-  <meta name="theme-color" content="#B59A6A" />
-
-  <!-- Canonical & OG (SOSTITUISCI con il tuo dominio reale) -->
+  <!-- SEO -->
+  <meta name="description" content="Candele artigianali Lunara: fragranze premium, cera naturale e packaging elegante. Catalogo per collezioni e acquisto via chat." />
+  <meta name="theme-color" content="#FFFFFF" />
   <link rel="canonical" href="https://lunaracandeleartigianali.github.io/lunara/" />
-  <meta property="og:url" content="https://lunaracandeleartigianali.github.io/lunara/" />
 
   <!-- Open Graph / Twitter -->
+  <meta property="og:url" content="https://lunaracandeleartigianali.github.io/lunara/" />
   <meta property="og:title" content="Lunara — Candele artigianali" />
-  <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo Lunara." />
+  <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo per collezioni." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="it_IT" />
+  <meta property="og:image" content="assets/images/Candela_Rosa/3.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
+  <meta name="twitter:image" content="assets/images/Candela_Rosa/3.jpeg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
-  <!-- Styles & Favicon -->
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="assets/images/logo_tras.png" type="image/png" />
+  <!-- CSS & Favicon -->
+  <link rel="stylesheet" href="css/styles.css?v=20260111c" />
+  <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
 </head>
 <body>
 
-  <!-- Skip link per accessibilità -->
+  <!-- Skip link -->
   <a class="skip-link" href="#catalogo">Salta al contenuto</a>
 
   <!-- HEADER -->
@@ -46,7 +42,6 @@
         <span>Lunara</span>
       </a>
 
-      <!-- Desktop nav -->
       <nav class="site-nav" id="site-nav" aria-label="Menu principale">
         <a class="nav-link" href="#catalogo">Catalogo</a>
         <a class="nav-link" href="#chi-siamo">La nostra Storia</a>
@@ -55,30 +50,23 @@
         <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
       </nav>
 
-      <!-- Mobile hamburger -->
-      <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="hamburger-lines" aria-hidden="true">☰</span>
+      <!-- Hamburger mobile (comprimibile) -->
+      <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-collapse">
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
       </button>
     </div>
 
-    <!-- Mobile menu (fullscreen) -->
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-      <div class="mobile-backdrop" id="mobile-backdrop" aria-hidden="true"></div>
-
-      <aside class="mobile-drawer" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
-        <div class="mobile-drawer-header">
-          <h2 id="mobile-menu-title" class="sr-only">Menu principale</h2>
-          <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">×</button>
-        </div>
-
-        <nav class="mobile-nav" aria-label="Menu principale mobile">
-          <a class="mobile-link" href="#catalogo">Catalogo</a>
-          <a class="mobile-link" href="#chi-siamo">La nostra Storia</a>
-          <a class="mobile-link" href="#contatti">Contatti</a>
-          <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
-        </nav>
-      </aside>
+    <!-- Menu a tendina sotto l’header (mobile) -->
+    <div class="mobile-collapse" id="mobile-collapse" aria-hidden="true">
+      <nav class="mobile-collapse-inner" aria-label="Menu principale mobile">
+        <a class="mobile-link" href="#catalogo">Catalogo</a>
+        <a class="mobile-link" href="#chi-siamo">La nostra Storia</a>
+        <a class="mobile-link" href="#contatti">Contatti</a>
+        <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
+      </nav>
     </div>
   </header>
 
@@ -95,11 +83,13 @@
             <a class="btn ghost" href="#chi-siamo">La nostra Storia</a>
           </div>
         </div>
-        <div class="hero-visual">
-          <img src="assets/images/logo_tras.png" alt="Lunara logo grande" />
+
+        <!-- Carosello -->
+        <div class="hero-carousel" id="hero-carousel" aria-label="Foto prodotti Lunara">
+          <div class="hero-slides" id="hero-slides"></div>
+          <div class="hero-dots" id="hero-dots" aria-hidden="true"></div>
         </div>
       </div>
-      <div class="hero-bg" aria-hidden="true"></div>
     </section>
 
     <!-- CATALOGO -->
@@ -107,21 +97,24 @@
       <div class="container">
         <div class="section-head">
           <h2>Catalogo</h2>
-          <p class="muted">Clicca su un prodotto per i dettagli. L’acquisto avviene via Instagram, WhatsApp o TikTok.</p>
+          <p class="muted">Sfoglia per collezioni. Clicca un prodotto per i dettagli e completa via chat.</p>
         </div>
 
-        <div class="filters" aria-label="Filtri catalogo">
-          <input type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti" />
-          <select id="filter-collection" aria-label="Filtra per collezione">
-            <option value="">Tutte le collezioni</option>
-          </select>
-          <select id="sort" aria-label="Ordina per">
-            <option value="default">Consigliati</option>
-            <option value="price-asc">Prezzo ↑</option>
-            <option value="price-desc">Prezzo ↓</option>
-            <option value="new-first">Novità</option>
-          </select>
+        <div class="catalog-toolbar" aria-label="Strumenti catalogo">
+          <div class="toolbar-left">
+            <input type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti" />
+          </div>
+          <div class="toolbar-right">
+            <select id="sort" aria-label="Ordina per">
+              <option value="default">Consigliati</option>
+              <option value="price-asc">Prezzo ↑</option>
+              <option value="price-desc">Prezzo ↓</option>
+              <option value="new-first">Novità</option>
+            </select>
+          </div>
         </div>
+
+        <nav class="collection-nav" id="collection-nav" aria-label="Collezioni"></nav>
 
         <div id="grid-skeleton" class="grid">
           <article class="card skeleton"></article>
@@ -131,40 +124,8 @@
           <article class="card skeleton"></article>
           <article class="card skeleton"></article>
         </div>
-        <div id="product-grid" class="grid" aria-live="polite" aria-busy="true"></div>
-      </div>
-    </section>
 
-    <!-- CHI SIAMO -->
-    <section class="section" id="chi-siamo">
-      <div class="container about">
-        <div class="about-text">
-          <h2>La nostra storia</h2>
-          <p class="lede">Lunara nasce dall’amore per l’artigianato e la magia della luce. Realizziamo candele con design essenziale e fragranze studiate per accompagnare le tue giornate.</p>
-          <ul class="highlights">
-            <li><strong>Qualità</strong> — cere naturali, stoppini selezionati.</li>
-            <li><strong>Design</strong> — linee pulite, materiali premium.</li>
-            <li><strong>Personalizzazione</strong> — messaggi e confezioni su misura.</li>
-          </ul>
-        </div>
-        <div class="about-gallery">
-          <figure class="reveal">
-            <img src="assets/images/Candela_Rosa/3.jpeg" alt="Collezione Rosa" loading="lazy" />
-            <figcaption>Collezione Rosa</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Bouquet_fiori_(Natale)/3.jpeg" alt="Edizione Bouquet" loading="lazy" />
-            <figcaption>Edizione Bouquet</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Schiaccianoci/3.jpeg" alt="Collezione Schiaccianoci" loading="lazy" />
-            <figcaption>Collezione Schiaccianoci</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/images/Candela_Rosa/1.jpeg" alt="Dettaglio packaging" loading="lazy" />
-            <figcaption>Dettaglio packaging</figcaption>
-          </figure>
-        </div>
+        <div id="catalogo-sections" class="catalogo-sections" aria-live="polite" aria-busy="true"></div>
       </div>
     </section>
 
@@ -173,13 +134,66 @@
       <div class="container">
         <h2>Perché scegliere Lunara</h2>
         <div class="benefits">
-          <article class="benefit"><span class="icon">🕯️</span><h3>Artigianalità</h3><p>Ogni candela è rifinita a mano, unica e curata nei dettagli.</p></article>
-          <article class="benefit"><span class="icon">🌿</span><h3>Ingredienti</h3><p>Cera naturale e fragranze selezionate, profumo pulito e avvolgente.</p></article>
-          <article class="benefit"><span class="icon">🎁</span><h3>Regalo perfetto</h3><p>Packaging elegante e personalizzabile per ogni occasione.</p></article>
-          <article class="benefit"><span class="icon">🇮🇹</span><h3>Made in Italy</h3><p>Prodotto nel nostro laboratorio, con passione e qualità.</p></article>
+          <article class="benefit">
+            <span class="icon-circle light" aria-hidden="true">🕯️</span>
+            <div>
+              <h3>Artigianalità autentica</h3>
+              <p>Colate e rifiniture a mano: ogni candela è unica e curata nei dettagli.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <span class="icon-circle light" aria-hidden="true">🌿</span>
+            <div>
+              <h3>Ingredienti puliti</h3>
+              <p>Cere di qualità e fragranze selezionate: profumo elegante e non invasivo.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <span class="icon-circle light" aria-hidden="true">🎁</span>
+            <div>
+              <h3>Packaging regalo</h3>
+              <p>Confezioni curate e personalizzabili: perfette per occasioni speciali.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <span class="icon-circle light" aria-hidden="true">🇮🇹</span>
+            <div>
+              <h3>Made in Italy</h3>
+              <p>Prodotte nel nostro laboratorio con passione e attenzione al dettaglio.</p>
+            </div>
+          </article>
         </div>
       </div>
-    </section>    
+    </section>
+
+    <!-- CHI SIAMO (redesign professionale, senza le tre collezioni) -->
+    <section class="section about-pro" id="chi-siamo">
+      <div class="container about-pro-inner">
+        <div class="about-pro-text">
+          <span class="eyebrow">Chi siamo</span>
+          <h2>La nostra storia</h2>
+          <p class="lede">
+            Lunara nasce dall’amore per la luce e per l’artigianato. Ogni candela è il risultato
+            di una ricerca accurata delle fragranze, colate attente e rifiniture manuali: ambienti eleganti, caldi e accoglienti.
+          </p>
+          <ul class="about-bullets">
+            <li><strong>Origini</strong> — Laboratorio familiare, visione contemporanea.</li>
+            <li><strong>Metodo</strong> — Test olfattivi, selezione responsabile dei materiali.</li>
+            <li><strong>Valori</strong> — Qualità, estetica senza tempo e cura del cliente.</li>
+          </ul>
+          <div class="about-tags">
+            <span class="tag">Cera naturale</span>
+            <span class="tag">Fragranze premium</span>
+            <span class="tag">Packaging curato</span>
+          </div>
+        </div>
+        <div class="about-pro-media">
+          <figure class="logo-big">
+            <img src="assets/images/logo_trans.png" alt="Logo Lunara" onerror="this.onerror=null;this.src='assets/images/logo_tras.png';" />
+          </figure>
+        </div>
+      </div>
+    </section>
 
     <!-- RECENSIONI -->
     <section class="section" id="reviews">
@@ -187,16 +201,19 @@
         <h2>Cosa dicono i clienti</h2>
         <div class="reviews">
           <blockquote class="review">
+            <div class="rating" aria-label="Valutazione 5 su 5">★★★★★</div>
             <p>“Profumo meraviglioso e confezione curata nei dettagli. Perfetta come regalo.”</p>
-            <cite>— Martina</cite>
+            <cite><span class="avatar" aria-hidden="true">M</span> Martina</cite>
           </blockquote>
           <blockquote class="review">
+            <div class="rating" aria-label="Valutazione 5 su 5">★★★★★</div>
             <p>“Accesa la sera, crea un’atmosfera rilassante e calda. Consigliatissima.”</p>
-            <cite>— Luca</cite>
+            <cite><span class="avatar" aria-hidden="true">L</span> Luca</cite>
           </blockquote>
           <blockquote class="review">
+            <div class="rating" aria-label="Valutazione 5 su 5">★★★★★</div>
             <p>“Fragranze eleganti, e il design minimal è stupendo. Ricomprerò!”</p>
-            <cite>— Giulia</cite>
+            <cite><span class="avatar" aria-hidden="true">G</span> Giulia</cite>
           </blockquote>
         </div>
       </div>
@@ -204,29 +221,56 @@
 
     <!-- CONTATTI -->
     <section class="section" id="contatti">
-      <div class="container contact-social">
-        <div class="contact-block">
-          <h2>Contattaci</h2>
-          <form id="contact-form" class="contact-form" action="https://formspree.io/f/xblngrbe" method="POST" aria-label="Modulo contatti">
-            <input type="text" name="name" placeholder="Nome" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <textarea name="message" placeholder="Messaggio" required></textarea>
-            <button class="btn primary" type="submit">Invia</button>
-          </form>
-          <p id="form-success" class="form-success" role="status" aria-live="polite">Messaggio inviato con successo!</p>
-          <p id="form-error" class="form-error" role="alert">Si è verificato un errore, riprova più tardi.</p>
-        </div>
-        <aside class="social-block" aria-label="Social">
-          <h3>I nostri Social</h3>
-          <div class="social-links">
-            <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a class="social-link" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
-            <a class="social-link" href="mailto:c.a.lunaracandele@gmail.com?subject=Richiesta%20Lunara&body=Ciao,%20vorrei%20informazioni%20riguardo.....">Email</a>
-            <a class="social-link" href="https://wa.me/393483471201" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener noreferrer">TikTok</a>
-            <a class="social-link" href="https://linktr.ee/lunaracandeleartigianali" target="_blank" rel="noopener noreferrer">I nostri link</a>
+      <div class="container contact-grid equal">
+        <!-- Scrivici su WhatsApp -->
+        <aside class="contact-aside light" aria-label="Chat e social">
+          <div class="contact-cta">
+            <div>
+              <h3>Scrivici su WhatsApp</h3>
+              <p class="muted center">Per ordini rapidi o info immediate.</p>
+            </div>
+            <a class="btn btn-icon primary" href="https://wa.me/393483471201" target="_blank" rel="noopener">
+              <!-- icona WhatsApp chiara: usa currentColor (bianco) sul bottone nero -->
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M20.52 3.48A11.94 11.94 0 0 0 12.06 0C5.55 0 .28 5.27.28 11.78c0 2.08.54 4.08 1.57 5.86L0 24l6.54-1.76a11.7 11.7 0 0 0 5.52 1.41h.01c6.5 0 11.77-5.27 11.77-11.78 0-3.15-1.23-6.11-3.32-8.39zM12.07 21.3h-.01a9.5 9.5 0 0 1-4.85-1.32l-.35-.2-3.88 1.05 1.04-3.79-.23-.39a9.52 9.52 0 1 1 8.28 4.65zm5.41-7.12c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.69.15-.2.3-.79.98-.97 1.18-.18.2-.36.23-.66.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.61.14-.14.3-.36.45-.54.15-.18.2-.3.3-.51.1-.2.05-.38-.02-.54-.08-.15-.69-1.66-.95-2.28-.25-.6-.51-.52-.69-.53h-.58c-.2 0-.52.07-.78.36-.26.29-1 1-1 2.42s1.02 2.8 1.16 2.99c.14.2 2.01 3.08 4.87 4.28.68.29 1.21.46 1.63.59.69.22 1.31.19 1.81.12.55-.07 1.7-.69 1.96-1.36.25-.67.25-1.25.17-1.37-.09-.12-.28-.2-.6-.36z"></path>
+              </svg>
+              Apri WhatsApp
+            </a>
+
+            <div class="social-card light">
+              <h3 class="social-title-center">Oppure sui nostri social</h3>
+              <div class="social-buttons">
+                <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#E1306C" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm6.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/></svg>
+                  Instagram
+                </a>
+                <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M16.5 3.5c.63 1.45 1.93 2.63 3.5 3.02v3.16c-1.71-.04-3.33-.6-4.68-1.55v6.69a5.99 5.99 0 11-5.28-5.94v3.13a2.99 2.99 0 102.28 2.88V3.5h4.18z"/></svg>
+                  TikTok
+                </a>
+              </div>
+            </div>
           </div>
         </aside>
+
+        <!-- Contattaci -->
+        <div class="contact-card light" aria-label="Modulo contatti">
+          <h2>Contattaci</h2>
+          <p class="muted">Richieste, ordini su misura o bomboniere personalizzate? Scrivici: rispondiamo rapidamente.</p>
+          <form id="contact-form" class="contact-form" action="https://formspree.io/f/xblngrbe" method="POST" aria-label="Modulo contatti">
+            <div class="form-row">
+              <input type="text" name="name" placeholder="Nome" required />
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="form-row">
+              <input type="text" name="subject" placeholder="Oggetto (facoltativo)" />
+            </div>
+            <textarea name="message" placeholder="Scrivici qui… (fragranza, quantità, data…)" required></textarea>
+            <button class="btn primary wide" type="submit">Invia richiesta</button>
+          </form>
+          <p id="form-success" class="form-success" role="status" aria-live="polite">✅ Messaggio inviato! Ti risponderemo al più presto.</p>
+          <p id="form-error" class="form-error" role="alert">❌ Si è verificato un errore, riprova più tardi.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -235,14 +279,24 @@
   <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
     <div class="modal-content">
       <button class="modal-close" aria-label="Chiudi">&times;</button>
+
       <div class="modal-carousel">
         <button class="carousel-prev" aria-label="Immagine precedente">‹</button>
-        <div class="modal-images" aria-live="polite"></div>
+        <div class="modal-images" aria-live="polite" title="Immagini prodotto">
+          <!-- icona lente: apre il lightbox -->
+          <button class="zoom-btn" id="zoom-btn" aria-label="Ingrandisci immagine (lightbox)" title="Ingrandisci">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#fff" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+          </button>
+        </div>
         <button class="carousel-next" aria-label="Immagine successiva">›</button>
       </div>
+
+      <div class="carousel-dots" aria-hidden="true"></div>
       <h3 id="modal-title" class="modal-title"></h3>
+      <p class="low-stock-inline" id="low-stock-inline" hidden>⚠️ Ultimi pezzi disponibili</p>
       <p class="modal-meta muted"></p>
-      <p class="low-stock-alert" id="low-stock-alert" hidden>⚠️ Ultimi pezzi disponibili</p>
       <p class="modal-description muted"></p>
       <div class="modal-actions">
         <button class="btn primary" id="open-buy-modal">Acquista</button>
@@ -250,16 +304,39 @@
     </div>
   </div>
 
+  <!-- IMAGE LIGHTBOX -->
+  <div id="image-lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Immagine ingrandita">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Chiudi">×</button>
+      <button class="lightbox-prev" id="lightbox-prev" aria-label="Immagine precedente">‹</button>
+      <img id="lightbox-img" alt="Immagine prodotto ingrandita" />
+      <button class="lightbox-next" id="lightbox-next" aria-label="Immagine successiva">›</button>
+      <div class="lightbox-tools">
+        <button class="zoom-minus" id="zoom-minus" aria-label="Zoom meno">−</button>
+        <button class="zoom-plus" id="zoom-plus" aria-label="Zoom più">+</button>
+      </div>
+    </div>
+  </div>
+
   <!-- BUY CHANNELS MODAL -->
   <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="buy-modal-title">
-    <div class="modal-content">
+    <div class="modal-content buy">
       <button class="modal-close" id="buy-modal-close" aria-label="Chiudi">&times;</button>
       <h3 id="buy-modal-title" class="modal-title">Scegli come contattarci</h3>
       <p class="muted">Seleziona il canale preferito per completare l’acquisto.</p>
-      <div class="modal-actions">
-        <button class="btn primary" id="buy-whatsapp">WhatsApp</button>
-        <button class="btn ghost" id="buy-instagram">Instagram</button>
-        <button class="btn ghost" id="buy-tiktok">TikTok</button>
+      <div class="modal-actions centered">
+        <button class="btn primary btn-icon" id="buy-whatsapp" aria-label="Acquista su WhatsApp">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.52 3.48A11.94 11.94 0 0 0 12.06 0C5.55 0 .28 5.27.28 11.78c0 2.08.54 4.08 1.57 5.86L0 24l6.54-1.76a11.7 11.7 0 0 0 5.52 1.41h.01c6.5 0 11.77-5.27 11.77-11.78 0-3.15-1.23-6.11-3.32-8.39zM12.07 21.3h-.01a9.5 9.5 0 0 1-4.85-1.32l-.35-.2-3.88 1.05 1.04-3.79-.23-.39a9.52 9.52 0 1 1 8.28 4.65zm5.41-7.12c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.69.15-.2.3-.79.98-.97 1.18-.18.2-.36.23-.66.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.78-1.68-2.08-.18-.3-.02-.46.13-.61.14-.14.3-.36.45-.54.15-.18.2-.3.3-.51.1-.2.05-.38-.02-.54-.08-.15-.69-1.66-.95-2.28-.25-.6-.51-.52-.69-.53h-.58c-.2 0-.52.07-.78.36-.26.29-1 1-1 2.42s1.02 2.8 1.16 2.99c.14.2 2.01 3.08 4.87 4.28.68.29 1.21.46 1.63.59.69.22 1.31.19 1.81.12.55-.07 1.7-.69 1.96-1.36.25-.67.25-1.25.17-1.37-.09-.12-.28-.2-.6-.36z"/></svg>
+          WhatsApp
+        </button>
+        <button class="btn ghost btn-icon" id="buy-instagram" aria-label="Contattaci su Instagram">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#E1306C" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm6.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/></svg>
+          Instagram
+        </button>
+        <button class="btn ghost btn-icon" id="buy-tiktok" aria-label="Contattaci su TikTok">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M16.5 3.5c.63 1.45 1.93 2.63 3.5 3.02v3.16c-1.71-.04-3.33-.6-4.68-1.55v6.69a5.99 5.99 0 11-5.28-5.94v3.13a2.99 2.99 0 102.28 2.88V3.5h4.18z"/></svg>
+          TikTok
+        </button>
       </div>
     </div>
   </div>
@@ -268,11 +345,11 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>© Lunara — Candele artigianali</div>
-      <div class="legal muted">Tutti i diritti riservati.</div>
+      <div class="legal muted">Design essenziale • Fragranze premium • Made in Italy</div>
     </div>
   </footer>
 
-  <!-- Script -->
-  <script src="js/main.js"></script>
+  <!-- JS -->
+  <script src="js/main.js?v=20260111c"></script>
 </body>
 </html>
