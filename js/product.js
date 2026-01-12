@@ -228,9 +228,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           <h1>${p.title || ''}</h1>
           <p class="price-line">
             <span>${[p.measures, fmtPrice(p.price)].filter(Boolean).join(' • ')}</span>
-            <span class="free-ship-note">🚚 Spedizione gratuita dai 25€</span>
+            <span class="free-ship-note">🚚 Spedizione gratuita da 25€</span>
           </p>
-          <p class="muted">${p.description || ''}</p>
+          <p id="pd-desc" class="muted pd-desc"></p>
           <div class="pd-actions">
             <button class="btn primary" id="pd-buy">Acquista</button>
             <button class="btn ghost" id="pd-info">Chiedi informazioni</button>
@@ -239,7 +239,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
     `;
 
-    // Gallery behavior: arrows + dots + swipe + keyboard
+    // Set descrizione con a-capo (pre-line in CSS) senza HTML injection
+    const descEl = document.getElementById('pd-desc');
+    if (descEl) descEl.textContent = p.description || '';
+
+    // Gallery behavior: arrows + dots + swipe + keyboard, con fade
     const vp = document.getElementById('pg-viewport');
     const nav = document.getElementById('pg-nav');
     const prevBtn = document.querySelector('.pg-prev');
