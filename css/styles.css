@@ -43,22 +43,25 @@ h3{font-size:20px}
 .nav-link:hover{color:var(--text); background:#F5F5F5}
 .nav-link.ext{border:1px solid var(--line); padding:8px 12px}
 
-/* HAMBURGER (mobile) */
+/* HAMBURGER (mobile) — SVG */
 .hamburger{
   display:none; background:#fff; border:2px solid #111; color:#111;
-  border-radius:12px; height:44px; padding:6px 12px; cursor:pointer; z-index:2300;
+  border-radius:12px; height:44px; padding:8px 12px; cursor:pointer; z-index:2300;
   align-items:center; justify-content:center;
 }
-.hamburger-bar{ display:block; width:26px; height:3px; background:#111; margin:4px 0; border-radius:2px; transition:transform .25s ease, opacity .25s ease }
+.hamburger-icon{ width:26px; height:26px; display:block; }
+.hamburger-icon rect{
+  fill:#111; transform-origin:12px 12px; transition:transform .25s ease, opacity .25s ease, width .25s ease;
+}
+/* Animazione verso X */
+.menu-open .hamburger-icon rect:nth-child(1){ transform: translateY(5px) rotate(45deg); }
+.menu-open .hamburger-icon rect:nth-child(2){ opacity:0; width:0; }
+.menu-open .hamburger-icon rect:nth-child(3){ transform: translateY(-5px) rotate(-45deg); }
+
 @media (max-width:980px){ .hamburger{ display:inline-flex } .site-nav{ display:none } }
 @media (min-width:981px){ .hamburger{ display:none !important } .site-nav{ display:flex !important } }
 
-/* Hamburger -> X quando aperto (classe su body) */
-.menu-open .hamburger .hamburger-bar:nth-child(1){ transform:translateY(7px) rotate(45deg) }
-.menu-open .hamburger .hamburger-bar:nth-child(2){ opacity:0 }
-.menu-open .hamburger .hamburger-bar:nth-child(3){ transform:translateY(-7px) rotate(-45deg) }
-
-/* Menu a tendina mobile */
+/* Menu mobile */
 .mobile-collapse{
   position:fixed; top:var(--header-h); left:0; right:0;
   background:#fff; border-bottom:1px solid var(--line); box-shadow:0 12px 28px rgba(0,0,0,0.08);
@@ -124,6 +127,7 @@ h3{font-size:20px}
 .toolbar-left,.toolbar-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap }
 .catalog-toolbar input, .catalog-toolbar select{ padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#fff }
 
+/* NAV collezioni */
 .collection-nav{ margin:12px 0 0; display:flex; gap:8px; flex-wrap:wrap }
 .chip-ancora{
   display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
@@ -131,7 +135,7 @@ h3{font-size:20px}
 }
 .chip-ancora:hover{ background:#111; color:#fff; border-color:#111 }
 
-/* GRID: desktop 4, tablet 2, mobile 1 per riga */
+/* GRID usata per skeleton */
 .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px }
 @media (max-width:980px){ .grid{ grid-template-columns:repeat(2,1fr) } }
 @media (max-width:640px){ .grid{ grid-template-columns:1fr } }
@@ -154,26 +158,30 @@ h3{font-size:20px}
 .skeleton::before{ content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.06) 50%, rgba(255,255,255,0) 100%); transform:translateX(-100%); animation:skeleton 1.3s infinite }
 @keyframes skeleton{ to{ transform:translateX(100%) } }
 
+/* Collezioni ORIZZONTALI */
 .collection-section{ margin:28px 0 18px }
 .collection-header{ display:flex; align-items:end; justify-content:space-between; margin-bottom:12px }
 .collection-title{ font-size:24px; margin:0 }
 .collection-count{ color:var(--muted); font-weight:600 }
+.collection-track{
+  display:flex; gap:16px; overflow-x:auto; padding-bottom:12px;
+  -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory;
+}
+.collection-track::-webkit-scrollbar{ height:8px }
+.collection-track::-webkit-scrollbar-thumb{ background:#D0D0D0; border-radius:8px }
+.collection-track .card{ flex:0 0 clamp(220px, 38vw, 260px); scroll-snap-align:start }
 
 /* BENEFITS */
 .benefits{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px }
 .benefit{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 6px 16px rgba(0,0,0,0.03); display:flex; gap:12px; align-items:flex-start }
 .icon-circle{ width:38px; height:38px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 38px; background:#F1F1F1; color:#333; border:1px solid var(--line) }
 
-/* ABOUT (testo + feature) */
+/* ABOUT */
 .about-pro-inner{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:28px; align-items:start }
 .about-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px }
 .tag{ display:inline-flex; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; font-weight:600; color:#333; font-size:13px }
 
-/* Feature cards (Origini, Metodo, Valori) */
-.about-features{
-  margin-top:14px;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
-}
+.about-features{ margin-top:14px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px }
 .about-feature{
   background: linear-gradient(180deg, #fff, #fafafa);
   border:1px solid var(--line);
@@ -188,9 +196,9 @@ h3{font-size:20px}
   background:#F3F3F3; border:1px solid var(--line);
 }
 .af-title{ font-family:"Playfair Display",serif; font-size:18px; margin:0 0 4px 0 }
-.af-text{ margin:0; color:var(--muted); line-height:1.5 }
+.af-text{ margin:0; color:#666; line-height:1.5 }
 
-/* Media blocco a destra */
+/* MEDIA BOX */
 .about-pro-media{ display:grid; grid-template-columns:1fr; gap:16px; align-items:center; }
 .about-pro-media .logo-big{
   background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px;
@@ -205,7 +213,7 @@ h3{font-size:20px}
 .review .avatar{ width:28px; height:28px; border-radius:999px; background:#F2F2F2; display:inline-flex; align-items:center; justify-content:center; font-weight:800; margin-right:8px }
 .review cite{ color:var(--muted); font-style:normal; font-weight:700 }
 
-/* CONTATTI + SOCIAL */
+/* CONTATTI */
 .contact-grid.equal{ display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch }
 .contact-grid.equal > *{ height:100% }
 .contact-card,.contact-aside{
@@ -214,8 +222,8 @@ h3{font-size:20px}
 }
 .contact-card h2, .contact-cta h3{ text-align:center; font-family:"Playfair Display",serif; font-size:clamp(28px,3vw,32px); margin:0 0 10px }
 .contact-cta{ flex:1; display:flex; flex-direction:column; gap:18px; justify-content:space-between; text-align:center }
-.contact-cta .muted.center{ text-align:center }
 
+/* FORM */
 .contact-form{ display:flex; flex-direction:column; gap:12px; margin-top:10px }
 .form-row{ display:flex; gap:12px }
 .form-row input{ flex:1 }
@@ -226,63 +234,23 @@ h3{font-size:20px}
 
 .social-card{ border:1px dashed var(--line); padding:16px; border-radius:14px; background:#fff }
 .social-buttons{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center }
-.social-title-center{ text-align:center }
-.social-link{
-  display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--line);
-  border-radius:999px; text-decoration:none; font-weight:700; color:#111; background:#fff;
-}
-.social-link .icon{ width:18px; height:18px }
 
-/* MODAL */
+/* MODAL (non usato in index ora, ma lasciamo stile base) */
 .modal{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:3000; justify-content:center; align-items:center; padding:20px }
 .modal.open{ display:flex }
 .modal-content{ background:#fff; width:100%; max-width:900px; border-radius:24px; padding:18px; position:relative; display:flex; flex-direction:column; gap:12px }
-.modal-content.buy .modal-title,
-.modal-content.buy .muted,
-.modal-content.buy .modal-actions{ text-align:center }
-.modal-close{ position:absolute; right:14px; top:10px; border:0; background:none; font-size:22px; cursor:pointer }
 
-.modal-carousel{ display:flex; align-items:center; gap:12px; overflow:hidden }
-.modal-images{
-  position:relative; flex:1; display:flex; align-items:center; justify-content:center; min-height:360px; max-height:520px;
-  background:#F7F7F7; border-radius:16px; overflow:hidden;
+/* NOTE PRIVACY/SPEDIZIONE */
+.free-ship-note{
+  display:inline-flex; align-items:center; gap:6px; background:#EFFFF3; color:#1F8A4D;
+  padding:6px 10px; border-radius:999px; font-weight:700; margin:0;
 }
-.modal-images img{ max-width:100%; max-height:100%; object-fit:contain; display:none }
-.zoom-btn{
-  position:absolute; right:12px; bottom:12px;
-  background:#111; color:#fff; border:0; border-radius:999px; width:44px; height:44px; cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,0.25); display:inline-flex; align-items:center; justify-content:center;
-}
-.zoom-btn .icon{ width:20px; height:20px }
-
-.carousel-prev,.carousel-next{ background:none; border:0; font-size:30px; cursor:pointer }
-.modal-meta{ color:var(--muted); font-weight:600 }
-.modal-description{ white-space: pre-line }
 .low-stock-inline{
   display:inline-flex; align-items:center; gap:6px; background:#FFF2E0; color:#A0522D;
   padding:6px 10px; border-radius:999px; font-weight:700; margin:6px 0
 }
-.carousel-dots{ display:flex; gap:6px; justify-content:center; margin-top:4px }
-.carousel-dots .dot{ width:6px; height:6px; border-radius:999px; background:#D0D0D0 }
-.carousel-dots .dot.active{ background:#111 }
 
-/* LIGHTBOX */
-.lightbox{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:3500; align-items:center; justify-content:center; }
-.lightbox.open{ display:flex }
-.lightbox-inner{ position:relative; width:90vw; height:80vh; display:flex; align-items:center; justify-content:center }
-#lightbox-img{ max-width:100%; max-height:100%; transform:scale(var(--zoom,1)); transition:transform .15s ease; cursor:grab }
-.lightbox-close, .lightbox-prev, .lightbox-next{
-  position:absolute; background:#fff; color:#111; border:0; border-radius:999px; width:40px; height:40px; cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,0.35);
-}
-.lightbox-close{ top:16px; right:16px; font-size:22px }
-.lightbox-prev{ left:16px; font-size:24px }
-.lightbox-next{ right:16px; font-size:24px }
-.lightbox-tools{ position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:10px }
-.lightbox-tools button{
-  background:#fff; color:#111; border:0; border-radius:999px; width:40px; height:40px; cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,0.35); font-weight:800
-}
+/* LIGHTBOX placeholders (non necessari qui) */
 
 /* FOOTER */
 .site-footer{ padding:26px 0; border-top:1px solid var(--line); color:var(--muted); background:#fff }
@@ -291,92 +259,76 @@ h3{font-size:20px}
 /* Anchor offset */
 section[id]{ scroll-margin-top: calc(var(--header-h) + 12px) }
 
-/* === MOBILE: centrature e layout === */
+/* === PAGINA PRODOTTO === */
+.pd-header{ margin-top:calc(var(--header-h) + 18px); margin-bottom:8px; }
+.product-detail{
+  display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; align-items:start;
+}
+@media (max-width:980px){
+  .product-detail{ grid-template-columns:1fr; }
+}
+/* Gallery semplice */
+.pd-gallery{
+  background:#F7F7F7; border-radius:16px; padding:12px; position:relative; overflow:hidden;
+}
+.pd-gallery .pg-viewport{
+  position:relative; width:100%; aspect-ratio:4/5; overflow:hidden; border-radius:12px;
+}
+.pd-gallery .pg-viewport img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;
+}
+.pd-gallery .pg-viewport img.active{ display:block }
+.pd-gallery .pg-nav{
+  display:flex; justify-content:center; gap:6px; margin-top:8px;
+}
+.pd-gallery .dot{ width:6px; height:6px; background:#D0D0D0; border-radius:999px; }
+.pd-gallery .dot.active{ background:#111 }
+
+/* Info prodotto */
+.pd-info h1{ margin:8px 0; }
+.price-line{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:#666; font-weight:600; }
+.pd-actions{ display:flex; gap:10px; margin-top:12px; }
+
+/* === MOBILE === */
 @media (max-width:980px){
   .hero-inner{ grid-template-columns:1fr; gap:22px }
   .hero-copy, .section-head, .collection-header, .contact-card, .contact-aside { text-align:center }
-  .cta{ justify-content:center }  /* pulsanti hero centrati su mobile */
+  .cta{ justify-content:center }
   .catalog-toolbar{ justify-content:center }
   .toolbar-left, .toolbar-right{ justify-content:center; width:100% }
 
-  /* Benefici e recensioni: UNA colonna su cellulare */
   .benefits{ grid-template-columns:1fr }
   .benefit{ flex-direction:column; align-items:center; text-align:center }
 
   .reviews{ grid-template-columns:1fr }
 
   .about-pro-inner{ grid-template-columns:1fr }
-  .about-features{ grid-template-columns:1fr } /* card Origini/Metodo/Valori 1 per riga su mobile */
+  .about-features{ grid-template-columns:1fr }
   .about-pro-media .logo-big img{ max-height:220px }
 
-  .contact-grid.equal{ grid-template-columns:1fr } /* stack su mobile */
+  .contact-grid.equal{ grid-template-columns:1fr }
   .grid .card{ align-items:center; text-align:center }
 }
 
-/* PATCH MOBILE (<= 640px): Compatta WhatsApp e Contattaci */
+/* PATCH MOBILE (<= 640px) */
 @media (max-width:640px){
   .section{ padding: 28px 0; }
-
-  .contact-aside,
-  .contact-card{
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .contact-cta h3,
-  .contact-card h2{
-    font-size: 22px;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-
-  .contact-cta .muted.center{
-    font-size: 14px;
-    margin: 0 0 10px 0;
-  }
-
-  .contact-cta .btn{
-    padding: 10px 14px;
-    font-size: 14px;
-    min-height: 40px;
-    gap: 8px;
-  }
+  .contact-aside, .contact-card{ padding: 16px; border-radius: 14px; }
+  .contact-cta h3, .contact-card h2{ font-size: 22px; line-height: 1.2; margin-bottom: 6px; }
+  .contact-cta .muted.center{ font-size: 14px; margin: 0 0 10px 0; }
+  .contact-cta .btn{ padding: 10px 14px; font-size: 14px; min-height: 40px; gap: 8px; }
   .contact-cta .btn .icon{ width:16px; height:16px; }
-
   .social-card{ padding: 12px; border-radius: 12px; }
   .social-title-center{ font-size: 16px; margin: 0 0 8px 0; }
   .social-buttons{ gap: 8px; }
-  .social-link{
-    padding: 8px 12px;
-    font-size: 14px;
-    min-height: 36px;
-    gap: 8px;
-    border-radius: 999px;
-  }
+  .social-link{ padding: 8px 12px; font-size: 14px; min-height: 36px; gap: 8px; border-radius: 999px; }
   .social-link .icon{ width:16px; height:16px; }
-
   .contact-form{ gap: 8px; margin-top: 8px; }
   .form-row{ gap: 8px; flex-direction: column; }
-  .contact-form input,.contact-form textarea{
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 10px;
-  }
+  .contact-form input,.contact-form textarea{ padding: 10px; font-size: 14px; border-radius: 10px; }
   .contact-form textarea{ min-height: 120px; }
-  .contact-form .btn.wide{
-    padding: 11px 14px;
-    font-size: 14px;
-    min-height: 40px;
-  }
-
+  .contact-form .btn.wide{ padding: 11px 14px; font-size: 14px; min-height: 40px; }
   .contact-grid.equal{ gap: 14px; }
-
-  /* Bottoni generali più snelli */
-  .btn{
-    padding: 10px 14px;
-    font-size: 14px;
-    min-height: 40px;
-    gap: 8px;
-  }
+  .btn{ padding: 10px 14px; font-size: 14px; min-height: 40px; gap: 8px; }
   .btn .icon{ width:16px; height:16px; }
 }

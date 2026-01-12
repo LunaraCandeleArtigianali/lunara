@@ -1,0 +1,101 @@
+
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dettaglio prodotto — Lunara</title>
+
+  <!-- SEO base -->
+  <meta name="description" content="Dettaglio prodotto Lunara: cera naturale, fragranze selezionate e packaging elegante." />
+  <meta name="theme-color" content="#FFFFFF" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css?v=20260113-dp1" />
+  <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
+</head>
+<body>
+
+  <!-- HEADER (stesso della home) -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html#hero">
+        <img src="assets/images/logo_tras.png" alt="Lunara logo" width="28" height="28" />
+        <span>Lunara</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Menu principale">
+        <a class="nav-link" href="index.html#catalogo">Catalogo</a>
+        <a class="nav-link" href="index.html#chi-siamo">La nostra Storia</a>
+        <a class="nav-link" href="index.html#contatti">Contatti</a>
+        <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
+      </nav>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-collapse">
+        <svg class="hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <rect x="3" y="6"  width="18" height="2" rx="1"></rect>
+          <rect x="3" y="11" width="12" height="2" rx="1"></rect>
+          <rect x="3" y="16" width="18" height="2" rx="1"></rect>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Menu mobile -->
+    <div class="mobile-collapse" id="mobile-collapse" aria-hidden="true">
+      <nav class="mobile-collapse-inner" aria-label="Menu principale mobile">
+        <a class="mobile-link" href="index.html#catalogo">Catalogo</a>
+        <a class="mobile-link" href="index.html#chi-siamo">La nostra Storia</a>
+        <a class="mobile-link" href="index.html#contatti">Contatti</a>
+        <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
+        <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="product">
+      <div class="container">
+        <div class="pd-header">
+          <a class="nav-link" href="index.html#catalogo">← Torna al catalogo</a>
+        </div>
+
+        <div id="pd-content" class="product-detail" aria-live="polite" aria-busy="true">
+          <!-- popolato da JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSIGLIATI -->
+    <section class="section" id="recommend">
+      <div class="container">
+        <div class="collection-header">
+          <h3 class="collection-title">Prodotti consigliati</h3>
+          <div class="collection-count" id="rec-count"></div>
+        </div>
+        <div id="rec-track" class="collection-track" aria-live="polite" aria-busy="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© Lunara — Candele artigianali</div>
+      <div class="legal muted">
+        Design essenziale • Fragranze premium • Made in Italy
+        • <a href="privacy.html" class="nav-link" style="display:inline;">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/product.js?v=20260113-dp1"></script>
+</body>
+</html>
