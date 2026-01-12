@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     carousel.addEventListener('focusout', start);
 
     carousel.setAttribute('tabindex','0');
-    carousel.addEventListener('keydown', (e)=> {
+    carousel.addEventListener('keydown', (e)=>{
       if (e.key === 'ArrowLeft') { stop(); goTo(idx - 1); }
       if (e.key === 'ArrowRight'){ stop(); goTo(idx + 1); }
     });

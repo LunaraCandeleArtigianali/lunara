@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       dots.forEach(d => d.addEventListener('click', ()=> go(Number(d.dataset.idx||0))));
       prevBtn?.addEventListener('click', ()=> go(current - 1));
       nextBtn?.addEventListener('click', ()=> go(current + 1));
-      document.addEventListener('keydown', (e)=> {
+      document.addEventListener('keydown', (e)=>{
         if (e.key === 'ArrowLeft')  go(current - 1);
         if (e.key === 'ArrowRight') go(current + 1);
       });
