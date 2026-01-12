@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE ===== */
+  /* ===== MENU MOBILE (tendina) ===== */
   const hamburger = document.getElementById('hamburger');
   const mobileCollapse = document.getElementById('mobile-collapse');
 
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         measures: r.c[2]?.v ?? '',
         description: r.c[3]?.v ?? '',
         price: r.c[4]?.v ?? null,
-        // r.c[5] libero
         is_new: r.c[6]?.v ?? false,
         is_low_stock: r.c[7]?.v ?? false,
         collection: r.c[8]?.v ?? '',
@@ -135,14 +134,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
-  /* ===== DOM ===== */
+  /* ===== BUY MODAL ===== */
+  const buyModal = document.getElementById('buy-modal');
+  const buyModalClose = document.getElementById('buy-modal-close');
+  const buyWhatsappBtn = document.getElementById('buy-whatsapp');
+  const buyInstagramBtn = document.getElementById('buy-instagram');
+  const buyTikTokBtn = document.getElementById('buy-tiktok');
+
+  const WHATSAPP_NUMBER = '393483471201';
+  const INSTAGRAM_PROFILE = 'https://www.instagram.com/c.a.lunara/';
+  const TIKTOK_PROFILE = 'https://www.tiktok.com/@lunara.candele';
+
+  let currentProductForBuy = null;
+
+  function openBuyModal(product){
+    currentProductForBuy = product || currentProductForBuy;
+    buyModal.classList.add('open');
+    buyModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    buyModalClose?.focus();
+  }
+  function closeBuyModal(){
+    buyModal.classList.remove('open');
+    buyModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  buyModalClose?.addEventListener('click', closeBuyModal);
+  buyModal?.addEventListener('click', e => { if (e.target === buyModal) closeBuyModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && buyModal?.classList.contains('open')) closeBuyModal(); });
+
+  buyWhatsappBtn?.addEventListener('click', () => {
+    const txt = encodeURIComponent(`Ciao! Vorrei acquistare: ${currentProductForBuy?.title || ''}`);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`, '_blank');
+    closeBuyModal();
+  });
+  buyInstagramBtn?.addEventListener('click', () => { window.open(INSTAGRAM_PROFILE, '_blank'); closeBuyModal(); });
+  buyTikTokBtn?.addEventListener('click', () => { window.open(TIKTOK_PROFILE, '_blank'); closeBuyModal(); });
+
+  /* ===== DOM per Catalogo ===== */
   const skeleton = document.getElementById('grid-skeleton');
   const sectionsWrap = document.getElementById('catalogo-sections');
   const navWrap = document.getElementById('collection-nav');
   const searchInput = document.getElementById('search');
   const sortSelect = document.getElementById('sort');
 
-  /* ===== CARD ===== */
   function goToDetail(product){
     const id = encodeURIComponent(product.id || '');
     if (!id) return;
@@ -184,7 +220,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const actions = document.createElement('div');
     actions.className = 'card-actions';
     const det = document.createElement('button'); det.className = 'btn ghost'; det.textContent = 'Dettagli'; det.addEventListener('click', () => goToDetail(product));
-    const buy = document.createElement('button'); buy.className = 'btn primary'; buy.textContent = 'Acquista'; buy.addEventListener('click', () => goToDetail(product));
+    const buy = document.createElement('button'); buy.className = 'btn primary'; buy.textContent = 'Acquista'; buy.addEventListener('click', () => openBuyModal(product));
     actions.appendChild(det); actions.appendChild(buy);
     article.appendChild(actions);
 
@@ -206,7 +242,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return article;
   }
 
-  /* ===== SEZIONI ORIZZONTALI ===== */
   function createCollectionSection(title, id, list) {
     const sec = document.createElement('section');
     sec.className = 'collection-section';
@@ -242,11 +277,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   function prioritySort(names) {
     const prio = ['san valentino','bomboniere','natale'];
     return [...names].sort((a,b) => {
-      const ai = prio.indexOf(a.toLowerCase()); const bi = prio.indexOf(b.toLowerCase());
+      const ai = prio.indexOf((a||'').toLowerCase()); const bi = prio.indexOf((b||'').toLowerCase());
       if (ai !== -1 && bi !== -1) return ai - bi;
       if (ai !== -1) return -1;
       if (bi !== -1) return 1;
-      return a.localeCompare(b, 'it', { sensitivity: 'base' });
+      return (a||'').localeCompare(b||'', 'it', { sensitivity: 'base' });
     });
   }
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Privacy — Lunara</title>
-  <link rel="stylesheet" href="css/styles.css?v=20260113-dp1" />
+  <link rel="stylesheet" href="css/styles.css?v=20260113-fix3" />
   <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
 </head>
 <body>
@@ -19,10 +19,23 @@
         <a class="nav-link" href="index.html#catalogo">Catalogo</a>
         <a class="nav-link" href="index.html#contatti">Contatti</a>
       </nav>
+      <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-collapse">
+        <svg class="hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <rect x="3" y="6"  width="18" height="2" rx="1"></rect>
+          <rect x="3" y="11" width="12" height="2" rx="1"></rect>
+          <rect x="3" y="16" width="18" height="2" rx="1"></rect>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-collapse" id="mobile-collapse" aria-hidden="true">
+      <nav class="mobile-collapse-inner" aria-label="Menu principale mobile">
+        <a class="mobile-link" href="index.html#catalogo">Catalogo</a>
+        <a class="mobile-link" href="index.html#contatti">Contatti</a>
+      </nav>
     </div>
   </header>
 
-  <main class="section">
+  <main class="section" style="padding-top: calc(var(--header-h) + 24px);">
     <div class="container">
       <h1>Privacy</h1>
       <p class="lede">Questa pagina riassume in modo semplice come trattiamo i dati personali.</p>
@@ -62,5 +75,17 @@
       <div class="legal muted">Made in Italy</div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger');
+      const mobileCollapse = document.getElementById('mobile-collapse');
+      function openMobile(){ document.body.classList.add('menu-open'); mobileCollapse.classList.add('open'); mobileCollapse.setAttribute('aria-hidden','false'); hamburger.setAttribute('aria-expanded','true'); }
+      function closeMobile(){ document.body.classList.remove('menu-open'); mobileCollapse.classList.remove('open'); mobileCollapse.setAttribute('aria-hidden','true'); hamburger.setAttribute('aria-expanded','false'); }
+      hamburger?.addEventListener('click', (e) => { e.preventDefault(); mobileCollapse.classList.contains('open') ? closeMobile() : openMobile(); });
+      mobileCollapse?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMobile()));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
+    });
+  </script>
 </body>
 </html>

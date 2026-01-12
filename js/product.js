@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return found;
   }
 
+  function shuffle(arr){ return arr.map(a => [Math.random(), a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
   const slug = (s) => (s || '').toString().toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
@@ -142,16 +143,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  /* ===== LOAD & RENDER ===== */
+  /* ===== LOAD ===== */
   let all = await fetchProducts();
   if (!all || !all.length) {
-    pdWrap.innerHTML = `<p>Prodotti non disponibili al momento. <a class="nav-link" href="index.html#catalogo">Torna al catalogo</a></p>`;
+    pdWrap.innerHTML = `<p>Prodotti non disponibili. <a class="nav-link" href="index.html#catalogo">Torna al catalogo</a></p>`;
     recTrack.innerHTML = '';
     recCount.textContent = '';
     return;
   }
 
-  // Precarica immagini per TUTTI (per consigliati e gallery)
   await Promise.all(all.map(async p => {
     const candidates = getImageCandidates(p, 6);
     const found = await pickExistingImagesUnique(candidates, 6);
@@ -166,26 +166,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // ===== PAGE TITLE (opzionale: potresti aggiornare <title>)
   try { document.title = `${product.title} — Lunara`; } catch {}
 
-  // ===== RENDER DETAIL
+  /* ===== BUY MODAL ===== */
+  const buyModal = document.getElementById('buy-modal');
+  const buyModalClose = document.getElementById('buy-modal-close');
+  const buyWhatsappBtn = document.getElementById('buy-whatsapp');
+  const buyInstagramBtn = document.getElementById('buy-instagram');
+  const buyTikTokBtn = document.getElementById('buy-tiktok');
+
+  const WHATSAPP_NUMBER = '393483471201';
+  const INSTAGRAM_PROFILE = 'https://www.instagram.com/c.a.lunara/';
+  const TIKTOK_PROFILE = 'https://www.tiktok.com/@lunara.candele';
+
+  function openBuyModal(){
+    buyModal.classList.add('open');
+    buyModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    buyModalClose?.focus();
+  }
+  function closeBuyModal(){
+    buyModal.classList.remove('open');
+    buyModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  buyModalClose?.addEventListener('click', closeBuyModal);
+  buyModal?.addEventListener('click', e => { if (e.target === buyModal) closeBuyModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && buyModal?.classList.contains('open')) closeBuyModal(); });
+
+  buyWhatsappBtn?.addEventListener('click', () => {
+    const txt = encodeURIComponent(`Ciao! Ho una domanda / Vorrei acquistare: ${product?.title || ''}`);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`, '_blank');
+    closeBuyModal();
+  });
+  buyInstagramBtn?.addEventListener('click', () => { window.open(INSTAGRAM_PROFILE, '_blank'); closeBuyModal(); });
+  buyTikTokBtn?.addEventListener('click', () => { window.open(TIKTOK_PROFILE, '_blank'); closeBuyModal(); });
+
+  /* ===== RENDER DETAIL ===== */
   function renderProduct(p){
     const isLow = isSheetTrue(p.is_low_stock);
     const badge = isSheetTrue(p.is_new) ? `<span class="low-stock-inline" style="background:#111;color:#fff">Novità</span>` :
                  isLow ? `<span class="low-stock-inline">⚠️ Ultimi pezzi disponibili</span>` : '';
 
     const images = p.images || [];
-    const main = images[0] || 'assets/images/placeholder.jpeg';
 
     pdWrap.innerHTML = `
       <div class="product-detail">
         <div class="pd-gallery">
+          <button class="pg-prev" aria-label="Immagine precedente">‹</button>
+          <button class="pg-next" aria-label="Immagine successiva">›</button>
           <div class="pg-viewport" id="pg-viewport">
-            ${images.map((src,i)=>`<img src="${src}" alt="${p.title} foto ${i+1}" class="${i===0?'active':''}">`).join('')}
+            ${images.map((src,i)=>`<img src="${src}" alt="${(p.title||'Immagine prodotto') + ' ' + (i+1)}" class="${i===0?'active':''}" loading="${i===0?'eager':'lazy'}" decoding="async" />`).join('')}
           </div>
           <div class="pg-nav" id="pg-nav">
-            ${images.map((_,i)=>`<span class="dot ${i===0?'active':''}" data-idx="${i}"></span>`).join('')}
+            ${images.map((_,i)=>`<span class="dot ${i===0?'active':''}" data-idx="${i}" aria-label="Vai all'immagine ${i+1}"></span>`).join('')}
           </div>
         </div>
 
@@ -198,42 +232,66 @@ document.addEventListener('DOMContentLoaded', async () => {
           </p>
           <p class="muted">${p.description || ''}</p>
           <div class="pd-actions">
-            <a class="btn primary" id="pd-buy-whatsapp">Acquista su WhatsApp</a>
-            <a class="btn ghost" id="pd-instagram">Instagram</a>
+            <button class="btn primary" id="pd-buy">Acquista</button>
+            <button class="btn ghost" id="pd-info">Chiedi informazioni</button>
           </div>
         </div>
       </div>
     `;
 
-    // Gallery behavior
+    // Gallery behavior: arrows + dots + swipe + keyboard
     const vp = document.getElementById('pg-viewport');
     const nav = document.getElementById('pg-nav');
+    const prevBtn = document.querySelector('.pg-prev');
+    const nextBtn = document.querySelector('.pg-next');
+
     if (vp && nav) {
       const imgs = Array.from(vp.querySelectorAll('img'));
       const dots = Array.from(nav.querySelectorAll('.dot'));
       let current = 0;
+
       function go(i){
         current = (i + imgs.length) % imgs.length;
         imgs.forEach((im, idx)=>im.classList.toggle('active', idx===current));
         dots.forEach((d, idx)=>d.classList.toggle('active', idx===current));
       }
       dots.forEach(d => d.addEventListener('click', ()=> go(Number(d.dataset.idx||0))));
+      prevBtn?.addEventListener('click', ()=> go(current - 1));
+      nextBtn?.addEventListener('click', ()=> go(current + 1));
+      document.addEventListener('keydown', (e)=> {
+        if (e.key === 'ArrowLeft')  go(current - 1);
+        if (e.key === 'ArrowRight') go(current + 1);
+      });
+
+      // Swipe touch
+      let startX = 0, startY = 0, isSwiping = false;
+      vp.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        startX = t.clientX; startY = t.clientY; isSwiping = true;
+      }, { passive: true });
+      vp.addEventListener('touchend', (e) => {
+        if (!isSwiping) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        const TH = 30;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > TH) {
+          if (dx < 0) go(current + 1); else go(current - 1);
+        }
+        isSwiping = false;
+      }, { passive: true });
     }
 
-    // Buy actions
-    const buyW = document.getElementById('pd-buy-whatsapp');
-    buyW?.addEventListener('click', () => {
-      const txt = encodeURIComponent(`Ciao! Vorrei acquistare: ${p.title || ''}`);
-      window.open(`https://wa.me/393483471201?text=${txt}`, '_blank');
-    });
-    const ig = document.getElementById('pd-instagram');
-    ig?.addEventListener('click', () => window.open('https://www.instagram.com/c.a.lunara/', '_blank'));
+    // Azioni
+    const buyBtn = document.getElementById('pd-buy');
+    const infoBtn = document.getElementById('pd-info');
+    buyBtn?.addEventListener('click', openBuyModal);
+    infoBtn?.addEventListener('click', openBuyModal);
   }
 
   renderProduct(product);
 
-  // ===== RECOMMENDED (stessa collezione, escluso corrente; fallback random)
-  function shuffle(arr){ return arr.map(a => [Math.random(), a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
+  // ===== RECOMMENDED =====
   let rec = all.filter(p => String(p.id)!==String(product.id) && (p.collection || '') === (product.collection || ''));
   if (!rec.length) rec = shuffle(all.filter(p => String(p.id)!==String(product.id))).slice(0,8);
 
@@ -245,7 +303,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     img.addEventListener('click', () => window.location.href = `product.html?id=${encodeURIComponent(p.id)}`);
     card.appendChild(img);
 
-    // badge
     const badgeText = isSheetTrue(p.is_new) ? 'Novità' : isSheetTrue(p.is_low_stock) ? 'Ultimi pezzi' : null;
     if (badgeText) {
       const b = document.createElement('span'); b.className = 'badge'; b.textContent = badgeText;
