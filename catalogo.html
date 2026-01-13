@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dettaglio prodotto — Lunara</title>
-
-  <meta name="description" content="Dettaglio prodotto Lunara: cera naturale, fragranze selezionate e packaging elegante." />
+  <title>Catalogo completo — Lunara</title>
+  <meta name="description" content="Sfoglia il catalogo completo delle candele Lunara: collezioni, fragranze e formati." />
   <meta name="theme-color" content="#FFFFFF" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +16,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html#hero">
@@ -26,14 +24,13 @@
       </a>
 
       <nav class="site-nav" id="site-nav" aria-label="Menu principale">
-        <a class="nav-link" href="index.html#catalogo">Catalogo</a>
+        <a class="nav-link" href="index.html#catalogo">Home</a>
         <a class="nav-link" href="index.html#benefits">La nostra Storia</a>
         <a class="nav-link" href="index.html#contatti">Contatti</a>
         <a class="nav-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
       </nav>
 
-      <!-- Hamburger -->
       <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-collapse">
         <svg class="hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <rect x="3" y="6"  width="18" height="2" rx="1"></rect>
@@ -45,46 +42,59 @@
 
     <div class="mobile-collapse" id="mobile-collapse" aria-hidden="true">
       <nav class="mobile-collapse-inner" aria-label="Menu principale mobile">
-        <a class="mobile-link" href="index.html#catalogo">Catalogo</a>
+        <a class="mobile-link" href="index.html#catalogo">Home</a>
         <a class="mobile-link" href="index.html#benefits">La nostra Storia</a>
         <a class="mobile-link" href="index.html#contatti">Contatti</a>
-        <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a>
-        <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener">Vinted</a>
+        <a class="mobile-link ext" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="mobile-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="section" id="product" style="padding-top: calc(var(--header-h) + 24px);">
+    <section class="section" id="catalogo" style="padding-top: calc(var(--header-h) + 24px);">
       <div class="container">
-        <div class="pd-header">
-          <a class="nav-link" href="index.html#catalogo">← Torna al catalogo</a>
+        <div class="section-head">
+          <h2>Catalogo completo</h2>
+          <p class="muted">Tutte le collezioni Lunara.</p>
         </div>
 
-        <div id="pd-content" class="product-detail" aria-live="polite" aria-busy="true">
-          <!-- Popolato da JS -->
+        <div class="catalog-toolbar" aria-label="Strumenti catalogo">
+          <div class="toolbar-left">
+            <input type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti" />
+          </div>
+          <div class="toolbar-right">
+            <select id="sort" aria-label="Ordina per">
+              <option value="default">Consigliati</option>
+              <option value="price-asc">Prezzo ↑</option>
+              <option value="price-desc">Prezzo ↓</option>
+              <option value="new-first">Novità</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- CONSIGLIATI -->
-    <section class="section" id="recommend">
-      <div class="container">
-        <div class="collection-header">
-          <h3 class="collection-title">Prodotti consigliati</h3>
-          <div class="collection-count" id="rec-count"></div>
+        <nav class="collection-nav" id="collection-nav" aria-label="Collezioni"></nav>
+
+        <div id="grid-skeleton" class="grid">
+          <article class="card skeleton"></article>
+          <article class="card skeleton"></article>
+          <article class="card skeleton"></article>
+          <article class="card skeleton"></article>
+          <article class="card skeleton"></article>
+          <article class="card skeleton"></article>
         </div>
-        <div id="rec-track" class="collection-track" aria-live="polite" aria-busy="true"></div>
+
+        <div id="catalogo-sections" class="catalogo-sections" aria-live="polite" aria-busy="true"></div>
       </div>
     </section>
   </main>
 
-  <!-- BUY CHANNELS MODAL -->
+  <!-- BUY CHANNELS MODAL (aggiunta qui per far funzionare "Acquista") -->
   <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="buy-modal-title">
     <div class="modal-content buy">
       <button class="modal-close" id="buy-modal-close" aria-label="Chiudi">&times;</button>
       <h3 id="buy-modal-title" class="modal-title">Scegli come contattarci</h3>
-      <p class="muted">Seleziona il canale preferito.</p>
+      <p class="muted">Seleziona il canale preferito per completare l’acquisto.</p>
       <div class="modal-actions centered">
         <button class="btn ghost btn-icon" id="buy-whatsapp" aria-label="Acquista su WhatsApp">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.5 2 2 6.42 2 11.88c0 2.04.6 3.95 1.63 5.56L2 22l4.72-1.28a10.07 10.07 0 0 0 5.32 1.49c5.54 0 10.04-4.42 10.04-9.88S17.58 2 12.04 2zm5.08 12.6c-.28-.16-1.66-.9-1.91-1-.26-.1-.42-.16-.6.12-.17.28-.73.95-.9 1.14-.17.2-.32.22-.57.08-.26-.14-1.1-.42-2.09-1.33-.77-.7-1.28-1.6-1.43-1.87-.15-.28-.02-.42.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.27-.48.08-.2.04-.35-.02-.5-.07-.14-.58-1.49-.8-2.04-.22-.55-.45-.46-.6-.47H8.3c-.18 0-.46.07-.69.32-.23.26-.9.92-.9 2.23s.92 2.58 1.05 2.76c.13.19 1.82 2.85 4.42 3.95.62.27 1.1.42 1.48.54.63.2 1.19.18 1.65.11.5-.07 1.55-.64 1.78-1.26.23-.62.23-1.16.15-1.28-.08-.12-.25-.2-.56-.35z"/></svg>
@@ -105,11 +115,14 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>© Lunara — Candele artigianali</div>
-      <div class="legal muted"> Made in Italy • <a class="nav-link" href="privacy.html">Privacy</a></div>
+      <div class="legal muted">Made in Italy • <a class="nav-link" href="privacy.html">Privacy</a></div>
     </div>
   </footer>
 
-  <script src="js/product.js?v=20260113-fx7"></script>
+  <script>window.LUNARA_FULL_CATALOG = true;</script>
+  <script src="js/main.js?v=20260113-fx7"></script>
+
+  <!-- (opzionale) SW -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(console.error);

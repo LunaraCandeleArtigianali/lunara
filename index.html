@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="it">
 <head>
@@ -16,9 +15,9 @@
   <meta property="og:title" content="Lunara — Candele artigianali" />
   <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo per collezioni." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/Candela_Rosa/3.jpeg" />
+  <meta property="og:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="assets/images/Candela_Rosa/3.jpeg" />
+  <meta name="twitter:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- CSS & Favicon -->
-  <link rel="stylesheet" href="css/styles.css?v=20260113-fx5" />
+  <link rel="stylesheet" href="css/styles.css?v=20260113-fx7" />
   <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.jpeg">
   <link rel="manifest" href="other/manifest.json">
@@ -96,7 +95,7 @@
       </div>
     </section>
 
-    <!-- CATALOGO -->
+    <!-- CATALOGO (home: 2 collezioni + CTA grande + pulsante flottante) -->
     <section class="section" id="catalogo">
       <div class="container">
         <div class="section-head">
@@ -132,6 +131,21 @@
 
         <!-- Sezioni orizzontali -->
         <div id="catalogo-sections" class="catalogo-sections" aria-live="polite" aria-busy="true"></div>
+
+        <!-- CTA grande per tutto il catalogo -->
+        <div class="view-all-wrap" id="view-all-wrap">
+          <a class="btn view-all-cta btn-icon" href="catalogo.html" aria-label="Apri il catalogo completo">
+            <!-- icona griglia -->
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            Tutte le collezioni
+          </a>
+        </div>
+
+        <!-- Pulsante flottante (compare dopo un po' di scroll) -->
+        <a href="catalogo.html" class="fab-view-all" id="fab-view-all" aria-label="Vai al catalogo completo">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+        </a>
+
       </div>
     </section>
 
@@ -216,7 +230,7 @@
 
         <div class="about-pro-media">
           <figure class="logo-big">
-            <img src="assets/images/logo_trans.png" alt="Logo Lunara" onerror="this.onerror=null;this.src='assets/images/logo_tras.png';" />
+            <img src="assets/images/logo_tras.png" alt="Logo Lunara" />
           </figure>
         </div>
       </div>
@@ -257,7 +271,6 @@
               <p class="muted center">Per ordini rapidi o info immediate.</p>
             </div>
             <a class="btn btn-icon primary" href="https://wa.me/393483471201" target="_blank" rel="noopener">
-              <!-- WhatsApp (fill) -->
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12.04 2C6.5 2 2 6.42 2 11.88c0 2.04.6 3.95 1.63 5.56L2 22l4.72-1.28a10.07 10.07 0 0 0 5.32 1.49c5.54 0 10.04-4.42 10.04-9.88S17.58 2 12.04 2zm5.08 12.6c-.28-.16-1.66-.9-1.91-1-.26-.1-.42-.16-.6.12-.17.28-.73.95-.9 1.14-.17.2-.32.22-.57.08-.26-.14-1.1-.42-2.09-1.33-.77-.7-1.28-1.6-1.43-1.87-.15-.28-.02-.42.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.27-.48.08-.2.04-.35-.02-.5-.07-.14-.58-1.49-.8-2.04-.22-.55-.45-.46-.6-.47H8.3c-.18 0-.46.07-.69.32-.23.26-.9.92-.9 2.23s.92 2.58 1.05 2.76c.13.19 1.82 2.85 4.42 3.95.62.27 1.1.42 1.48.54.63.2 1.19.18 1.65.11.5-.07 1.55-.64 1.78-1.26.23-.62.23-1.16.15-1.28-.08-.12-.25-.2-.56-.35z"/>
               </svg>
@@ -268,21 +281,18 @@
               <h3 class="social-title-center">Oppure sui nostri social</h3>
               <div class="social-buttons">
                 <a class="social-link" href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">
-                  <!-- Instagram (fill) -->
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 4.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zm6.75-2a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z"/>
                   </svg>
                   Instagram
                 </a>
                 <a class="social-link" href="https://www.tiktok.com/@lunara.candele" target="_blank" rel="noopener">
-                  <!-- TikTok (fill) -->
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M16.5 3.5c.63 1.45 1.93 2.63 3.5 3.02v3.16c-1.71-.04-3.33-.6-4.68-1.55v6.69a5.99 5.99 0 11-5.28-5.94v3.13a2.99 2.99 0 102.28 2.88V3.5h4.18z"/>
                   </svg>
                   TikTok
                 </a>
                 <a class="social-link" href="https://linktr.ee/LunaraCandeleArtigianali" target="_blank" rel="noopener">
-                  <!-- Link in bio (fill) -->
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M4 11a7 7 0 0 1 7-7h3v3h-3a4 4 0 0 0 0 8h3v3h-3a7 7 0 0 1-7-7zm9-3h3a7 7 0 1 1 0 14h-3v-3h3a4 4 0 1 0 0-8h-3V8z"/>
                   </svg>
@@ -343,13 +353,21 @@
     <div class="container footer-inner">
       <div>© Lunara — Candele artigianali</div>
       <div class="legal muted">
-         Made in Italy   
+         Made in Italy
         •<a class="nav-link" href="privacy.html">Privacy</a>
       </div>
     </div>
   </footer>
 
-  <!-- JS -->
-  <script src="js/main.js?v=20260113-fx5"></script>
+  <!-- Flag: in homepage mostriamo solo 2 collezioni -->
+  <script>window.LUNARA_FULL_CATALOG = false;</script>
+  <script src="js/main.js?v=20260113-fx7"></script>
+
+  <!-- (opzionale) Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
+    }
+  </script>
 </body>
 </html>

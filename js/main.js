@@ -1,6 +1,5 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE (tendina) ===== */
+  /* ===== MENU MOBILE ===== */
   const hamburger = document.getElementById('hamburger');
   const mobileCollapse = document.getElementById('mobile-collapse');
 
@@ -23,11 +22,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   mobileCollapse?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMobile()));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
 
+  /* ===== Fallback logo senza inline ===== */
+  document.querySelectorAll('img[src*="logo_trans.png"]').forEach(img => {
+    img.addEventListener('error', () => { img.src = 'assets/images/logo_tras.png'; }, { once:true });
+  });
+
   /* ===== DATA (Google Sheet gviz) ===== */
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
   const CACHE_KEY = 'lunara_products_collections_v16';
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 ore
   const debug = window.location.search.includes('debug=1');
+  const FULL_CATALOG = Boolean(window.LUNARA_FULL_CATALOG); // <-- FLAG da pagina (index=false, catalogo=true)
 
   const parseGViz = (text) => {
     try {
@@ -130,6 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  function shuffle(arr){ return arr.map(a => [Math.random(), a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
   const slug = (s) => (s || '').toString().toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
@@ -149,14 +155,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function openBuyModal(product){
     currentProductForBuy = product || currentProductForBuy;
+
+    // Fallback: se la modale non è presente (es. qualche pagina), vai al dettaglio
+    if (!buyModal) {
+      if (product?.id) window.location.href = `product.html?id=${encodeURIComponent(product.id)}`;
+      return;
+    }
     buyModal.classList.add('open');
     buyModal.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
     buyModalClose?.focus();
   }
   function closeBuyModal(){
-    buyModal.classList.remove('open');
-    buyModal.setAttribute('aria-hidden','true');
+    buyModal?.classList.remove('open');
+    buyModal?.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
   }
 
@@ -172,12 +184,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   buyInstagramBtn?.addEventListener('click', () => { window.open(INSTAGRAM_PROFILE, '_blank'); closeBuyModal(); });
   buyTikTokBtn?.addEventListener('click', () => { window.open(TIKTOK_PROFILE, '_blank'); closeBuyModal(); });
 
-  /* ===== DOM per Catalogo ===== */
+  /* ===== DOM ===== */
   const skeleton = document.getElementById('grid-skeleton');
   const sectionsWrap = document.getElementById('catalogo-sections');
   const navWrap = document.getElementById('collection-nav');
   const searchInput = document.getElementById('search');
   const sortSelect = document.getElementById('sort');
+  const viewAllWrap = document.getElementById('view-all-wrap');
+  const fabViewAll = document.getElementById('fab-view-all');
 
   function goToDetail(product){
     const id = encodeURIComponent(product.id || '');
@@ -220,7 +234,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const actions = document.createElement('div');
     actions.className = 'card-actions';
     const det = document.createElement('button'); det.className = 'btn ghost'; det.textContent = 'Dettagli'; det.addEventListener('click', () => goToDetail(product));
-    const buy = document.createElement('button'); buy.className = 'btn primary'; buy.textContent = 'Acquista'; buy.addEventListener('click', () => openBuyModal(product));
+    const buy = document.createElement('button'); buy.className = 'btn primary'; buy.textContent = 'Acquista';
+    buy.addEventListener('click', (ev) => { ev.stopPropagation(); openBuyModal(product); });
     actions.appendChild(det); actions.appendChild(buy);
     article.appendChild(actions);
 
@@ -296,7 +311,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       map.get(key).push(p);
     });
 
-    const names = prioritySort([...map.keys()]);
+    let names = prioritySort([...map.keys()]);
+    // HOME: 2 collezioni; CATALOGO: tutte
+    if (!FULL_CATALOG) names = names.slice(0, 2);
+
     renderCollectionNav(names);
 
     names.forEach(name => {
@@ -309,10 +327,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('grid-skeleton')?.setAttribute('hidden','true');
     document.getElementById('grid-skeleton')?.style.setProperty('display','none','important');
 
-    if (debug) console.log('[CATALOGO]', { sezioni: names, totaleProdotti: list.length });
+    // CTA View All e FAB
+    if (!FULL_CATALOG) {
+      viewAllWrap?.style.setProperty('display','flex','important');
+      // mostra FAB dopo un po' di scroll
+      const onScroll = () => {
+        const y = window.scrollY || document.documentElement.scrollTop;
+        if (y > 800) { fabViewAll?.classList.add('show'); fabViewAll.style.display = 'flex'; }
+        else { fabViewAll?.classList.remove('show'); fabViewAll.style.display = 'none'; }
+      };
+      window.addEventListener('scroll', onScroll, { passive:true });
+      onScroll();
+    } else {
+      viewAllWrap?.style.setProperty('display','none','important');
+      fabViewAll?.style.setProperty('display','none','important');
+    }
+
+    if (debug) console.log('[CATALOGO]', { sezioni: names, totaleProdotti: list.length, full: FULL_CATALOG });
   }
 
-  /* ===== CARICAMENTO ===== */
+  /* ===== LOAD ===== */
   let allProducts = await fetchProducts();
   if (debug) console.log('[SHEET]', { prodotti: allProducts?.length, sample: allProducts?.[0] });
 
@@ -335,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ===== FILTRI ===== */
   function applyFilters() {
-    const q = (searchInput.value || '').toLowerCase();
+    const q = (searchInput?.value || '').toLowerCase();
     let list = [...allProducts];
 
     if (q) {
@@ -346,7 +380,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         (p.collection || '').toLowerCase().includes(q)
       );
     }
-    switch (sortSelect.value) {
+    switch (sortSelect?.value) {
       case 'price-asc':  list.sort((a,b) => Number(a.price||0) - Number(b.price||0)); break;
       case 'price-desc': list.sort((a,b) => Number(b.price||0) - Number(a.price||0)); break;
       case 'new-first':  list.sort((a,b) => (isSheetTrue(b.is_new) - isSheetTrue(a.is_new))); break;
@@ -358,8 +392,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   sortSelect?.addEventListener('change', applyFilters);
 
   /* ===== HERO CAROUSEL ===== */
-  function shuffle(arr){ return arr.map(a => [Math.random(), a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
-
   function buildHeroCarousel(products){
     const slidesWrap = document.getElementById('hero-slides');
     const dotsWrap = document.getElementById('hero-dots');
