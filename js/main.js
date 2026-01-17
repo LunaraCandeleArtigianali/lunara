@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const rows = json.table?.rows || [];
       return rows.map(r => ({
         id: r.c[0]?.v ?? null,
-        title: r.c[1]?.v ?? '',
-        measures: r.c[2]?.v ?? '',
-        description: r.c[3]?.v ?? '',
-        price: r.c[4]?.v ?? null,
-        is_new: r.c[6]?.v ?? false,
-        is_low_stock: r.c[7]?.v ?? false,
-        collection: r.c[8]?.v ?? '',
+        collection: r.c[1]?.v ?? '',
+        title: r.c[2]?.v ?? '',
+        measures: r.c[3]?.v ?? '',
+        description: r.c[4]?.v ?? '',
+        price: r.c[5]?.v ?? null,
+        is_new: r.c[7]?.v ?? false,
+        is_low_stock: r.c[8]?.v ?? false,
         image_folder: r.c[9]?.v ?? null
       }));
     } catch (e) {
