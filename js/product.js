@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <h1>${p.title || ''}</h1>
           <p class="price-line">
             <span>${[p.measures, fmtPrice(p.price)].filter(Boolean).join(' • ')}</span>
-            <span class="free-ship-note">🚚 Spedizione SEMPRE gratuita!</span>
+            <span class="free-ship-note">🚚 Spedizione gratuita da 50€</span>
           </p>
           <p id="pd-desc" class="muted pd-desc"></p>
           <div class="pd-actions">
