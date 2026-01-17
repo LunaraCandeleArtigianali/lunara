@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="it">
 <head>
@@ -16,21 +15,17 @@
   <meta property="og:title" content="Lunara — Candele artigianali" />
   <meta property="og:description" content="Fragranze premium, design elegante e produzione artigianale italiana. Scopri il catalogo per collezioni." />
   <meta property="og:type" content="website" />
-  <!-- Immagine OG compressa (sostituisci con la tua) -->
-  <meta property="og:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/og/og-1200x630.jpg" />
+  <meta property="og:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/og/og-1200x630.jpg" />
+  <meta name="twitter:image" content="https://lunaracandeleartigianali.github.io/lunara/assets/images/Candela_Rosa/3.jpeg" />
 
-  <!-- Fonts -->
+  <!-- Fonts (unica richiesta) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Ms+Madi&display=swap" rel="stylesheet" />
 
-  <!-- Preload LCP hero cover -->
-  <link rel="preload" as="image" href="assets/images/hero/cover-1200x800.avif" imagesrcset="assets/images/hero/cover-1200x800.avif 1200w" imagesizes="(max-width: 980px) 92vw, 48vw" fetchpriority="high">
-
   <!-- CSS & Favicon -->
-  <link rel="stylesheet" href="css/styles.css?v=20260117-fx8" />
+  <link rel="stylesheet" href="css/styles.css?v=20260113-fx7" />
   <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo.jpeg">
   <link rel="manifest" href="other/manifest.json">
@@ -47,18 +42,19 @@
         <!-- Pittogramma -->
         <img class="brand-mark" src="assets/images/logo_tras.png" alt="Lunara logo" width="40" height="40" />
 
-        <!-- Wordmark SVG -->
+        <!-- Wordmark SVG vettoriale (eredita il colore dal testo) -->
         <svg class="brand-wordmark" viewBox="-20 -3 270 40" role="img" aria-label="Lunara" focusable="false">
           <title>Lunara</title>
           <style>
             text{
               font-family: "Ms Madi", cursive;
-              font-size: 40px;
-              font-weight: 430;
+              font-size: 40px;     /* resa migliore per Ms Madi in navbar */
+              font-weight: 430;     /* monopesante */
             }
           </style>
           <text x="0" y="28" fill="currentColor">  Lunara</text>
         </svg>
+
         <span class="sr-only">Lunara</span>
       </a>
 
@@ -70,7 +66,7 @@
         <a class="nav-link ext" href="https://www.vinted.it/member/313415363-calunara" target="_blank" rel="noopener noreferrer">Vinted</a>
       </nav>
 
-      <!-- Hamburger mobile -->
+      <!-- Hamburger mobile (SVG) -->
       <button class="hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-collapse">
         <svg class="hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <rect x="3" y="6"  width="18" height="2" rx="1"></rect>
@@ -80,7 +76,7 @@
       </button>
     </div>
 
-    <!-- Menu mobile -->
+    <!-- Menu mobile (tendina) -->
     <div class="mobile-collapse" id="mobile-collapse" aria-hidden="true">
       <nav class="mobile-collapse-inner" aria-label="Menu principale mobile">
         <a class="mobile-link" href="#catalogo">Catalogo</a>
@@ -108,22 +104,13 @@
 
         <!-- Carosello hero -->
         <div class="hero-carousel" id="hero-carousel" aria-label="Foto prodotti Lunara">
-          <!-- IMMAGINE LCP DI COPERTURA: caricata subito -->
-          <div class="hero-slides" id="hero-slides">
-            <div class="slide active">
-              <img
-                src="assets/images/hero/cover-1200x800.avif"
-                alt="Candela artigianale Lunara"
-                width="1200" height="800"
-                fetchpriority="high" loading="eager" decoding="sync" />
-            </div>
-          </div>
+          <div class="hero-slides" id="hero-slides"></div>
           <div class="hero-dots" id="hero-dots" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-    <!-- CATALOGO -->
+    <!-- CATALOGO (home: 2 collezioni + CTA grande + pulsante flottante) -->
     <section class="section" id="catalogo">
       <div class="container">
         <div class="section-head">
@@ -161,15 +148,16 @@
         <div id="catalogo-sections" class="catalogo-sections" aria-live="polite" aria-busy="true"></div>
 
         <!-- CTA grande per tutto il catalogo -->
-        <div class="view-all-wrap" id="view-all-wrap" style="display:none">
+        <div class="view-all-wrap" id="view-all-wrap">
           <a class="btn view-all-cta btn-icon" href="catalogo.html" aria-label="Apri il catalogo completo">
+            <!-- icona griglia -->
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
             Tutte le collezioni
           </a>
         </div>
 
-        <!-- Pulsante flottante -->
-        <a href="catalogo.html" class="fab-view-all" id="fab-view-all" aria-label="Vai al catalogo completo" style="display:none">
+        <!-- Pulsante flottante (compare dopo un po' di scroll) -->
+        <a href="catalogo.html" class="fab-view-all" id="fab-view-all" aria-label="Vai al catalogo completo">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
         </a>
 
@@ -287,7 +275,7 @@
       </div>
     </section>
 
-    <!-- CONTATTI -->
+    <!-- CONTATTI / SOCIAL -->
     <section class="section" id="contatti">
       <div class="container contact-grid equal">
         <!-- Scrivici su WhatsApp -->
@@ -352,7 +340,7 @@
     </section>
   </main>
 
-  <!-- BUY CHANNELS MODAL -->
+  <!-- BUY CHANNELS MODAL (pop-up) -->
   <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="buy-modal-title">
     <div class="modal-content buy">
       <button class="modal-close" id="buy-modal-close" aria-label="Chiudi">&times;</button>
@@ -388,13 +376,12 @@
 
   <!-- Flag: in homepage mostriamo solo 2 collezioni -->
   <script>window.LUNARA_FULL_CATALOG = false;</script>
-  <script src="js/main.js?v=20260117-fx8"></script>
+  <script src="js/main.js?v=20260113-fx7"></script>
 
-  <!-- Service Worker (path relativo, ok su GitHub Pages) -->
+  <!-- (opzionale) Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      const swUrl = new URL('sw.js', window.location.href).href;
-      navigator.serviceWorker.register(swUrl).catch(console.error);
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
     }
   </script>
 </body>

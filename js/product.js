@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
   /* ===== MENU MOBILE ===== */
   const hamburger = document.getElementById('hamburger');
@@ -9,36 +8,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   mobileCollapse?.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> closeMobile()));
   document.addEventListener('keydown', (e)=>{ if (e.key==='Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
 
-  /* ===== COSTANTI ===== */
+  /* ===== DATA ===== */
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
-  const CACHE_KEY = 'lunara_products_collections_v17';
+  const CACHE_KEY = 'lunara_products_collections_v16';
   const CACHE_TTL = 6 * 60 * 60 * 1000;
   const debug = window.location.search.includes('debug=1');
 
-  /* ===== MANIFEST IMMAGINI ===== */
-  let IMG_MANIFEST = {};
-  async function loadImageManifest() {
-    try {
-      const res = await fetch('assets/images/manifest.json', { cache: 'force-cache' });
-      if (res.ok) {
-        IMG_MANIFEST = await res.json();
-        if (debug) console.log('[MANIFEST OK]', Object.keys(IMG_MANIFEST).length, 'cartelle');
-      }
-    } catch (e) {
-      console.warn('Manifest immagini non disponibile', e);
-    }
-  }
-  function sanitize(s){ return (s || '').toString().replace(/\.\.\//g,'').replace(/^\/+/,'').trim(); }
-  function productFolder(p){
-    return sanitize(p.image_folder || p.id || p.title || '');
-  }
-  function getProductImages(p, max = 6){
-    const folder = productFolder(p);
-    const files = (IMG_MANIFEST[folder] || []).slice(0, max);
-    return files.map(f => `assets/images/${folder}/${f}`);
-  }
-
-  /* ===== SHEET ===== */
   const parseGViz = (text) => {
     try {
       const start = text.indexOf('{'); const end = text.lastIndexOf('}');
@@ -73,6 +48,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch { return cached || []; }
   }
 
+  /* ===== UTIL ===== */
+  const fmtPrice = (p) => (p!=null && p!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p)) : 'NA';
+  const sanitize = (s) => (s || '').toString().replace(/\.\.\//g,'').replace(/^\/+/,'').trim();
+  function isSheetTrue(v){ if (v===true) return true; if (typeof v==='string'){ const t=v.trim().toUpperCase(); return t==='TRUE'||t==='VERO'||t==='Y'||t==='YES'; } return false; }
+  const EXT_LIST = ['jpeg','jpg','webp','png','JPEG','JPG','WEBP','PNG'];
+  const getImageCandidates = (product, max=6, exts=EXT_LIST) => {
+    const folder = sanitize(product.image_folder || product.id || product.title);
+    const out = [];
+    for (let i=1; i<=max; i++){ for (const ext of exts){ out.push(`assets/images/${folder}/${i}.${ext}`); } }
+    return out;
+  };
+  async function pickExistingImagesUnique(paths, maxByIndex=6) {
+    const found = []; const seen = new Set();
+    for (const src of paths) {
+      const m = src.match(/\/(\d+)\.[A-Za-z]+$/); const idx = m ? m[1] : null;
+      if (!idx || seen.has(idx)) continue;
+      const ok = await new Promise(res => { const im = new Image(); im.onload=()=>res(true); im.onerror=()=>res(false); im.src = src + (debug?`?t=${Date.now()}`:''); });
+      if (ok) { seen.add(idx); found.push(src); }
+      if (found.length >= maxByIndex) break;
+    }
+    return found;
+  }
+  function shuffle(arr){ return arr.map(a=>[Math.random(),a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
+
   /* ===== PARAM ID ===== */
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
@@ -87,17 +86,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ===== LOAD ===== */
-  await loadImageManifest();
   let all = await fetchProducts();
   if (!all || !all.length) {
     pdWrap.innerHTML = `<p>Prodotti non disponibili. <a class="nav-link" href="index.html#catalogo">Torna al catalogo</a></p>`;
     recTrack.innerHTML = ''; recCount.textContent = ''; return;
   }
 
-  all.forEach(p => {
-    const imgs = getProductImages(p, 6);
-    p.images = imgs.length ? imgs : ['assets/images/placeholder.jpeg'];
-  });
+  await Promise.all(all.map(async p => {
+    const candidates = getImageCandidates(p, 6);
+    const found = await pickExistingImagesUnique(candidates, 6);
+    p.images = found.length ? found : ['assets/images/placeholder.jpeg'];
+  }));
 
   const product = all.find(p => String(p.id) === String(productId));
   if (!product) {
@@ -143,10 +142,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* ===== RENDER DETAIL ===== */
   function renderProduct(p){
-    const isLow = (p.is_low_stock === true) || (typeof p.is_low_stock === 'string' && ['TRUE','VERO','Y','YES'].includes(p.is_low_stock.trim().toUpperCase()));
-    const badge = (p.is_new === true || (typeof p.is_new === 'string' && ['TRUE','VERO','Y','YES'].includes(p.is_new.trim().toUpperCase())))
-      ? `<span class="low-stock-inline" style="background:#111;color:#fff">Novità</span>`
-      : (isLow ? `<span class="low-stock-inline">⚠️ Ultimi pezzi disponibili</span>` : '');
+    const isLow = isSheetTrue(p.is_low_stock);
+    const badge = isSheetTrue(p.is_new) ? `<span class="low-stock-inline" style="background:#111;color:#fff">Novità</span>` :
+                 isLow ? `<span class="low-stock-inline">⚠️ Ultimi pezzi disponibili</span>` : '';
 
     const images = p.images || [];
 
@@ -156,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <button class="pg-prev" aria-label="Immagine precedente" type="button">‹</button>
           <button class="pg-next" aria-label="Immagine successiva" type="button">›</button>
           <div class="pg-viewport" id="pg-viewport" tabindex="0">
-            ${images.map((src,i)=>`<img src="${src}" alt="${(p.title||'Immagine prodotto') + ' ' + (i+1)}" class="${i===0?'active':''}" loading="${i===0?'eager':'lazy'}" ${i===0?'fetchpriority="high" decoding="sync"':'decoding="async"'} />`).join('')}
+            ${images.map((src,i)=>`<img src="${src}" alt="${(p.title||'Immagine prodotto') + ' ' + (i+1)}" class="${i===0?'active':''}" loading="${i===0?'eager':'lazy'}" decoding="async" />`).join('')}
           </div>
           <div class="pg-nav" id="pg-nav">
             ${images.map((_,i)=>`<span class="dot ${i===0?'active':''}" data-idx="${i}" aria-label="Vai all'immagine ${i+1}"></span>`).join('')}
@@ -167,8 +165,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           ${badge}
           <h1>${p.title || ''}</h1>
           <p class="price-line">
-            <span>${[p.measures, (p.price!=null && p.price!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p.price)) : 'NA'].filter(Boolean).join(' • ')}</span>
-            <span class="free-ship-note">🚚 Spedizione gratuita da 25€</span>
+            <span>${[p.measures, fmtPrice(p.price)].filter(Boolean).join(' • ')}</span>
+            <span class="free-ship-note">🚚 Spedizione SEMPRE gratuita!</span>
           </p>
           <p id="pd-desc" class="muted pd-desc"></p>
           <div class="pd-actions">
@@ -183,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Descrizione con a capo
     const descEl = document.getElementById('pd-desc'); if (descEl) descEl.textContent = p.description || '';
 
-    // Gallery
+    // Gallery: frecce + dots + keyboard + swipe
     const vp = document.getElementById('pg-viewport');
     const nav = document.getElementById('pg-nav');
     const prevBtn = document.querySelector('.pg-prev');
@@ -195,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       let current = 0;
 
       function go(i){
-        disableZoom();
+        disableZoom(); // reset zoom
         current = (i + imgs.length) % imgs.length;
         imgs.forEach((im, idx)=>im.classList.toggle('active', idx===current));
         dots.forEach((d, idx)=>d.classList.toggle('active', idx===current));
@@ -275,7 +273,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderProduct(product);
 
   // CONSIGLIATI
-  function shuffle(arr){ return arr.map(a=>[Math.random(),a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
   let rec = all.filter(p => String(p.id)!==String(product.id) && (p.collection || '') === (product.collection || ''));
   if (!rec.length) rec = shuffle(all.filter(p => String(p.id)!==String(product.id))).slice(0,8);
 
@@ -283,21 +280,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   recCount.textContent = `${rec.length} prodotti`;
   rec.forEach(p => {
     const card = document.createElement('article'); card.className = 'card';
-
-    const img = document.createElement('img');
-    img.src = p.images?.[0] || 'assets/images/placeholder.jpeg';
-    img.alt = p.title || 'Prodotto';
-    img.loading = 'lazy'; img.decoding = 'async'; img.width = 600; img.height = 750;
+    const img = document.createElement('img'); img.src = p.images?.[0] || 'assets/images/placeholder.jpeg'; img.alt = p.title || 'Prodotto';
     img.addEventListener('click', () => window.location.href = `product.html?id=${encodeURIComponent(p.id)}`);
     card.appendChild(img);
 
-    const badgeText = ((p.is_new === true) || (typeof p.is_new === 'string' && ['TRUE','VERO','Y','YES'].includes(p.is_new.trim().toUpperCase())))
-      ? 'Novità'
-      : (((p.is_low_stock === true) || (typeof p.is_low_stock === 'string' && ['TRUE','VERO','Y','YES'].includes(p.is_low_stock.trim().toUpperCase()))) ? 'Ultimi pezzi' : null);
+    const badgeText = isSheetTrue(p.is_new) ? 'Novità' : isSheetTrue(p.is_low_stock) ? 'Ultimi pezzi' : null;
     if (badgeText) { const b = document.createElement('span'); b.className = 'badge'; b.textContent = badgeText; card.appendChild(b); }
 
     const h3 = document.createElement('h3'); h3.textContent = p.title || 'Prodotto'; card.appendChild(h3);
-    const meta = document.createElement('p'); meta.className = 'meta'; meta.textContent = (p.price!=null && p.price!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p.price)) : 'NA'; card.appendChild(meta);
+    const meta = document.createElement('p'); meta.className = 'meta'; meta.textContent = fmtPrice(p.price); card.appendChild(meta);
 
     const actions = document.createElement('div'); actions.className = 'card-actions';
     const det = document.createElement('button'); det.className = 'btn ghost'; det.textContent = 'Dettagli';

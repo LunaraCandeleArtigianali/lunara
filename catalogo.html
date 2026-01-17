@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="it">
 <head>
@@ -13,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Ms+Madi&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/styles.css?v=20260117-fx8" />
+  <link rel="stylesheet" href="css/styles.css?v=20260113-fx7" />
   <link rel="icon" href="assets/images/logo.jpeg" type="image/jpeg" />
 </head>
 <body>
@@ -21,14 +20,22 @@
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html#hero">
+        <!-- Pittogramma -->
         <img class="brand-mark" src="assets/images/logo_tras.png" alt="Lunara logo" width="40" height="40" />
+
+        <!-- Wordmark SVG vettoriale (eredita il colore dal testo) -->
         <svg class="brand-wordmark" viewBox="-20 -3 270 40" role="img" aria-label="Lunara" focusable="false">
           <title>Lunara</title>
           <style>
-            text{ font-family:"Ms Madi",cursive; font-size:40px; font-weight:430; }
+            text{
+              font-family: "Ms Madi", cursive;
+              font-size: 40px;     /* resa migliore per Ms Madi in navbar */
+              font-weight: 430;     /* monopesante */
+            }
           </style>
           <text x="0" y="28" fill="currentColor">  Lunara</text>
         </svg>
+
         <span class="sr-only">Lunara</span>
       </a>
 
@@ -98,7 +105,7 @@
     </section>
   </main>
 
-  <!-- BUY CHANNELS MODAL -->
+  <!-- BUY CHANNELS MODAL (aggiunta qui per far funzionare "Acquista") -->
   <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="buy-modal-title">
     <div class="modal-content buy">
       <button class="modal-close" id="buy-modal-close" aria-label="Chiudi">&times;</button>
@@ -129,12 +136,12 @@
   </footer>
 
   <script>window.LUNARA_FULL_CATALOG = true;</script>
-  <script src="js/main.js?v=20260117-fx8"></script>
+  <script src="js/main.js?v=20260113-fx7"></script>
 
+  <!-- (opzionale) SW -->
   <script>
     if ('serviceWorker' in navigator) {
-      const swUrl = new URL('sw.js', window.location.href).href;
-      navigator.serviceWorker.register(swUrl).catch(console.error);
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
     }
   </script>
 </body>
