@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return false;
   }
 
-  const EXT_LIST = ['jpeg','jpg','webp','png','JPEG','JPG','WEBP','PNG'];
+  const EXT_LIST = ['jpeg','png'];
   const getImageCandidates = (product, max = 6, exts = EXT_LIST) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];

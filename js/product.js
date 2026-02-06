@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fmtPrice = (p) => (p!=null && p!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p)) : 'NA';
   const sanitize = (s) => (s || '').toString().replace(/\.\.\//g,'').replace(/^\/+/,'').trim();
   function isSheetTrue(v){ if (v===true) return true; if (typeof v==='string'){ const t=v.trim().toUpperCase(); return t==='TRUE'||t==='VERO'||t==='Y'||t==='YES'; } return false; }
-  const EXT_LIST = ['jpeg','jpg','webp','png','JPEG','JPG','WEBP','PNG'];
+  const EXT_LIST = ['jpeg', 'png'];
   const getImageCandidates = (product, max=6, exts=EXT_LIST) => {
     const folder = sanitize(product.image_folder || product.id || product.title);
     const out = [];
