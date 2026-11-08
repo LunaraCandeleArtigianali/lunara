@@ -5,11 +5,13 @@
       "title": "Essenza di Cuore",
       "collection": "Bomboniere",
       "measures": "14 x 12 x 5 cm • 280gr",
-      "description": "Contenitore in ceramicaaaaa a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
+      "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
       "price": 25,
-      "is_new": true,
-      "is_low_stock": false,
-      "fragrances": [],
+      "is_new": false,
+      "is_low_stock": true,
+      "fragrances": [
+        "Ciliegia"
+      ],
       "colors": [],
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
