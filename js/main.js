@@ -1,452 +1,458 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  /* ===== MENU MOBILE ===== */
-  const hamburger = document.getElementById('hamburger');
-  const mobileCollapse = document.getElementById('mobile-collapse');
+(async () => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
 
-  function openMobile(){
-    document.body.classList.add('menu-open');
-    mobileCollapse.classList.add('open');
-    mobileCollapse.setAttribute('aria-hidden','false');
-    hamburger.setAttribute('aria-expanded','true');
-  }
-  function closeMobile(){
-    document.body.classList.remove('menu-open');
-    mobileCollapse.classList.remove('open');
-    mobileCollapse.setAttribute('aria-hidden','true');
-    hamburger.setAttribute('aria-expanded','false');
-  }
-  hamburger?.addEventListener('click', (e) => {
-    e.preventDefault();
-    mobileCollapse.classList.contains('open') ? closeMobile() : openMobile();
-  });
-  mobileCollapse?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMobile()));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileCollapse.classList.contains('open')) closeMobile(); });
+  /* ===== DATI =====
+     Il catalogo vive in data/products.json (modificabile da telefono con /admin).
+     Numero WhatsApp, social e opzioni del configuratore sono in js/config.js. */
+  const CFG = window.LUNARA_CONFIG;
+  const WHATSAPP = CFG.whatsapp, IG = CFG.instagram, TT = CFG.tiktok;
+  const PLACEHOLDER = 'assets/images/placeholder.jpeg';
+  let products = [];
 
-  /* ===== Fallback logo senza inline ===== */
-  document.querySelectorAll('img[src*="logo_trans.png"]').forEach(img => {
-    img.addEventListener('error', () => { img.src = 'assets/images/logo_tras.png'; }, { once:true });
-  });
+  const isTrue = v => v === true || (typeof v === 'string' && ['TRUE', 'VERO', 'Y', 'YES'].includes(v.trim().toUpperCase()));
+  const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(Number(p)) : 'NA';
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const slug = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const imgsOf = p => (p.images && p.images.length) ? p.images : [PLACEHOLDER];
+  const hexOf = n => (CFG.colorHex || {})[String(n).trim().toLowerCase()] || null;
+  const OTHER = 'Altro (lo definiamo insieme)';
+  const optsOf = (p, k) => [...(p?.[k] || []), ...(p ? [OTHER] : [])];
+  const keyOf = p => `${p.id}__${p.collection}`;
+  const shuffle = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
 
-  /* ===== DATA (Google Sheet gviz) ===== */
-  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jt9Bu6CIN9Q1x4brjyWfafIWOVbYrTEp0ihNAnIW-Es/gviz/tq?tqx=out:json';
-  const CACHE_KEY = 'lunara_products_collections_v16';
-  const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 ore
-  const debug = window.location.search.includes('debug=1');
-  const FULL_CATALOG = Boolean(window.LUNARA_FULL_CATALOG); // <-- FLAG da pagina (index=false, catalogo=true)
-
-  const parseGViz = (text) => {
+  async function loadProducts() {
     try {
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      if (start === -1 || end === -1) throw new Error('Formato gViz inatteso');
-      const json = JSON.parse(text.slice(start, end + 1));
-      const rows = json.table?.rows || [];
-      return rows.map(r => ({
-        id: r.c[0]?.v ?? null,
-        collection: r.c[1]?.v ?? '',
-        title: r.c[2]?.v ?? '',
-        measures: r.c[3]?.v ?? '',
-        description: r.c[4]?.v ?? '',
-        price: r.c[5]?.v ?? null,
-        is_new: r.c[7]?.v ?? false,
-        is_low_stock: r.c[8]?.v ?? false,
-        image_folder: r.c[9]?.v ?? null
-      }));
-    } catch (e) {
-      console.error('Errore parse gViz:', e);
-      return null;
-    }
-  };
-
-  const getCache = () => {
-    try {
-      const raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      const { ts, data } = JSON.parse(raw);
-      if (Date.now() - ts > CACHE_TTL) return null;
-      return data;
-    } catch { return null; }
-  };
-  const setCache = (data) => { try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch {} };
-
-  async function fetchProducts() {
-    const cached = getCache();
-    try {
-      const res = await fetch(SHEET_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      const parsed = parseGViz(text);
-      if (parsed) { setCache(parsed); return parsed; }
-      console.warn('Parse gViz fallito, uso cache se presente.');
-      return cached || [];
-    } catch (e) {
-      console.warn('Fetch prodotti fallito:', e);
-      return cached || [];
+      const r = await fetch('data/products.json', { cache: 'no-cache' });
+      if (!r.ok) throw 0;
+      const items = (await r.json()).items || [];
+      // i prodotti creati dal pannello non hanno un codice: lo ricavo dal nome
+      return items.filter(p => p && p.title).map(p => ({ ...p, id: p.id || slug(p.title) }));
+    } catch {
+      // file:// o rete assente: uso la copia di riserva
+      await new Promise(res => { const sc = document.createElement('script'); sc.src = 'js/products-fallback.js'; sc.onload = sc.onerror = res; document.head.appendChild(sc); });
+      return ((window.LUNARA_FALLBACK || {}).items || []).map(p => ({ ...p, id: p.id || slug(p.title) }));
     }
   }
 
-  /* ===== UTIL ===== */
-  const fmtPrice = (p) => (p!=null && p!=='') ? new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(p)) : 'NA';
-  const sanitize = (s) => (s || '').toString().replace(/\.\.\//g,'').replace(/^\/+/,'').trim();
-
-  function isSheetTrue(v){
-    if (v === true) return true;
-    if (typeof v === 'string') {
-      const t = v.trim().toUpperCase();
-      return t === 'TRUE' || t === 'VERO' || t === 'Y' || t === 'YES';
-    }
-    return false;
+  /* ===== HEADER / MENU / PROGRESSO ===== */
+  const hdr = $('#hdr'), wax = $('#wax');
+  let lastY = 0;
+  function onScroll() {
+    const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    if (wax) wax.style.height = `max(30px, ${(1 - (h > 0 ? y / h : 0)) * 34}vh)`;
+    hdr.classList.toggle('scrolled', y > 30);
+    hdr.classList.toggle('hide', !matchMedia('(max-width:1000px)').matches && y > lastY && y > 500 && !$('#drawer').classList.contains('open'));
+    lastY = y;
   }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  const EXT_LIST = ['jpeg','png'];
-  const getImageCandidates = (product, max = 6, exts = EXT_LIST) => {
-    const folder = sanitize(product.image_folder || product.id || product.title);
-    const out = [];
-    for (let i=1; i<=max; i++){
-      for (const ext of exts){
-        out.push(`assets/images/${folder}/${i}.${ext}`);
+  const burger = $('#burger'), drawer = $('#drawer');
+  function toggleDrawer(open) {
+    drawer.classList.toggle('open', open);
+    drawer.setAttribute('aria-hidden', String(!open));
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('lock', open);
+  }
+  burger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
+  $$('a', drawer).forEach(a => a.addEventListener('click', () => toggleDrawer(false)));
+
+  // voce di menu attiva
+  const navLinks = $$('.nav a[href^="#"], .tabbar a[href^="#"]');
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  ['hero', 'catalogo', 'benefits', 'personalizza', 'storia', 'recensioni', 'contatti'].forEach(id => spy.observe($('#' + id)));
+
+  /* ===== BRACI (canvas) ===== */
+  const cv = $('#embers'), cx = cv.getContext('2d');
+  let W = 0, H = 0, parts = [];
+  const sizeCv = () => { const d = Math.min(devicePixelRatio || 1, 2); W = cv.width = innerWidth * d; H = cv.height = innerHeight * d; cx.setTransform(d, 0, 0, d, 0, 0); W /= d; H /= d; };
+  sizeCv(); addEventListener('resize', sizeCv);
+  const spawn = () => ({ x: Math.random() * W, y: H + 10, r: .8 + Math.random() * 2.2, vy: .35 + Math.random() * .9, ph: Math.random() * 6.28, sw: .3 + Math.random() * .8, life: 0, max: 380 + Math.random() * 380, hue: 25 + Math.random() * 25 });
+  function sparkBurst(x, y) {
+    for (let i = 0; i < 46; i++) { const a = Math.random() * 6.28, v = 1 + Math.random() * 4;
+      parts.push({ x, y, r: .8 + Math.random() * 2, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1.5, ph: 0, sw: 0, life: 0, max: 60 + Math.random() * 60, hue: 30 + Math.random() * 25, burst: true }); }
+  }
+  if (!reduce) {
+    let vis = true; document.addEventListener('visibilitychange', () => { vis = !document.hidden; if (vis) tick(); });
+    (function tick() {
+      if (!vis) return;
+      cx.clearRect(0, 0, W, H);
+        const target = innerWidth < 700 ? 8 : 18;
+      if (parts.filter(p => !p.burst).length < target && Math.random() < .35) parts.push(spawn());
+      parts = parts.filter(p => p.life < p.max && p.y > -20);
+      for (const p of parts) {
+        p.life++;
+        if (p.burst) { p.x += p.vx; p.y += p.vy; p.vy += .08; p.vx *= .985; }
+        else { p.y -= p.vy; p.x += Math.sin(p.life * .02 + p.ph) * p.sw; }
+        const k = 1 - p.life / p.max, a = Math.min(1, p.life / 30) * k * .75;
+        cx.globalAlpha = Math.max(0, a);
+        cx.shadowBlur = 12; cx.shadowColor = `hsl(${p.hue} 100% 55%)`;
+        cx.fillStyle = `hsl(${p.hue} 100% ${60 + 25 * k}%)`;
+        cx.beginPath(); cx.arc(p.x, p.y, p.r * (.5 + k * .7), 0, 6.28); cx.fill();
       }
+      cx.globalAlpha = 1; cx.shadowBlur = 0;
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  /* ===== SPOTLIGHT + GLOW SULLE CARD ===== */
+  if (!reduce) {
+    addEventListener('pointermove', e => {
+      root.style.setProperty('--mx', e.clientX + 'px');
+      root.style.setProperty('--my', e.clientY + 'px');
+    }, { passive: true });
+  }
+  document.addEventListener('pointermove', e => {
+    const g = e.target.closest?.('.glass');
+    if (!g) return;
+    const r = g.getBoundingClientRect();
+    g.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+    g.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+    if (g.classList.contains('pc') && !reduce && matchMedia('(hover:hover)').matches) {
+      g.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 7 + 'deg');
+      g.style.setProperty('--rx', (.5 - (e.clientY - r.top) / r.height) * 7 + 'deg');
     }
-    return out;
+  }, { passive: true });
+  document.addEventListener('pointerout', e => {
+    const g = e.target.closest?.('.pc');
+    if (g && !g.contains(e.relatedTarget)) { g.style.setProperty('--rx', '0deg'); g.style.setProperty('--ry', '0deg'); }
+  });
+
+  /* ===== REVEAL + CONTATORI ===== */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); io.unobserve(e.target);
+    $$('[data-count]', e.target).concat(e.target.dataset.count ? [e.target] : []).forEach(countUp);
+  }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  const watch = r => $$('.rv:not(.in)', r).forEach(el => io.observe(el));
+  function countUp(el) {
+    const to = +el.dataset.count, suf = el.dataset.suffix || '';
+    if (reduce) { el.textContent = to + suf; return; }
+    const t0 = performance.now(), D = 1600;
+    (function f(t) {
+      const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(to * e) + suf;
+      if (k < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  watch(document);
+
+  /* ===== HERO ===== */
+  function buildHero() {
+    // carosello della vecchia home: copertine dei prodotti, caricate solo quando servono
+    const pool = [...new Set(shuffle(products.map(p => imgsOf(p)[0]).filter(s => s && !s.includes('placeholder'))))].slice(0, 8);
+    const slidesEl = $('#hero-slides'), dotsEl = $('#hero-dots'), car = $('#hero-carousel');
+    const imgs = pool.length ? pool : [PLACEHOLDER];
+    slidesEl.innerHTML = imgs.map((src, i) => `<div class="slide${i ? '' : ' active'}"><img ${i ? `data-src="${esc(src)}"` : `src="${esc(src)}" fetchpriority="high"`} alt="Candela Lunara" width="800" height="1000" decoding="async"></div>`).join('');
+    dotsEl.innerHTML = imgs.map((_, i) => `<button type="button" class="dot${i ? '' : ' active'}" aria-label="Foto ${i + 1}"></button>`).join('');
+    const slides = $$('.slide', slidesEl), dots = $$('.dot', dotsEl);
+    let idx = 0, timer = null;
+    const ensure = i => { const im = $('img', slides[(i + slides.length) % slides.length]); if (im && !im.src) im.src = im.dataset.src; };
+    function goTo(i) {
+      slides[idx].classList.remove('active'); dots[idx].classList.remove('active');
+      idx = (i + slides.length) % slides.length;
+      slides[idx].classList.add('active'); dots[idx].classList.add('active');
+      ensure(idx); ensure(idx + 1);
+    }
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start = () => { stop(); if (slides.length > 1 && !reduce) timer = setInterval(() => goTo(idx + 1), 4200); };
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); start(); }));
+    setTimeout(() => ensure(1), 1500);
+    start();
+    car.addEventListener('mouseenter', stop); car.addEventListener('mouseleave', start);
+    car.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') { stop(); goTo(idx - 1); } if (e.key === 'ArrowRight') { stop(); goTo(idx + 1); } });
+    let x0 = 0;
+    car.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) { goTo(idx + (dx < 0 ? 1 : -1)); start(); } }, { passive: true });
+    // storia: orbite
+    ['or1', 'or2', 'or3'].forEach((id, k) => { const s = pool[(k * 2 + 3) % pool.length]; const el = $('#' + id); if (s && el) el.src = s; });
+  }
+
+  /* ===== CATALOGO ===== */
+  let col = 'Tutte';
+  const grid = $('#grid'), seg = $('#seg'), search = $('#search'), sort = $('#sort');
+  const PRIO = ['san valentino', 'bomboniere', 'natale'];
+  const collections = () => {
+    const names = [...new Set(products.map(p => (p.collection || '').trim() || 'Altro'))];
+    return names.sort((a, b) => {
+      const ai = PRIO.indexOf(a.toLowerCase()), bi = PRIO.indexOf(b.toLowerCase());
+      if (ai > -1 && bi > -1) return ai - bi; if (ai > -1) return -1; if (bi > -1) return 1;
+      return a.localeCompare(b, 'it');
+    });
   };
-
-  async function pickExistingImagesUnique(paths, maxByIndex = 6) {
-    const found = []; const seen = new Set();
-    for (const src of paths) {
-      const m = src.match(/\/(\d+)\.[A-Za-z]+$/);
-      const idx = m ? m[1] : null;
-      if (!idx || seen.has(idx)) continue;
-      const ok = await new Promise(res => {
-        const im = new Image();
-        im.onload = () => res(true);
-        im.onerror = () => res(false);
-        im.src = src + (debug ? `?t=${Date.now()}` : '');
-      });
-      if (ok) { seen.add(idx); found.push(src); }
-      if (found.length >= maxByIndex) break;
-    }
-    return found;
+  function renderSeg() {
+    const names = ['Tutte', ...collections()];
+    if (!names.includes(col)) col = 'Tutte';
+    seg.innerHTML = names.map(n => {
+      const c = n === 'Tutte' ? products.length : products.filter(p => ((p.collection || '').trim() || 'Altro') === n).length;
+      return `<button role="tab" class="${n === col ? 'on' : ''}" data-c="${esc(n)}">${esc(n)}<small>${c}</small></button>`;
+    }).join('');
   }
+  seg.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    col = b.dataset.c; renderSeg(); renderGrid();
+  });
 
-  async function runInBatches(items, batchSize, worker){
-    for (let i=0; i<items.length; i+=batchSize){
-      const slice = items.slice(i, i + batchSize);
-      await Promise.all(slice.map(worker));
-    }
+  function card(p, i) {
+    const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">Ultimi pezzi</span>' : '';
+    const im = imgsOf(p);
+    return `<article class="glass pc rv" style="--i:${Math.min(i % 8, 7)}" data-k="${esc(keyOf(p))}" tabindex="0" role="button" aria-label="${esc(p.title)} — dettagli">
+      <div class="pc-img"><span class="mini" aria-hidden="true"><svg class="flame" viewBox="0 0 40 76"><use href="#flame"/></svg></span>${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}</span>` : ''}
+        <img src="${esc(im[0])}" alt="${esc(p.title)}" loading="lazy" decoding="async" width="400" height="500">
+        ${im[1] ? `<img src="${esc(im[1])}" alt="" loading="lazy" decoding="async">` : ''}</div>
+      <div class="pc-body"><h3>${esc(p.title)}</h3><div class="m">${esc(p.measures)}</div>
+        <div class="pc-foot"><span class="price">${fmt(p.price)}</span>
+          <span class="pc-go"><svg class="ic st" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div>
+    </article>`;
   }
+  function filtered() {
+    const q = search.value.trim().toLowerCase();
+    let l = products.filter(p => col === 'Tutte' || ((p.collection || '').trim() || 'Altro') === col);
+    if (q) l = l.filter(p => [p.title, p.measures, p.description, p.collection].some(s => (s || '').toLowerCase().includes(q)));
+    if (sort.value === 'price-asc') l.sort((a, b) => (a.price || 0) - (b.price || 0));
+    else if (sort.value === 'price-desc') l.sort((a, b) => (b.price || 0) - (a.price || 0));
+    else if (sort.value === 'new-first') l.sort((a, b) => isTrue(b.is_new) - isTrue(a.is_new));
+    return l;
+  }
+  function renderGrid() {
+    const l = filtered();
+    grid.innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Nessun prodotto trovato.</div>';
+    watch(grid);
+  }
+  search.addEventListener('input', renderGrid);
+  sort.addEventListener('change', renderGrid);
+  const openFromEl = el => { const c = el.closest('.pc'); if (c) openProduct(c.dataset.k); };
+  grid.addEventListener('click', e => openFromEl(e.target));
+  grid.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFromEl(e.target); } });
 
-  function shuffle(arr){ return arr.map(a => [Math.random(), a]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]); }
-  const slug = (s) => (s || '').toString().toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-  /* ===== BUY MODAL ===== */
-  const buyModal = document.getElementById('buy-modal');
-  const buyModalClose = document.getElementById('buy-modal-close');
-  const buyWhatsappBtn = document.getElementById('buy-whatsapp');
-  const buyInstagramBtn = document.getElementById('buy-instagram');
-  const buyTikTokBtn = document.getElementById('buy-tiktok');
-
-  const WHATSAPP_NUMBER = '393483471201';
-  const INSTAGRAM_PROFILE = 'https://www.instagram.com/c.a.lunara/';
-  const TIKTOK_PROFILE = 'https://www.tiktok.com/@lunara.candele';
-
-  let currentProductForBuy = null;
-
-  function openBuyModal(product){
-    currentProductForBuy = product || currentProductForBuy;
-
-    // Fallback: se la modale non è presente (es. qualche pagina), vai al dettaglio
-    if (!buyModal) {
-      if (product?.id) window.location.href = `product.html?id=${encodeURIComponent(product.id)}`;
+  /* ===== SCHEDA PRODOTTO ===== */
+  const pd = $('#pd'), pdBody = $('#pd-body');
+  let cur = null, gi = 0, lastFocus = null, curImgs = [];
+  let pdSel = { frag: null, col: null };
+  function optBlock(p) {
+    const fl = p.fragrances || [], cl = p.colors || [];
+    if (!fl.length && !cl.length) return '';
+    const grp = (t, key, list) => list.length ? `<div class="pd-opt"><h4>${t}</h4><div class="pd-chips" data-k="${key}" role="radiogroup" aria-label="${t}">${list.map((v, i) => { const hx = key === 'col' ? hexOf(v) : null; return `<button type="button" role="radio" aria-checked="false" data-v="${esc(v)}" class="pd-chip">${key === 'col' ? `<i class="${hx ? '' : 'any'}" style="${hx ? `background:${esc(hx)}` : ''}"></i>` : ''}${esc(v)}</button>`; }).join('')}</div></div>` : '';
+    return `<div class="pd-opts">${grp('Fragranza', 'frag', fl)}${grp('Colore', 'col', cl)}<p class="pd-opt-hint">Scegli le opzioni: le includiamo nel messaggio WhatsApp.</p></div>`;
+  }
+  const selText = () => [pdSel.frag && `Fragranza: ${pdSel.frag}`, pdSel.col && `Colore: ${pdSel.col}`].filter(Boolean).join('\n');
+  function openProduct(k, push = true) {
+    const p = products.find(x => keyOf(x) === k); if (!p) return;
+    cur = p; pdSel = { frag: null, col: null }; curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
+    const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">⚠ Ultimi pezzi</span>' : '';
+    const rec = shuffle(products.filter(x => keyOf(x) !== k && x.id !== p.id && (x.collection || '') === (p.collection || ''))).slice(0, 8);
+    const rec2 = rec.length ? rec : shuffle(products.filter(x => x.id !== p.id)).slice(0, 8);
+    pdBody.innerHTML = `
+      <div class="gal">
+        <div class="gal-main" id="gal-main">
+          ${curImgs.map((s, i) => `<img src="${esc(s)}" alt="${esc(p.title)} ${i + 1}" class="${i ? '' : 'on'}" ${i ? 'loading="lazy"' : ''}>`).join('')}
+          ${curImgs.length > 1 ? '<button class="gal-arrow p" aria-label="Precedente">‹</button><button class="gal-arrow n" aria-label="Successiva">›</button>' : ''}
+        </div>
+        ${curImgs.length > 1 ? `<div class="thumbs">${curImgs.map((s, i) => `<button class="${i ? '' : 'on'}" data-i="${i}" aria-label="Foto ${i + 1}"><img src="${esc(s)}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+      </div>
+      <div class="pd-info">
+        <div class="pd-flame" aria-hidden="true"><i class="halo"></i><svg class="flame" viewBox="0 0 40 76"><use href="#flame"/></svg></div>
+        <div class="tags">${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}</span>` : ''}</div>
+        <h1>${esc(p.title)}</h1>
+        <div class="pd-price"><span class="price">${fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
+        <span class="ship">🚚 Spedizione gratuita da 50€</span>
+        <p class="pd-desc">${esc(p.description)}</p>
+        ${optBlock(p)}
+        <div class="pd-act">
+          <button class="btn gold" id="pd-buy">Acquista</button>
+          <button class="btn" id="pd-info">Chiedi informazioni</button>
+          <button class="btn" id="pd-share">Condividi</button>
+        </div>
+      </div>
+      <div class="pd-rec"><h3>Ti potrebbe piacere</h3><div class="rec-track">${rec2.map(card).join('')}</div></div>`;
+    $$('.rv', pdBody).forEach(el => el.classList.add('in'));
+    pd.classList.add('open'); pd.setAttribute('aria-hidden', 'false'); pd.scrollTop = 0;
+    document.body.classList.add('lock');
+    if (push) history.pushState({ p: k }, '', '#p=' + encodeURIComponent(k));
+    document.title = `${p.title} — Candela artigianale | Lunara`;
+    $('#pd-close').focus({ preventScroll: true });
+  }
+  function closeProduct(fromPop) {
+    if (!pd.classList.contains('open')) return;
+    pd.classList.remove('open'); pd.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lock'); document.title = 'Lunara — Candele artigianali italiane';
+    if (!fromPop && location.hash.startsWith('#p=')) history.back();
+    lastFocus?.focus?.({ preventScroll: true });
+  }
+  function gal(n) {
+    gi = (n + curImgs.length) % curImgs.length;
+    $$('#gal-main img').forEach((im, i) => im.classList.toggle('on', i === gi));
+    $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === gi));
+    $('#gal-main')?.classList.remove('zoom'); $$('#gal-main img').forEach(im => im.style.transformOrigin = '');
+  }
+  pdBody.addEventListener('click', e => {
+    const t = e.target;
+    if (t.closest('.gal-arrow.p')) return gal(gi - 1);
+    if (t.closest('.gal-arrow.n')) return gal(gi + 1);
+    const th = t.closest('.thumbs button'); if (th) return gal(+th.dataset.i);
+    const chipB = t.closest('.pd-chip');
+    if (chipB) {
+      const g = chipB.parentElement, key = g.dataset.k, was = chipB.getAttribute('aria-checked') === 'true';
+      $$('.pd-chip', g).forEach(x => x.setAttribute('aria-checked', 'false'));
+      pdSel[key] = was ? null : chipB.dataset.v; if (!was) chipB.setAttribute('aria-checked', 'true');
       return;
     }
-    buyModal.classList.add('open');
-    buyModal.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    buyModalClose?.focus();
-  }
-  function closeBuyModal(){
-    buyModal?.classList.remove('open');
-    buyModal?.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
-
-  buyModalClose?.addEventListener('click', closeBuyModal);
-  buyModal?.addEventListener('click', e => { if (e.target === buyModal) closeBuyModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && buyModal?.classList.contains('open')) closeBuyModal(); });
-
-  buyWhatsappBtn?.addEventListener('click', () => {
-    const txt = encodeURIComponent(`Ciao! Vorrei acquistare: ${currentProductForBuy?.title || ''}`);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`, '_blank');
-    closeBuyModal();
+    if (t.closest('#pd-buy') || t.closest('#pd-info')) return openBuy();
+    if (t.closest('#pd-share')) return share();
+    const c = t.closest('.pc'); if (c) return openProduct(c.dataset.k, false);
+    if (t.closest('#gal-main')) $('#gal-main').classList.toggle('zoom');
   });
-  buyInstagramBtn?.addEventListener('click', () => { window.open(INSTAGRAM_PROFILE, '_blank'); closeBuyModal(); });
-  buyTikTokBtn?.addEventListener('click', () => { window.open(TIKTOK_PROFILE, '_blank'); closeBuyModal(); });
-
-  /* ===== DOM ===== */
-  const skeleton = document.getElementById('grid-skeleton');
-  const sectionsWrap = document.getElementById('catalogo-sections');
-  const navWrap = document.getElementById('collection-nav');
-  const searchInput = document.getElementById('search');
-  const sortSelect = document.getElementById('sort');
-  const viewAllWrap = document.getElementById('view-all-wrap');
-  const fabViewAll = document.getElementById('fab-view-all');
-
-  function goToDetail(product){
-    const id = encodeURIComponent(product.id || '');
-    if (!id) return;
-    window.location.href = `product.html?id=${id}`;
+  pdBody.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('pc')) { e.preventDefault(); openProduct(e.target.dataset.k, false); }
+  });
+  pdBody.addEventListener('pointermove', e => {
+    const m = e.target.closest('#gal-main'); if (!m || !m.classList.contains('zoom')) return;
+    const r = m.getBoundingClientRect(), im = $('img.on', m);
+    im.style.transformOrigin = `${(e.clientX - r.left) / r.width * 100}% ${(e.clientY - r.top) / r.height * 100}%`;
+  });
+  let tx = 0;
+  pdBody.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  pdBody.addEventListener('touchend', e => {
+    if (!e.target.closest('#gal-main')) return;
+    const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) gal(gi + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  $('#pd-close').addEventListener('click', () => closeProduct(false));
+  // i link del menu dentro la scheda: chiudono la scheda e portano alla sezione
+  $$('.pd-top a[href^="#"], .tabbar a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href');
+    const go = () => { const t = $(id); if (t) t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); };
+    if (pd.classList.contains('open')) {
+      pd.classList.remove('open'); pd.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock');
+      document.title = 'Lunara — Candele artigianali italiane';
+      if (location.hash.startsWith('#p=')) history.replaceState(null, '', id); else history.replaceState(null, '', id);
+      setTimeout(go, 60);
+    } else go();
+  }));
+  addEventListener('popstate', () => {
+    const m = location.hash.match(/^#p=(.+)/);
+    if (m) openProduct(decodeURIComponent(m[1]), false); else closeProduct(true);
+  });
+  async function share() {
+    const data = { title: cur?.title || 'Lunara', text: 'Dai un’occhiata a questo prodotto Lunara', url: location.href };
+    if (navigator.share) { try { await navigator.share(data); } catch {} return; }
+    try { await navigator.clipboard.writeText(location.href); toast('Link copiato!'); } catch { prompt('Copia il link:', location.href); }
   }
 
-  function createCard(product) {
-    const article = document.createElement('article');
-    article.className = 'card';
-
-    const badgeText =
-      isSheetTrue(product.is_new) ? 'Novità' :
-      isSheetTrue(product.is_low_stock) ? 'Ultimi pezzi' :
-      null;
-    if (badgeText) {
-      const badge = document.createElement('span');
-      badge.className = 'badge';
-      badge.textContent = badgeText;
-      article.appendChild(badge);
+  /* ===== MODAL ACQUISTO ===== */
+  const buy = $('#buy');
+  function openBuy() { buy.classList.add('open'); buy.setAttribute('aria-hidden', 'false'); $('#buy-x').focus(); }
+  function closeBuy() { buy.classList.remove('open'); buy.setAttribute('aria-hidden', 'true'); }
+  $('#buy-x').addEventListener('click', closeBuy);
+  buy.addEventListener('click', e => { if (e.target === buy) closeBuy(); });
+  $('#b-wa').addEventListener('click', () => { open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Ciao! Vorrei acquistare: ' + (cur?.title || '') + (selText() ? '\n' + selText() : ''))}`, '_blank', 'noopener'); closeBuy(); });
+  $('#b-ig').addEventListener('click', () => { open(IG, '_blank', 'noopener'); closeBuy(); });
+  $('#b-tt').addEventListener('click', () => { open(TT, '_blank', 'noopener'); closeBuy(); });
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape') { if (buy.classList.contains('open')) closeBuy(); else if (pd.classList.contains('open')) closeProduct(false); else toggleDrawer(false); }
+    if (pd.classList.contains('open') && !buy.classList.contains('open') && curImgs.length > 1) {
+      if (e.key === 'ArrowLeft') gal(gi - 1); if (e.key === 'ArrowRight') gal(gi + 1);
     }
+  });
 
-    const img = document.createElement('img');
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    img.src = product.images?.[0] || 'assets/images/placeholder.jpeg';
-    img.alt = product.title || 'Candela';
-    img.addEventListener('click', () => goToDetail(product));
-    article.appendChild(img);
-
-    const h3 = document.createElement('h3');
-    h3.textContent = product.title || 'Prodotto';
-    article.appendChild(h3);
-
-    const meta = document.createElement('p');
-    meta.className = 'meta';
-    meta.textContent = fmtPrice(product.price);
-    article.appendChild(meta);
-
-    const actions = document.createElement('div');
-    actions.className = 'card-actions';
-    const det = document.createElement('button'); det.className = 'btn ghost'; det.textContent = 'Dettagli'; det.addEventListener('click', () => goToDetail(product));
-    const buy = document.createElement('button'); buy.className = 'btn primary'; buy.textContent = 'Acquista';
-    buy.addEventListener('click', (ev) => { ev.stopPropagation(); openBuyModal(product); });
-    actions.appendChild(det); actions.appendChild(buy);
-    article.appendChild(actions);
-
-    // JSON-LD
+  /* ===== TOAST + FORM ===== */
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); }
+  const form = $('#contact-form');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const ok = $('#form-ok'), ko = $('#form-ko'); ok.classList.remove('show'); ko.classList.remove('show');
     try {
-      const ld = document.createElement('script'); ld.type = 'application/ld+json';
-      ld.text = JSON.stringify({
-        "@context":"https://schema.org","@type":"Product","name": product.title,
-        "image": product.images?.[0] || 'assets/images/placeholder.jpeg',
-        "description": product.description || '',
-        "sku": product.id || '',
-        "brand": {"@type":"Brand","name":"Lunara"},
-        "offers": {"@type":"Offer","priceCurrency":"EUR","price": product.price != null ? String(product.price) : "",
-          "availability": isSheetTrue(product.is_low_stock) ? "https://schema.org/LimitedAvailability" : "https://schema.org/InStock"}
-      });
-      article.appendChild(ld);
-    } catch {}
-
-    return article;
-  }
-
-  function createCollectionSection(title, id, list) {
-    const sec = document.createElement('section');
-    sec.className = 'collection-section';
-    sec.id = id;
-
-    const head = document.createElement('div');
-    head.className = 'collection-header';
-    const h3 = document.createElement('h3'); h3.className = 'collection-title'; h3.textContent = title;
-    const cnt = document.createElement('div'); cnt.className = 'collection-count'; cnt.textContent = `${list.length} prodotti`;
-    head.appendChild(h3); head.appendChild(cnt);
-    sec.appendChild(head);
-
-    const track = document.createElement('div'); track.className = 'collection-track';
-    const frag = document.createDocumentFragment();
-    list.forEach(p => frag.appendChild(createCard(p)));
-    track.appendChild(frag);
-    sec.appendChild(track);
-
-    return sec;
-  }
-
-  function renderCollectionNav(names) {
-    navWrap.innerHTML = '';
-    names.filter(n => (n || '').trim().length).forEach(name => {
-      const a = document.createElement('a');
-      a.className = 'chip-ancora';
-      a.href = `#col-${slug(name)}`;
-      a.textContent = name;
-      navWrap.appendChild(a);
-    });
-  }
-
-  function prioritySort(names) {
-    const prio = ['san valentino','bomboniere','natale'];
-    return [...names].sort((a,b) => {
-      const ai = prio.indexOf((a||'').toLowerCase()); const bi = prio.indexOf((b||'').toLowerCase());
-      if (ai !== -1 && bi !== -1) return ai - bi;
-      if (ai !== -1) return -1;
-      if (bi !== -1) return 1;
-      return (a||'').localeCompare(b||'', 'it', { sensitivity: 'base' });
-    });
-  }
-
-  function renderCollections(list) {
-    sectionsWrap.innerHTML = '';
-
-    const map = new Map();
-    list.forEach(p => {
-      const keyRaw = (p.collection || '').trim();
-      const key = keyRaw.length ? keyRaw : 'Altro';
-      if (!map.has(key)) map.set(key, []);
-      map.get(key).push(p);
-    });
-
-    let names = prioritySort([...map.keys()]);
-    // HOME: 2 collezioni; CATALOGO: tutte
-    if (!FULL_CATALOG) names = names.slice(0, 2);
-
-    renderCollectionNav(names);
-
-    names.forEach(name => {
-      const items = map.get(name) || [];
-      if (!items.length) return;
-      sectionsWrap.appendChild(createCollectionSection(name, `col-${slug(name)}`, items));
-    });
-
-    sectionsWrap.setAttribute('aria-busy','false');
-    document.getElementById('grid-skeleton')?.setAttribute('hidden','true');
-    document.getElementById('grid-skeleton')?.style.setProperty('display','none','important');
-
-    // CTA View All e FAB
-    if (!FULL_CATALOG) {
-      viewAllWrap?.style.setProperty('display','flex','important');
-      // mostra FAB dopo un po' di scroll
-      const onScroll = () => {
-        const y = window.scrollY || document.documentElement.scrollTop;
-        if (y > 800) { fabViewAll?.classList.add('show'); fabViewAll.style.display = 'flex'; }
-        else { fabViewAll?.classList.remove('show'); fabViewAll.style.display = 'none'; }
-      };
-      window.addEventListener('scroll', onScroll, { passive:true });
-      onScroll();
-    } else {
-      viewAllWrap?.style.setProperty('display','none','important');
-      fabViewAll?.style.setProperty('display','none','important');
-    }
-
-    if (debug) console.log('[CATALOGO]', { sezioni: names, totaleProdotti: list.length, full: FULL_CATALOG });
-  }
-
-  /* ===== LOAD ===== */
-  let allProducts = await fetchProducts();
-  if (debug) console.log('[SHEET]', { prodotti: allProducts?.length, sample: allProducts?.[0] });
-
-  if (!allProducts || !allProducts.length) {
-    document.getElementById('grid-skeleton')?.setAttribute('hidden','true');
-    sectionsWrap.innerHTML = '<div class="empty-state">Nessun prodotto disponibile al momento.</div>';
-    return;
-  }
-
-  await runInBatches(allProducts, 8, async (p) => {
-    const candidates = getImageCandidates(p, 6);
-    const found = await pickExistingImagesUnique(candidates, 6);
-    p.images = found.length ? found : ['assets/images/placeholder.jpeg'];
-    if (debug) console.log('[FOTO]', p.title, { candidates: candidates.slice(0,24), found: p.images });
+      const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!r.ok) throw 0; form.reset(); ok.classList.add('show');
+    } catch { ko.classList.add('show'); }
   });
 
-  // HERO
-  buildHeroCarousel(allProducts);
-  renderCollections(allProducts);
+  /* ===== PERSONALIZZA LA TUA CANDELA (atelier a passi) ===== */
+  const waLink = text => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
+  function initConfigurator() {
+    const root = $('#atl'); if (!root) return;
+    const bases = [...new Map(products.map(p => [p.title, p])).values()];
+    const sel = { base: null, frag: null, col: null };
+    let step = 0;
+    const NONE = 'Da definire';
+    const panes = $$('.atl-pane', root), stepBtns = $$('#atl-steps button', root);
 
-  /* ===== FILTRI ===== */
-  function applyFilters() {
-    const q = (searchInput?.value || '').toLowerCase();
-    let list = [...allProducts];
+    $('#cfg-base').innerHTML = bases.map((p, i) => `<button type="button" role="radio" class="base" data-i="${i}" aria-checked="false"><img src="${esc(imgsOf(p)[0])}" alt="" loading="lazy"><span>${esc(p.title)}</span></button>`).join('');
+    function renderOpts() {
+      const fl = optsOf(sel.base, 'fragrances'), cl = optsOf(sel.base, 'colors');
+      $('#cfg-frag').innerHTML = sel.base ? fl.map((f, i) => `<button type="button" role="radio" class="frag" data-i="${i}" aria-checked="false"><b>${esc(f)}</b></button>`).join('') : '<p class="atl-hint">Scegli prima una creazione.</p>';
+      $('#cfg-col').innerHTML = sel.base ? cl.map((c, i) => { const hx = hexOf(c); return `<button type="button" role="radio" class="col" data-i="${i}" aria-checked="false" aria-label="${esc(c)}"><i class="${hx ? '' : 'any'}" style="${hx ? `--c:${esc(hx)}` : ''}"></i><span>${esc(c)}</span></button>`; }).join('') : '';
+      $('#hint-frag').textContent = sel.base && (sel.base.fragrances || []).length ? `Le fragranze di «${sel.base.title}».` : 'Per questa creazione definiamo il profumo insieme: scrivici cosa preferisci.';
+      $('#hint-col').textContent = sel.base && (sel.base.colors || []).length ? `I colori di «${sel.base.title}».` : 'Per questa creazione definiamo il colore insieme: scrivici cosa preferisci.';
+    }
+    renderOpts();
 
-    if (q) {
-      list = list.filter(p =>
-        (p.title || '').toLowerCase().includes(q) ||
-        (p.measures || '').toLowerCase().includes(q) ||
-        (p.description || '').toLowerCase().includes(q) ||
-        (p.collection || '').toLowerCase().includes(q)
-      );
+    const stage = $('#atl-stage'), img = $('#atl-img');
+    const chip = (id, on, html) => { const el = $('#' + id); el.hidden = !on; if (on) el.innerHTML = html; };
+    function paint() {
+      $$('.base', root).forEach((b, i) => b.setAttribute('aria-checked', String(bases[i] === sel.base)));
+      const fl = optsOf(sel.base, 'fragrances'), cl = optsOf(sel.base, 'colors');
+      $$('.frag', root).forEach((b, i) => b.setAttribute('aria-checked', String(fl[i] === sel.frag)));
+      $$('.col', root).forEach((b, i) => b.setAttribute('aria-checked', String(cl[i] === sel.col)));
+      stage.style.setProperty('--tone', hexOf(sel.col) || '#e8c98a');
+      stage.classList.toggle('has-col', !!sel.col);
+      const src = sel.base ? imgsOf(sel.base)[0] : null;
+      if (src && img.dataset.src !== src) {
+        img.dataset.src = src;
+        const n = new Image(); n.alt = ''; n.src = src; n.className = 'in';
+        img.appendChild(n); const old = $$('img', img).filter(x => x !== n);
+        requestAnimationFrame(() => old.forEach(o => { o.classList.add('out'); setTimeout(() => o.remove(), 600); }));
+      }
+      chip('chip-base', true, esc(sel.base ? sel.base.title : 'Scegli una creazione'));
+      chip('chip-frag', !!sel.frag, esc(sel.frag || ''));
+      chip('chip-col', !!sel.col, `<i style="${hexOf(sel.col) ? `background:${esc(hexOf(sel.col))}` : ''}"></i><b>${esc(sel.col || '')}</b>`);
+      $('#cfg-s-base').textContent = sel.base?.title || NONE;
+      $('#cfg-s-frag').textContent = sel.frag || NONE;
+      $('#cfg-s-col').textContent = sel.col || NONE;
+      const note = $('#cfg-note').value.trim();
+      $('#cfg-wa').href = waLink(['Ciao Lunara! Vorrei richiedere una candela personalizzata.', '',
+        `Creazione: ${sel.base?.title || NONE}`, `Fragranza: ${sel.frag || NONE}`, `Colore: ${sel.col || NONE}`,
+        ...(note ? ['', `Note: ${note}`] : [])].join('\n'));
     }
-    switch (sortSelect?.value) {
-      case 'price-asc':  list.sort((a,b) => Number(a.price||0) - Number(b.price||0)); break;
-      case 'price-desc': list.sort((a,b) => Number(b.price||0) - Number(a.price||0)); break;
-      case 'new-first':  list.sort((a,b) => (isSheetTrue(b.is_new) - isSheetTrue(a.is_new))); break;
-      default: break;
+    function go(n) {
+      step = Math.max(0, Math.min(panes.length - 1, n));
+      panes.forEach((p, i) => p.hidden = i !== step);
+      stepBtns.forEach((b, i) => { b.classList.toggle('on', i === step); b.classList.toggle('done', i < step); b.setAttribute('aria-current', i === step ? 'step' : 'false'); });
+      $('#atl-prev').style.visibility = step ? 'visible' : 'hidden';
+      $('#atl-next').style.display = step === panes.length - 1 ? 'none' : '';
     }
-    renderCollections(list);
+    const pick = key => e => {
+      const b = e.target.closest('[data-i]'); if (!b) return;
+      const list = key === 'base' ? bases : optsOf(sel.base, key === 'frag' ? 'fragrances' : 'colors');
+      sel[key] = list[+b.dataset.i];
+      if (key === 'base') { sel.frag = sel.col = null; renderOpts(); }
+      paint();
+      setTimeout(() => { if (step < 3) go(step + 1); }, 380);
+    };
+    $('#cfg-base').addEventListener('click', pick('base'));
+    $('#cfg-frag').addEventListener('click', pick('frag'));
+    $('#cfg-col').addEventListener('click', pick('col'));
+    $('#cfg-note').addEventListener('input', paint);
+    stepBtns.forEach(b => b.addEventListener('click', () => go(+b.dataset.s)));
+    $('#atl-next').addEventListener('click', () => go(step + 1));
+    $('#atl-prev').addEventListener('click', () => go(step - 1));
+    go(0); paint();
   }
-  searchInput?.addEventListener('input', applyFilters);
-  sortSelect?.addEventListener('change', applyFilters);
+  const wc = $('#wa-contact'); if (wc) wc.href = `https://wa.me/${WHATSAPP}`;
 
-  /* ===== HERO CAROUSEL ===== */
-  function buildHeroCarousel(products){
-    const slidesWrap = document.getElementById('hero-slides');
-    const dotsWrap = document.getElementById('hero-dots');
-    const carousel = document.getElementById('hero-carousel');
-    if (!slidesWrap || !dotsWrap || !carousel) return;
-
-    let imgs = products.map(p => p.images?.[0]).filter(src => src && !src.includes('placeholder'));
-    imgs = Array.from(new Set(imgs));
-    imgs = shuffle(imgs).slice(0, 8);
-    if (!imgs.length) imgs = ['assets/images/placeholder.jpeg'];
-
-    slidesWrap.innerHTML = '';
-    dotsWrap.innerHTML = '';
-    imgs.forEach((src,i) => {
-      const slide = document.createElement('div');
-      slide.className = 'slide' + (i===0 ? ' active' : '');
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = 'Prodotto Lunara';
-      slide.appendChild(img);
-      slidesWrap.appendChild(slide);
-
-      const dot = document.createElement('span');
-      dot.className = 'dot' + (i===0 ? ' active' : '');
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
-    });
-
-    let idx = 0;
-    let timer = null;
-    const DURATION = 4000;
-
-    function goTo(i){
-      const slides = slidesWrap.querySelectorAll('.slide');
-      const dots = dotsWrap.querySelectorAll('.dot');
-      slides[idx].classList.remove('active');
-      dots[idx].classList.remove('active');
-      idx = (i + slides.length) % slides.length;
-      slides[idx].classList.add('active');
-      dots[idx].classList.add('active');
-    }
-    function next(){ goTo(idx + 1); }
-    function start(){ stop(); timer = setInterval(next, DURATION); }
-    function stop(){ if (timer) clearInterval(timer); timer = null; }
-
-    start();
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-    carousel.addEventListener('focusin', stop);
-    carousel.addEventListener('focusout', start);
-
-    carousel.setAttribute('tabindex','0');
-    carousel.addEventListener('keydown', (e)=>{
-      if (e.key === 'ArrowLeft') { stop(); goTo(idx - 1); }
-      if (e.key === 'ArrowRight'){ stop(); goTo(idx + 1); }
-    });
+  /* ===== AVVIO ===== */
+  products = await loadProducts();
+  buildHero(); renderSeg(); renderGrid(); initConfigurator();
+  const intro = $('#intro');
+  if (intro) {
+    const hideIntro = () => intro.classList.add('out');
+    if (reduce || sessionStorage.getItem('lunara_intro')) intro.remove();
+    else { try { sessionStorage.setItem('lunara_intro', '1'); } catch {} setTimeout(hideIntro, 1700); setTimeout(() => intro.remove(), 3000); }
   }
-});
+  const h = location.hash.match(/^#p=(.+)/);
+  if (h) openProduct(decodeURIComponent(h[1]), false);
+})();

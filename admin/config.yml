@@ -1,0 +1,62 @@
+# Gestione catalogo (Sveltia CMS) — si apre da <sito>/admin/
+# Accesso: solo chi ha un account GitHub con permesso di scrittura sul repository (login con token personale).
+backend:
+  name: github
+  repo: LunaraCandeleArtigianali/lunara
+  branch: master
+
+site_url: https://lunaracandeleartigianali.github.io/lunara/
+locale: it
+
+# Foto caricate dal telefono: ridimensionate (proporzioni mantenute) e convertite in WebP
+media_folder: /assets/images/prodotti
+public_folder: assets/images/prodotti
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 1200
+          height: 1500
+
+collections:
+  - name: catalogo
+    label: Catalogo
+    files:
+      - name: products
+        label: Prodotti
+        file: /data/products.json
+        format: json
+        fields:
+          - label: Prodotti (trascina per cambiare l'ordine)
+            name: items
+            widget: list
+            label_singular: prodotto
+            summary: "{{fields.title}} — {{fields.collection}}"
+            fields:
+              - { label: Codice interno, name: id, widget: hidden, required: false }
+              - { label: Nome, name: title, widget: string }
+              - { label: "Collezione (es. Natale, San Valentino, Bomboniere, Casa)", name: collection, widget: string }
+              - { label: "Misure e peso (es. 14 x 12 cm • 280gr)", name: measures, widget: string, required: false }
+              - { label: Descrizione, name: description, widget: text, required: false }
+              - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, required: false }
+              - { label: Novità, name: is_new, widget: boolean, default: false }
+              - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
+              - label: "Fragranze disponibili per questo prodotto (una per riga di elenco; lascia vuoto se non scelte)"
+                name: fragrances
+                widget: list
+                required: false
+                field: { label: Fragranza, name: fragrance, widget: string }
+              - label: "Colori disponibili per questo prodotto (es. Rosa, Bianco, Rosso)"
+                name: colors
+                widget: list
+                required: false
+                field: { label: Colore, name: color, widget: string }
+              - label: "Foto (la prima è la copertina; trascina per riordinare)"
+                name: images
+                widget: image
+                multiple: true
+                required: false
