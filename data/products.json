@@ -410,6 +410,24 @@
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
       ]
+    },
+    {
+      "title": "CARILLON",
+      "collection": "Bomboniere",
+      "measures": "Ø9cm H 9cm 105gr",
+      "description": "",
+      "price": null,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "/assets/images/prodotti/img_5703.webp",
+        "/assets/images/prodotti/img_5704.webp",
+        "/assets/images/prodotti/img_5705.webp",
+        "/assets/images/prodotti/img_5706.webp",
+        "/assets/images/prodotti/img_5707.webp"
+      ]
     }
   ]
 }
