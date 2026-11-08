@@ -16,7 +16,8 @@
   const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(Number(p)) : 'NA';
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const slug = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-  const imgsOf = p => (p.images && p.images.length) ? p.images : [PLACEHOLDER];
+  // il pannello può salvare percorsi con la barra iniziale ("/assets/..."): li rendo relativi alla cartella del sito
+  const imgsOf = p => (p.images && p.images.length) ? p.images.map(s => String(s).replace(/^\/+/, '')) : [PLACEHOLDER];
   const hexOf = n => (CFG.colorHex || {})[String(n).trim().toLowerCase()] || null;
   const OTHER = 'Altro (lo definiamo insieme)';
   const optsOf = (p, k) => [...(p?.[k] || []), ...(p ? [OTHER] : [])];
