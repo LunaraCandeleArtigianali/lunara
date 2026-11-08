@@ -2,30 +2,38 @@
   "items": [
     {
       "id": "Candela_Essenza_di_Cuore",
-      "collection": "Bomboniere",
       "title": "Essenza di Cuore",
+      "collection": "Bomboniere",
       "measures": "14 x 12 x 5 cm • 280gr",
       "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
       "price": 25,
-      "is_new": true,
-      "is_low_stock": false,
+      "is_new": false,
+      "is_low_stock": true,
+      "fragrances": [
+        "Ciliegia"
+      ],
+      "colors": [],
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Orsetto_di_roselline",
-      "collection": "Bomboniere",
       "title": "Orsetto di roselline",
+      "collection": "Bomboniere",
       "measures": "5 x 6 cm • 60gr",
       "description": "La nostra candela a forma di orsetto di rose, realizzata in cera di oliva naturale.\nElegante e profumatissima ✨\n\nDisponibile nei colori rosa, bianco o rosso, per adattarsi a ogni stile e messaggio d’amore ❤️🤍\n\nUn dettaglio decorativo che profuma l’ambiente.",
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosa",
+        "Bianco",
+        "Rosso"
+      ],
       "images": [
         "assets/images/Candela_Orsetto_di_roselline/1.webp",
         "assets/images/Candela_Orsetto_di_roselline/2.webp",
@@ -33,23 +41,19 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ],
-      "fragrances": [],
-      "colors": [
-        "Rosa",
-        "Bianco",
-        "Rosso"
       ]
     },
     {
       "id": "Candela_Schiaccianoci",
-      "collection": "Casa",
       "title": "Schiaccianoci",
+      "collection": "Casa",
       "measures": "6 x 14 cm • 93gr",
       "description": "⭐ Candela Schiaccianoci in Cera di Oliva\n\nCandela artigianale a forma di schiaccianoci, in cera di oliva naturale e stoppino in cotone.\n\nPerfetta per decorare la casa a Natale, dona un tocco originale e raffinato alla tua tavola o come regalo speciale per le feste.\n\n(14x6 cm)\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 16.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Schiaccianoci/1.webp",
         "assets/images/Candela_Schiaccianoci/2.webp",
@@ -58,39 +62,39 @@
         "assets/images/Candela_Schiaccianoci/5.webp",
         "assets/images/Candela_Schiaccianoci/6.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Gnomo",
-      "collection": "Casa",
       "title": "Gnomo",
+      "collection": "Casa",
       "measures": "5,5 x 10 cm • 71gr",
       "description": "Gnomo modellato a mano in cera d’oliva aroma arancia e cioccolato, disponibile con stoppino o come essenza solida profumata.\n\n🎄 Rifinito con piccoli dettagli decorativi che lo rendono un pezzo unico perfetto per l’atmosfera natalizia o come regalo originale.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 14.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [
+        "Arancia e cioccolato"
+      ],
+      "colors": [],
       "images": [
         "assets/images/Candela_Gnomo/1.webp",
         "assets/images/Candela_Gnomo/2.webp",
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
-      ],
-      "fragrances": [
-        "Arancia e cioccolato"
-      ],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Bouquet_fiori_(S.Valentino)",
-      "collection": "San Valentino",
       "title": "Bouquet fiori (S.Valentino)",
+      "collection": "San Valentino",
       "measures": "Personalizzabile • Personalizzabile",
       "description": "Elegante bouquet composto da candele artigianali a forma di rose, realizzate in cera di oliva naturale\n\nPerfetto come idea regalo, complemento d’arredo o alternativa originale ai fiori freschi",
       "price": 40,
       "is_new": false,
       "is_low_stock": true,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/1.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/2.webp",
@@ -98,55 +102,59 @@
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Rosa_in_cupola",
-      "collection": "San Valentino",
       "title": "Rosa in cupola",
+      "collection": "San Valentino",
       "measures": "7 x 10 cm • 52gr",
       "description": "Piccola ed elegante cupola in vetro zigrinato con all'interno una rosa rossa in cera di oliva, personalizzabile, sia nei colori che nella fragranza\n\nConfezionata in scatola bianca kraft e fiocco in chiffon rosso \n\nUn oggetto raffinato e romantico che unisce decorazione e atmosfera: la rosa, simbolo d’amore per eccellenza, è realizzata con cura nei dettagli e protetta da una cupola trasparente che ne valorizza il design\n\nIdeale come regalo speciale o come complemento d’arredo per creare un ambiente caldo e suggestivo \n\nUn pensiero senza tempo, pronto a sorprendere",
       "price": 12.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Rosa_in_cupola/1.webp",
         "assets/images/Candela_Rosa_in_cupola/2.webp",
         "assets/images/Candela_Rosa_in_cupola/3.webp",
         "assets/images/Candela_Rosa_in_cupola/4.webp",
         "assets/images/Candela_Rosa_in_cupola/5.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Essenza_di_Cuore",
-      "collection": "San Valentino",
       "title": "Essenza di Cuore",
+      "collection": "San Valentino",
       "measures": "14 x 12 x 5 cm • 280gr",
       "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
       "price": 25,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Orsetto_di_roselline",
-      "collection": "San Valentino",
       "title": "Orsetto di roselline",
+      "collection": "San Valentino",
       "measures": "5 x 6 cm • 60gr",
       "description": "La nostra candela a forma di orsetto di rose, realizzata in cera di oliva naturale, è il regalo perfetto per sorprendere chi ami a San Valentino (e non solo)\n\nElegante, romantica e profumatissima ✨\n\nDisponibile nei colori rosa, bianco o rosso, per adattarsi a ogni stile e messaggio d’amore ❤️🤍\n\nUn dettaglio decorativo che profuma l’ambiente e scalda il cuore",
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosa",
+        "Bianco",
+        "Rosso"
+      ],
       "images": [
         "assets/images/Candela_Orsetto_di_roselline/1.webp",
         "assets/images/Candela_Orsetto_di_roselline/2.webp",
@@ -154,60 +162,56 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ],
-      "fragrances": [],
-      "colors": [
-        "Rosa",
-        "Bianco",
-        "Rosso"
       ]
     },
     {
       "id": "Candela_Cuori_Accesi",
-      "collection": "San Valentino",
       "title": "Cuori Accesi",
+      "collection": "San Valentino",
       "measures": "9 x 8,5 cm • 200gr",
       "description": "Elegante contenitore in ceramica arricchito da delicati dettagli a forma di cuore in rilievo\n\nAll'interno del contenitore troviamo piccoli cuoricini in cera di soia, tutto fatto interamente a mano\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
       "price": 18,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Cuori_Accesi/1.webp",
         "assets/images/Candela_Cuori_Accesi/2.webp",
         "assets/images/Candela_Cuori_Accesi/3.webp",
         "assets/images/Candela_Cuori_Accesi/4.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Rosa_Incantata",
-      "collection": "San Valentino",
       "title": "Rosa Incantata",
+      "collection": "San Valentino",
       "measures": "5 x 5 cm • 50gr",
       "description": "Un regalo che non appassisce mai!\n\nCandela artigianale in cera di oliva, elegante e profumata\n\nPerfetta per sorprendere a San Valentino o per dire “ti penso” in modo speciale\n\n🕯️ Naturale\n🎁 Idea regalo romantica\n🌸 Profumo delicato e avvolgente\n❤️ Fatto con amore",
       "price": 9.9,
       "is_new": false,
       "is_low_stock": true,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Rosa_Incantata/1.webp",
         "assets/images/Candela_Rosa_Incantata/2.webp",
         "assets/images/Candela_Rosa_Incantata/3.webp",
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Bouquet_fiori_(Natale)",
-      "collection": "Natale",
       "title": "Bouquet fiori (Natale)",
+      "collection": "Natale",
       "measures": "Personalizzabile • Personalizzabile",
       "description": "Bouquet natalizio realizzato a mano con fiori e forme tipiche delle feste in cera d’oliva profumata. 🎁🕯️♥️\n\nOgni composizione è completamente personalizzabile: puoi scegliere colori, elementi decorativi e tutti i piccoli pezzi in cera che preferisci!\n\nUn’idea originale e artigianale per decorare la casa o fare un regalo unico.",
       "price": 40,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Bouquet_fiori_(Natale)/1.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/2.webp",
@@ -218,19 +222,23 @@
         "assets/images/Candela_Bouquet_fiori_(Natale)/7.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/8.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/9.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Alberello",
-      "collection": "Natale",
       "title": "Alberello",
+      "collection": "Natale",
       "measures": "9 x 12 cm • 140gr",
       "description": "🎄 Alberello Natalizio in Cera d’oliva\n\nCandela realizzata interamente a mano a forma di albero di Natale, disponibile in rosso, bianco e verde.\n\nCon stoppino in cotone, ideale per creare atmosfere calde e accoglienti durante le feste.\n\nOttima anche come decorazione o dono elegante.\n\n(12x9 cm)\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 16.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosso",
+        "Bianco",
+        "Verde"
+      ],
       "images": [
         "assets/images/Candela_Alberello/1.webp",
         "assets/images/Candela_Alberello/2.webp",
@@ -240,23 +248,21 @@
         "assets/images/Candela_Alberello/6.webp",
         "assets/images/Candela_Alberello/7.webp",
         "assets/images/Candela_Alberello/8.webp"
-      ],
-      "fragrances": [],
-      "colors": [
-        "Rosso",
-        "Bianco",
-        "Verde"
       ]
     },
     {
       "id": "Candela_Albero_in_contenitore",
-      "collection": "Natale",
       "title": "Albero in contenitore",
+      "collection": "Natale",
       "measures": "15 x 18 cm • 74gr",
       "description": "🎄 Candela Albero in Ceramica Artigianale\n\nCandela natalizia in cera di soia racchiusa in un esclusivo contenitore di ceramica, fatto a mano.\n\nLo stoppino in legno di ciliegio dona un tocco autentico e raffinato.\n\n🎁 Splendido oggetto da collezione per la casa durante le festività al gusto di mela e cannella.\n\n(18x15 cm)\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 25.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [
+        "Mela e cannella"
+      ],
+      "colors": [],
       "images": [
         "assets/images/Candela_Albero_in_contenitore/1.webp",
         "assets/images/Candela_Albero_in_contenitore/2.webp",
@@ -267,21 +273,19 @@
         "assets/images/Candela_Albero_in_contenitore/7.webp",
         "assets/images/Candela_Albero_in_contenitore/8.webp",
         "assets/images/Candela_Albero_in_contenitore/9.webp"
-      ],
-      "fragrances": [
-        "Mela e cannella"
-      ],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Fiocco",
-      "collection": "Natale",
       "title": "Fiocco",
+      "collection": "Natale",
       "measures": "8 x 7 x 3 cm • 55gr",
       "description": "❄️ Candele Natalizie Artigianali - Fiocco di Neve\n\nCandele lavorate a mano in cera d’oliva, disponibili nelle forme Renna (10×8 cm) o Fiocco di Neve (7×8 cm).\n\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o bruciaessenze.\n\n🎁 Ottime idee regalo, confezionate con cura in scatola kraft.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 11.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Fiocco/1.webp",
         "assets/images/Candela_Fiocco/2.webp",
@@ -291,19 +295,19 @@
         "assets/images/Candela_Fiocco/6.webp",
         "assets/images/Candela_Fiocco/7.webp",
         "assets/images/Candela_Fiocco/8.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Ghirlanda",
-      "collection": "Natale",
       "title": "Ghirlanda",
+      "collection": "Natale",
       "measures": "ø7cm • 25gr",
       "description": "🌿 Cialdine realizzate a mano con cera di oliva naturale, arricchite da spezie e decorazioni botaniche naturali.\n\n🎄Disponibili con filo di spago da appendere all’albero di Natale o come essenze solide per profumare i cassetti dell’ armadio o da sciogliere nel bruciatore.\n\nProfumazione intensa, stile elegante e perfette come piccoli regali.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 5.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Ghirlanda/1.webp",
         "assets/images/Candela_Ghirlanda/2.webp",
@@ -313,19 +317,21 @@
         "assets/images/Candela_Ghirlanda/6.webp",
         "assets/images/Candela_Ghirlanda/7.webp",
         "assets/images/Candela_Ghirlanda/8.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Palla_natale",
-      "collection": "Natale",
       "title": "Palla natale",
+      "collection": "Natale",
       "measures": "8 x 9 cm • 65gr",
       "description": "🕯️ Candela Palla di Natale in Ceramica 🎁\n\nUna sfera di ceramica decorata a mano che nasconde una cera di soia naturale profumata alla mela e cannella, con vere spezie all’interno.\nStoppino in legno di ciliegio o cotone.\n\nPerfetta per creare atmostera durante le feste, come decorazione natalizia, ideale come centro tavola elegante o regalo originale.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 25.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [
+        "Mela e cannella"
+      ],
+      "colors": [],
       "images": [
         "assets/images/Candela_Palla_natale/1.webp",
         "assets/images/Candela_Palla_natale/2.webp",
@@ -334,47 +340,64 @@
         "assets/images/Candela_Palla_natale/5.webp",
         "assets/images/Candela_Palla_natale/6.webp",
         "assets/images/Candela_Palla_natale/7.webp"
-      ],
-      "fragrances": [
-        "Mela e cannella"
-      ],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Renna",
-      "collection": "Natale",
       "title": "Renna",
+      "collection": "Natale",
       "measures": "8 x 9,5 x 2,5 cm • 70gr",
       "description": "🎄Candele Natalizie Artigianali - Renna\n\nCandele lavorate a mano in cera d’oliva, disponibili nelle forme Renna (10×8 cm) o Fiocco di Neve (7×8 cm).\n\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o bruciaessenze.\n\nOttime idee regalo, confezionate con cura in scatola kraft.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
       "price": 12.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Renna/1.webp",
         "assets/images/Candela_Renna/2.webp",
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp",
         "assets/images/Candela_Renna/5.webp"
-      ],
-      "fragrances": [],
-      "colors": []
+      ]
     },
     {
       "id": "Candela_Gift_Card",
-      "collection": "",
       "title": "Gift Card",
+      "collection": "Altro",
       "measures": "NA • NA",
       "description": "Regalati o regala una Gift Card. Possibilità sia in formato digitale che carta fisica!",
       "price": 0,
       "is_new": true,
       "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
       "images": [
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
+      ]
+    },
+    {
+      "title": "Test",
+      "collection": "Casa",
+      "measures": "2 X 46 cm - 200gr",
+      "description": "Nuovo prodotto in arrivo",
+      "price": 25,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [
+        "Mela",
+        "Cannella"
       ],
-      "fragrances": [],
-      "colors": []
+      "colors": [
+        "Bianco",
+        "Verde"
+      ],
+      "images": [
+        "/assets/images/prodotti/fb67696c-3b57-4e4e-a27d-ffd7a6415b65.webp",
+        "/assets/images/prodotti/img_5167.webp"
+      ]
     }
   ]
 }
