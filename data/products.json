@@ -379,24 +379,17 @@
       ]
     },
     {
-      "title": "Test",
-      "collection": "Casa",
-      "measures": "2 X 46 cm - 200gr",
-      "description": "Nuovo prodotto in arrivo",
-      "price": 25,
+      "title": "Giardino fiorito",
+      "collection": "Bomboniere",
+      "measures": "Ø8 cm H 3,5cm ( no tappo) H 10cm (con tappo)",
+      "description": "Candela artigianale in ceramica\n\nUna candela fatta a mano, con un contenitore in ceramica dalle linee delicate e una colata di cera di soia naturale.\n\nDecorata con fiori e dettagli botanici, ogni candela è unica e realizzata con cura in ogni particolare.\n\nUn oggetto che unisce bellezza e semplicità, perfetto per decorare la casa o da regalare.\n\nE quando la cera sarà terminata, il contenitore in ceramica potrà essere riutilizzato come piccolo complemento d’arredo.",
+      "price": null,
       "is_new": true,
       "is_low_stock": false,
-      "fragrances": [
-        "Mela",
-        "Cannella"
-      ],
-      "colors": [
-        "Bianco",
-        "Verde"
-      ],
+      "fragrances": [],
+      "colors": [],
       "images": [
-        "/assets/images/prodotti/fb67696c-3b57-4e4e-a27d-ffd7a6415b65.webp",
-        "/assets/images/prodotti/img_5167.webp"
+        "/assets/images/prodotti/img_5688.webp"
       ]
     }
   ]
