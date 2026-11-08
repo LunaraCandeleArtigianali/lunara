@@ -1,6 +1,39 @@
 {
   "items": [
     {
+      "title": "Giardino fiorito",
+      "collection": "Bomboniere",
+      "measures": "Ø8 cm H 3,5cm ( no tappo) H 10cm (con tappo)• 50gr",
+      "description": "Candela artigianale in ceramica\n\nUna candela fatta a mano, con un contenitore in ceramica dalle linee delicate e una colata di cera di soia naturale.\n\nDecorata con fiori e dettagli botanici, ogni candela è unica e realizzata con cura in ogni particolare.\n\nUn oggetto che unisce bellezza e semplicità, perfetto per decorare la casa o da regalare.\n\nE quando la cera sarà terminata, il contenitore in ceramica potrà essere riutilizzato come piccolo complemento d’arredo.",
+      "price": null,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "/assets/images/prodotti/img_5688.webp"
+      ]
+    },
+    {
+      "title": "Big Teddy",
+      "collection": "Bomboniere",
+      "measures": "10x9cm •150gr",
+      "description": "Big Teddy – Candela in cera di oliva\n\nUn tenero orsetto realizzato in cera di oliva, dalle forme morbide e dai dettagli delicati.\n\nUna candela naturale e originale, pensata per portare un tocco di dolcezza e calore in ogni ambiente.\n\nPerfetta come idea bomboniera nascita o battesimo.",
+      "price": 17,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosa",
+        "Bianco",
+        "Azzurro",
+        "Beige"
+      ],
+      "images": [
+        "/assets/images/prodotti/img_5689.webp"
+      ]
+    },
+    {
       "id": "Candela_Essenza_di_Cuore",
       "title": "Essenza di Cuore",
       "collection": "Bomboniere",
@@ -92,7 +125,7 @@
       "description": "Elegante bouquet composto da candele artigianali a forma di rose, realizzate in cera di oliva naturale\n\nPerfetto come idea regalo, complemento d’arredo o alternativa originale ai fiori freschi",
       "price": 40,
       "is_new": false,
-      "is_low_stock": true,
+      "is_low_stock": false,
       "fragrances": [],
       "colors": [],
       "images": [
@@ -190,7 +223,7 @@
       "description": "Un regalo che non appassisce mai!\n\nCandela artigianale in cera di oliva, elegante e profumata\n\nPerfetta per sorprendere a San Valentino o per dire “ti penso” in modo speciale\n\n🕯️ Naturale\n🎁 Idea regalo romantica\n🌸 Profumo delicato e avvolgente\n❤️ Fatto con amore",
       "price": 9.9,
       "is_new": false,
-      "is_low_stock": true,
+      "is_low_stock": false,
       "fragrances": [],
       "colors": [],
       "images": [
@@ -376,39 +409,6 @@
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
-      ]
-    },
-    {
-      "title": "Giardino fiorito",
-      "collection": "Bomboniere",
-      "measures": "Ø8 cm H 3,5cm ( no tappo) H 10cm (con tappo)• 50gr",
-      "description": "Candela artigianale in ceramica\n\nUna candela fatta a mano, con un contenitore in ceramica dalle linee delicate e una colata di cera di soia naturale.\n\nDecorata con fiori e dettagli botanici, ogni candela è unica e realizzata con cura in ogni particolare.\n\nUn oggetto che unisce bellezza e semplicità, perfetto per decorare la casa o da regalare.\n\nE quando la cera sarà terminata, il contenitore in ceramica potrà essere riutilizzato come piccolo complemento d’arredo.",
-      "price": null,
-      "is_new": true,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "/assets/images/prodotti/img_5688.webp"
-      ]
-    },
-    {
-      "title": "Big Teddy",
-      "collection": "Bomboniere",
-      "measures": "10x9cm •150gr",
-      "description": "Big Teddy – Candela in cera di oliva\n\nUn tenero orsetto realizzato in cera di oliva, dalle forme morbide e dai dettagli delicati.\n\nUna candela naturale e originale, pensata per portare un tocco di dolcezza e calore in ogni ambiente.\n\nPerfetta come idea bomboniera nascita o battesimo.",
-      "price": 17,
-      "is_new": true,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [
-        "Rosa",
-        "Bianco",
-        "Azzurro",
-        "Beige"
-      ],
-      "images": [
-        "/assets/images/prodotti/img_5689.webp"
       ]
     }
   ]
