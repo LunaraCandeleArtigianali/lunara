@@ -381,7 +381,7 @@
     {
       "title": "Giardino fiorito",
       "collection": "Bomboniere",
-      "measures": "Ø8 cm H 3,5cm ( no tappo) H 10cm (con tappo)",
+      "measures": "Ø8 cm H 3,5cm ( no tappo) H 10cm (con tappo)• 50gr",
       "description": "Candela artigianale in ceramica\n\nUna candela fatta a mano, con un contenitore in ceramica dalle linee delicate e una colata di cera di soia naturale.\n\nDecorata con fiori e dettagli botanici, ogni candela è unica e realizzata con cura in ogni particolare.\n\nUn oggetto che unisce bellezza e semplicità, perfetto per decorare la casa o da regalare.\n\nE quando la cera sarà terminata, il contenitore in ceramica potrà essere riutilizzato come piccolo complemento d’arredo.",
       "price": null,
       "is_new": true,
@@ -390,6 +390,25 @@
       "colors": [],
       "images": [
         "/assets/images/prodotti/img_5688.webp"
+      ]
+    },
+    {
+      "title": "Big Teddy",
+      "collection": "Bomboniere",
+      "measures": "10x9cm •150gr",
+      "description": "Big Teddy – Candela in cera di oliva\n\nUn tenero orsetto realizzato in cera di oliva, dalle forme morbide e dai dettagli delicati.\n\nUna candela naturale e originale, pensata per portare un tocco di dolcezza e calore in ogni ambiente.\n\nPerfetta come idea bomboniera nascita o battesimo.",
+      "price": 17,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosa",
+        "Bianco",
+        "Azzurro",
+        "Beige"
+      ],
+      "images": [
+        "/assets/images/prodotti/img_5689.webp"
       ]
     }
   ]
