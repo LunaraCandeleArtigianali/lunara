@@ -77,6 +77,23 @@
       ]
     },
     {
+      "id": "Candela_Gift_Card",
+      "title": "Gift Card",
+      "collection": "Altro",
+      "measures": "NA • NA",
+      "description": "Regalati o regala una Gift Card. Possibilità sia in formato digitale che carta fisica!",
+      "price": 0,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "assets/images/Candela_Gift_Card/1.webp",
+        "assets/images/Candela_Gift_Card/2.webp",
+        "assets/images/Candela_Gift_Card/3.webp"
+      ]
+    },
+    {
       "id": "Candela_Schiaccianoci",
       "title": "Schiaccianoci",
       "collection": "Casa",
@@ -115,123 +132,6 @@
         "assets/images/Candela_Gnomo/2.webp",
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
-      ]
-    },
-    {
-      "id": "Candela_Bouquet_fiori_(S.Valentino)",
-      "title": "Bouquet fiori (S.Valentino)",
-      "collection": "San Valentino",
-      "measures": "Personalizzabile • Personalizzabile",
-      "description": "Elegante bouquet composto da candele artigianali a forma di rose, realizzate in cera di oliva naturale\n\nPerfetto come idea regalo, complemento d’arredo o alternativa originale ai fiori freschi",
-      "price": 40,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/1.webp",
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/2.webp",
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/3.webp",
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
-        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
-      ]
-    },
-    {
-      "id": "Candela_Rosa_in_cupola",
-      "title": "Rosa in cupola",
-      "collection": "San Valentino",
-      "measures": "7 x 10 cm • 52gr",
-      "description": "Piccola ed elegante cupola in vetro zigrinato con all'interno una rosa rossa in cera di oliva, personalizzabile, sia nei colori che nella fragranza\n\nConfezionata in scatola bianca kraft e fiocco in chiffon rosso \n\nUn oggetto raffinato e romantico che unisce decorazione e atmosfera: la rosa, simbolo d’amore per eccellenza, è realizzata con cura nei dettagli e protetta da una cupola trasparente che ne valorizza il design\n\nIdeale come regalo speciale o come complemento d’arredo per creare un ambiente caldo e suggestivo \n\nUn pensiero senza tempo, pronto a sorprendere",
-      "price": 12.99,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "assets/images/Candela_Rosa_in_cupola/1.webp",
-        "assets/images/Candela_Rosa_in_cupola/2.webp",
-        "assets/images/Candela_Rosa_in_cupola/3.webp",
-        "assets/images/Candela_Rosa_in_cupola/4.webp",
-        "assets/images/Candela_Rosa_in_cupola/5.webp"
-      ]
-    },
-    {
-      "id": "Candela_Essenza_di_Cuore",
-      "title": "Essenza di Cuore",
-      "collection": "San Valentino",
-      "measures": "14 x 12 x 5 cm • 280gr",
-      "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
-      "price": 25,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "assets/images/Candela_Essenza_di_Cuore/1.webp",
-        "assets/images/Candela_Essenza_di_Cuore/2.webp",
-        "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ]
-    },
-    {
-      "id": "Candela_Orsetto_di_roselline",
-      "title": "Orsetto di roselline",
-      "collection": "San Valentino",
-      "measures": "5 x 6 cm • 60gr",
-      "description": "La nostra candela a forma di orsetto di rose, realizzata in cera di oliva naturale, è il regalo perfetto per sorprendere chi ami a San Valentino (e non solo)\n\nElegante, romantica e profumatissima ✨\n\nDisponibile nei colori rosa, bianco o rosso, per adattarsi a ogni stile e messaggio d’amore ❤️🤍\n\nUn dettaglio decorativo che profuma l’ambiente e scalda il cuore",
-      "price": 9.9,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [
-        "Rosa",
-        "Bianco",
-        "Rosso"
-      ],
-      "images": [
-        "assets/images/Candela_Orsetto_di_roselline/1.webp",
-        "assets/images/Candela_Orsetto_di_roselline/2.webp",
-        "assets/images/Candela_Orsetto_di_roselline/3.webp",
-        "assets/images/Candela_Orsetto_di_roselline/4.webp",
-        "assets/images/Candela_Orsetto_di_roselline/5.webp",
-        "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ]
-    },
-    {
-      "id": "Candela_Cuori_Accesi",
-      "title": "Cuori Accesi",
-      "collection": "San Valentino",
-      "measures": "9 x 8,5 cm • 200gr",
-      "description": "Elegante contenitore in ceramica arricchito da delicati dettagli a forma di cuore in rilievo\n\nAll'interno del contenitore troviamo piccoli cuoricini in cera di soia, tutto fatto interamente a mano\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
-      "price": 18,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "assets/images/Candela_Cuori_Accesi/1.webp",
-        "assets/images/Candela_Cuori_Accesi/2.webp",
-        "assets/images/Candela_Cuori_Accesi/3.webp",
-        "assets/images/Candela_Cuori_Accesi/4.webp"
-      ]
-    },
-    {
-      "id": "Candela_Rosa_Incantata",
-      "title": "Rosa Incantata",
-      "collection": "San Valentino",
-      "measures": "5 x 5 cm • 50gr",
-      "description": "Un regalo che non appassisce mai!\n\nCandela artigianale in cera di oliva, elegante e profumata\n\nPerfetta per sorprendere a San Valentino o per dire “ti penso” in modo speciale\n\n🕯️ Naturale\n🎁 Idea regalo romantica\n🌸 Profumo delicato e avvolgente\n❤️ Fatto con amore",
-      "price": 9.9,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrances": [],
-      "colors": [],
-      "images": [
-        "assets/images/Candela_Rosa_Incantata/1.webp",
-        "assets/images/Candela_Rosa_Incantata/2.webp",
-        "assets/images/Candela_Rosa_Incantata/3.webp",
-        "assets/images/Candela_Rosa_Incantata/4.webp",
-        "assets/images/Candela_Rosa_Incantata/5.webp"
       ]
     },
     {
@@ -395,20 +295,120 @@
       ]
     },
     {
-      "id": "Candela_Gift_Card",
-      "title": "Gift Card",
-      "collection": "Altro",
-      "measures": "NA • NA",
-      "description": "Regalati o regala una Gift Card. Possibilità sia in formato digitale che carta fisica!",
-      "price": 0,
-      "is_new": true,
+      "id": "Candela_Bouquet_fiori_(S.Valentino)",
+      "title": "Bouquet fiori (S.Valentino)",
+      "collection": "San Valentino",
+      "measures": "Personalizzabile • Personalizzabile",
+      "description": "Elegante bouquet composto da candele artigianali a forma di rose, realizzate in cera di oliva naturale\n\nPerfetto come idea regalo, complemento d’arredo o alternativa originale ai fiori freschi",
+      "price": 40,
+      "is_new": false,
       "is_low_stock": false,
       "fragrances": [],
       "colors": [],
       "images": [
-        "assets/images/Candela_Gift_Card/1.webp",
-        "assets/images/Candela_Gift_Card/2.webp",
-        "assets/images/Candela_Gift_Card/3.webp"
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/1.webp",
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/2.webp",
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/3.webp",
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
+        "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
+      ]
+    },
+    {
+      "id": "Candela_Rosa_in_cupola",
+      "title": "Rosa in cupola",
+      "collection": "San Valentino",
+      "measures": "7 x 10 cm • 52gr",
+      "description": "Piccola ed elegante cupola in vetro zigrinato con all'interno una rosa rossa in cera di oliva, personalizzabile, sia nei colori che nella fragranza\n\nConfezionata in scatola bianca kraft e fiocco in chiffon rosso \n\nUn oggetto raffinato e romantico che unisce decorazione e atmosfera: la rosa, simbolo d’amore per eccellenza, è realizzata con cura nei dettagli e protetta da una cupola trasparente che ne valorizza il design\n\nIdeale come regalo speciale o come complemento d’arredo per creare un ambiente caldo e suggestivo \n\nUn pensiero senza tempo, pronto a sorprendere",
+      "price": 12.99,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "assets/images/Candela_Rosa_in_cupola/1.webp",
+        "assets/images/Candela_Rosa_in_cupola/2.webp",
+        "assets/images/Candela_Rosa_in_cupola/3.webp",
+        "assets/images/Candela_Rosa_in_cupola/4.webp",
+        "assets/images/Candela_Rosa_in_cupola/5.webp"
+      ]
+    },
+    {
+      "id": "Candela_Essenza_di_Cuore",
+      "title": "Essenza di Cuore",
+      "collection": "San Valentino",
+      "measures": "14 x 12 x 5 cm • 280gr",
+      "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
+      "price": 25,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "assets/images/Candela_Essenza_di_Cuore/1.webp",
+        "assets/images/Candela_Essenza_di_Cuore/2.webp",
+        "assets/images/Candela_Essenza_di_Cuore/3.webp"
+      ]
+    },
+    {
+      "id": "Candela_Orsetto_di_roselline",
+      "title": "Orsetto di roselline",
+      "collection": "San Valentino",
+      "measures": "5 x 6 cm • 60gr",
+      "description": "La nostra candela a forma di orsetto di rose, realizzata in cera di oliva naturale, è il regalo perfetto per sorprendere chi ami a San Valentino (e non solo)\n\nElegante, romantica e profumatissima ✨\n\nDisponibile nei colori rosa, bianco o rosso, per adattarsi a ogni stile e messaggio d’amore ❤️🤍\n\nUn dettaglio decorativo che profuma l’ambiente e scalda il cuore",
+      "price": 9.9,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [
+        "Rosa",
+        "Bianco",
+        "Rosso"
+      ],
+      "images": [
+        "assets/images/Candela_Orsetto_di_roselline/1.webp",
+        "assets/images/Candela_Orsetto_di_roselline/2.webp",
+        "assets/images/Candela_Orsetto_di_roselline/3.webp",
+        "assets/images/Candela_Orsetto_di_roselline/4.webp",
+        "assets/images/Candela_Orsetto_di_roselline/5.webp",
+        "assets/images/Candela_Orsetto_di_roselline/6.webp"
+      ]
+    },
+    {
+      "id": "Candela_Cuori_Accesi",
+      "title": "Cuori Accesi",
+      "collection": "San Valentino",
+      "measures": "9 x 8,5 cm • 200gr",
+      "description": "Elegante contenitore in ceramica arricchito da delicati dettagli a forma di cuore in rilievo\n\nAll'interno del contenitore troviamo piccoli cuoricini in cera di soia, tutto fatto interamente a mano\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
+      "price": 18,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "assets/images/Candela_Cuori_Accesi/1.webp",
+        "assets/images/Candela_Cuori_Accesi/2.webp",
+        "assets/images/Candela_Cuori_Accesi/3.webp",
+        "assets/images/Candela_Cuori_Accesi/4.webp"
+      ]
+    },
+    {
+      "id": "Candela_Rosa_Incantata",
+      "title": "Rosa Incantata",
+      "collection": "San Valentino",
+      "measures": "5 x 5 cm • 50gr",
+      "description": "Un regalo che non appassisce mai!\n\nCandela artigianale in cera di oliva, elegante e profumata\n\nPerfetta per sorprendere a San Valentino o per dire “ti penso” in modo speciale\n\n🕯️ Naturale\n🎁 Idea regalo romantica\n🌸 Profumo delicato e avvolgente\n❤️ Fatto con amore",
+      "price": 9.9,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrances": [],
+      "colors": [],
+      "images": [
+        "assets/images/Candela_Rosa_Incantata/1.webp",
+        "assets/images/Candela_Rosa_Incantata/2.webp",
+        "assets/images/Candela_Rosa_Incantata/3.webp",
+        "assets/images/Candela_Rosa_Incantata/4.webp",
+        "assets/images/Candela_Rosa_Incantata/5.webp"
       ]
     }
   ]
