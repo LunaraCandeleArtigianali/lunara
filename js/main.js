@@ -253,7 +253,7 @@
     const q = search.value.trim().toLowerCase();
     let l = products.filter(p => col === 'Tutte' || colOf(p) === col);
     if (isBomb(col) && sub !== 'Tutte') l = l.filter(p => typeKey(p) === sub);
-    if (q) l = l.filter(p => [p.title, p.measures, p.description, p.collection, p.bomboniera_type, ...(p.fragrances || []), ...(p.colors || [])].some(s => (s || '').toLowerCase().includes(q)));
+    if (q) l = l.filter(p => [p.title, p.measures, p.description, p.collection, p.bomboniera_type, ...fragrancesOf(p), ...(p.colors || [])].some(s => (s || '').toLowerCase().includes(q)));
     if (sort.value === 'price-asc') l.sort((a, b) => (a.price || 0) - (b.price || 0));
     else if (sort.value === 'price-desc') l.sort((a, b) => (b.price || 0) - (a.price || 0));
     else if (sort.value === 'new-first') l.sort((a, b) => isTrue(b.is_new) - isTrue(a.is_new));
