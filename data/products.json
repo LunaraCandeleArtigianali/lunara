@@ -9,13 +9,13 @@
       "price": null,
       "is_new": true,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5688.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "title": "Big Teddy",
@@ -26,6 +26,7 @@
       "price": 17,
       "is_new": true,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [
         "Rosa",
@@ -36,8 +37,7 @@
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5689.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -49,17 +49,15 @@
       "price": 25,
       "is_new": false,
       "is_low_stock": true,
-      "fragrances": [
-        "Ciliegia"
-      ],
+      "fragrance_mode": "all",
+      "fragrances": [],
       "colors": [],
       "no_extras": false,
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -71,6 +69,7 @@
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [
         "Rosa",
@@ -85,8 +84,7 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Gift_Card",
@@ -98,6 +96,7 @@
       "price": 0,
       "is_new": true,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": true,
@@ -105,8 +104,7 @@
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Schiaccianoci",
@@ -118,6 +116,7 @@
       "price": 16.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -129,8 +128,7 @@
         "assets/images/Candela_Schiaccianoci/5.webp",
         "assets/images/Candela_Schiaccianoci/6.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Gnomo",
@@ -142,6 +140,7 @@
       "price": 14.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [
         "Arancia e cioccolato"
       ],
@@ -152,8 +151,7 @@
         "assets/images/Candela_Gnomo/2.webp",
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Bouquet_fiori_(Natale)",
@@ -165,6 +163,7 @@
       "price": 40,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -178,8 +177,7 @@
         "assets/images/Candela_Bouquet_fiori_(Natale)/7.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/8.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/9.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Alberello",
@@ -191,6 +189,7 @@
       "price": 16.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [
         "Rosso",
@@ -207,8 +206,7 @@
         "assets/images/Candela_Alberello/6.webp",
         "assets/images/Candela_Alberello/7.webp",
         "assets/images/Candela_Alberello/8.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Albero_in_contenitore",
@@ -220,6 +218,7 @@
       "price": 25.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [
         "Mela e cannella"
       ],
@@ -235,8 +234,7 @@
         "assets/images/Candela_Albero_in_contenitore/7.webp",
         "assets/images/Candela_Albero_in_contenitore/8.webp",
         "assets/images/Candela_Albero_in_contenitore/9.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Fiocco",
@@ -248,6 +246,7 @@
       "price": 11.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -260,8 +259,7 @@
         "assets/images/Candela_Fiocco/6.webp",
         "assets/images/Candela_Fiocco/7.webp",
         "assets/images/Candela_Fiocco/8.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Ghirlanda",
@@ -273,6 +271,7 @@
       "price": 5.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -285,8 +284,7 @@
         "assets/images/Candela_Ghirlanda/6.webp",
         "assets/images/Candela_Ghirlanda/7.webp",
         "assets/images/Candela_Ghirlanda/8.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Palla_natale",
@@ -298,9 +296,8 @@
       "price": 25.99,
       "is_new": false,
       "is_low_stock": false,
-      "fragrances": [
-        "Mela e cannella"
-      ],
+      "fragrance_mode": "all",
+      "fragrances": [],
       "colors": [],
       "no_extras": false,
       "images": [
@@ -311,8 +308,7 @@
         "assets/images/Candela_Palla_natale/5.webp",
         "assets/images/Candela_Palla_natale/6.webp",
         "assets/images/Candela_Palla_natale/7.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Renna",
@@ -324,6 +320,7 @@
       "price": 12.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -333,8 +330,7 @@
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp",
         "assets/images/Candela_Renna/5.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Bouquet_fiori_(S.Valentino)",
@@ -346,6 +342,7 @@
       "price": 40,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -356,8 +353,7 @@
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Rosa_in_cupola",
@@ -369,6 +365,7 @@
       "price": 12.99,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -378,8 +375,7 @@
         "assets/images/Candela_Rosa_in_cupola/3.webp",
         "assets/images/Candela_Rosa_in_cupola/4.webp",
         "assets/images/Candela_Rosa_in_cupola/5.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -391,6 +387,7 @@
       "price": 25,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -398,8 +395,7 @@
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -411,6 +407,7 @@
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [
         "Rosa",
@@ -425,8 +422,7 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Cuori_Accesi",
@@ -438,6 +434,7 @@
       "price": 18,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -446,8 +443,7 @@
         "assets/images/Candela_Cuori_Accesi/2.webp",
         "assets/images/Candela_Cuori_Accesi/3.webp",
         "assets/images/Candela_Cuori_Accesi/4.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "id": "Candela_Rosa_Incantata",
@@ -459,6 +455,7 @@
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -468,8 +465,7 @@
         "assets/images/Candela_Rosa_Incantata/3.webp",
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "title": "CARILLON",
@@ -480,6 +476,7 @@
       "price": 15,
       "is_new": true,
       "is_low_stock": false,
+      "fragrance_mode": "manual",
       "fragrances": [
         "Fior di cotone",
         "Latte di cocco",
@@ -496,8 +493,7 @@
         "/assets/images/prodotti/img_5705.webp",
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
-      ],
-      "fragrance_mode": "manual"
+      ]
     },
     {
       "title": "Omino Pan di zenzero",
@@ -508,6 +504,7 @@
       "price": 8.5,
       "is_new": true,
       "is_low_stock": false,
+      "fragrance_mode": "all",
       "fragrances": [
         "Vin brulé",
         "Caramello al burro salato",
@@ -527,8 +524,7 @@
         "Beige"
       ],
       "no_extras": false,
-      "images": [],
-      "fragrance_mode": "manual"
+      "images": []
     }
   ]
 }
