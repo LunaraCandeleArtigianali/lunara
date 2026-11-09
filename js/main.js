@@ -6,7 +6,7 @@
 
   /* ===== DATI =====
      Il catalogo vive in data/products.json (modificabile da telefono con /admin).
-     Numero WhatsApp, social e opzioni del configuratore sono in js/config.js. */
+     Numero WhatsApp e social sono in js/config.js; le opzioni del catalogo sono in archivi separati in data/. */
   const CFG = window.LUNARA_CONFIG;
   const WHATSAPP = CFG.whatsapp, IG = CFG.instagram, TT = CFG.tiktok;
   const PLACEHOLDER = 'assets/images/placeholder.jpeg';
@@ -18,7 +18,7 @@
   const slug = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   // il pannello può salvare percorsi con la barra iniziale ("/assets/..."): li rendo relativi alla cartella del sito
   const imgsOf = p => (p.images && p.images.length) ? p.images.map(s => String(s).replace(/^\/+/, '')) : [PLACEHOLDER];
-  // collezioni, tipologie di bomboniera e colori vivono in data/options.json (modificabili da /admin)
+  // collezioni, tipologie, colori e fragranze vivono in file indipendenti (modificabili da /admin)
   let OPTS = { collections: [], types: [], colors: [], fragrances: [] };
   const hexOf = n => { const k = String(n ?? '').trim().toLowerCase(); return ((OPTS.colors || []).find(c => String(c.name).trim().toLowerCase() === k) || {}).hex || null; };
   const colOf = p => (p.collection || '').trim() || 'Altro';
