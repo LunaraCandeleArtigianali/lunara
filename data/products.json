@@ -15,7 +15,8 @@
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5688.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "title": "Big Teddy",
@@ -37,7 +38,8 @@
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5689.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -57,7 +59,8 @@
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -84,7 +87,8 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Gift_Card",
@@ -104,7 +108,8 @@
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
-      ]
+      ],
+      "color_mode": "manual"
     },
     {
       "id": "Candela_Schiaccianoci",
@@ -128,7 +133,8 @@
         "assets/images/Candela_Schiaccianoci/5.webp",
         "assets/images/Candela_Schiaccianoci/6.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Gnomo",
@@ -151,7 +157,8 @@
         "assets/images/Candela_Gnomo/2.webp",
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Bouquet_fiori_(Natale)",
@@ -177,7 +184,8 @@
         "assets/images/Candela_Bouquet_fiori_(Natale)/7.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/8.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/9.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Alberello",
@@ -206,7 +214,8 @@
         "assets/images/Candela_Alberello/6.webp",
         "assets/images/Candela_Alberello/7.webp",
         "assets/images/Candela_Alberello/8.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Albero_in_contenitore",
@@ -234,7 +243,8 @@
         "assets/images/Candela_Albero_in_contenitore/7.webp",
         "assets/images/Candela_Albero_in_contenitore/8.webp",
         "assets/images/Candela_Albero_in_contenitore/9.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Fiocco",
@@ -259,7 +269,8 @@
         "assets/images/Candela_Fiocco/6.webp",
         "assets/images/Candela_Fiocco/7.webp",
         "assets/images/Candela_Fiocco/8.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Ghirlanda",
@@ -284,7 +295,8 @@
         "assets/images/Candela_Ghirlanda/6.webp",
         "assets/images/Candela_Ghirlanda/7.webp",
         "assets/images/Candela_Ghirlanda/8.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Palla_natale",
@@ -308,7 +320,8 @@
         "assets/images/Candela_Palla_natale/5.webp",
         "assets/images/Candela_Palla_natale/6.webp",
         "assets/images/Candela_Palla_natale/7.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Renna",
@@ -330,7 +343,8 @@
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp",
         "assets/images/Candela_Renna/5.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Bouquet_fiori_(S.Valentino)",
@@ -342,7 +356,7 @@
       "price": 40,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -353,7 +367,8 @@
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Rosa_in_cupola",
@@ -365,7 +380,7 @@
       "price": 12.99,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -375,7 +390,8 @@
         "assets/images/Candela_Rosa_in_cupola/3.webp",
         "assets/images/Candela_Rosa_in_cupola/4.webp",
         "assets/images/Candela_Rosa_in_cupola/5.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -387,7 +403,7 @@
       "price": 25,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -395,7 +411,8 @@
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -407,7 +424,7 @@
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [
         "Rosa",
@@ -422,7 +439,8 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Cuori_Accesi",
@@ -434,7 +452,7 @@
       "price": 18,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -443,7 +461,8 @@
         "assets/images/Candela_Cuori_Accesi/2.webp",
         "assets/images/Candela_Cuori_Accesi/3.webp",
         "assets/images/Candela_Cuori_Accesi/4.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "id": "Candela_Rosa_Incantata",
@@ -455,7 +474,7 @@
       "price": 9.9,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [],
       "colors": [],
       "no_extras": false,
@@ -465,7 +484,8 @@
         "assets/images/Candela_Rosa_Incantata/3.webp",
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "title": "CARILLON",
@@ -476,7 +496,7 @@
       "price": 15,
       "is_new": true,
       "is_low_stock": false,
-      "fragrance_mode": "manual",
+      "fragrance_mode": "all",
       "fragrances": [
         "Fior di cotone",
         "Latte di cocco",
@@ -493,7 +513,8 @@
         "/assets/images/prodotti/img_5705.webp",
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
-      ]
+      ],
+      "color_mode": "all"
     },
     {
       "title": "Omino Pan di zenzero",
@@ -524,7 +545,8 @@
         "Beige"
       ],
       "no_extras": false,
-      "images": []
+      "images": [],
+      "color_mode": "all"
     }
   ]
 }
