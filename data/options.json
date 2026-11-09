@@ -24,15 +24,15 @@
   "types": [
     {
       "name": "Nascita",
-      "icon": "🍼"
+      "icon": ""
     },
     {
       "name": "Comunione / Cresima",
-      "icon": "🕊️"
+      "icon": ""
     },
     {
       "name": "Matrimonio",
-      "icon": "💍"
+      "icon": ""
     }
   ],
   "colors": [
