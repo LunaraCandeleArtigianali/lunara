@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "name": "Bomboniere",
+      "description": "Per nascite, cerimonie e matrimoni"
+    },
+    {
+      "name": "Natale",
+      "description": "Atmosfere calde per le feste"
+    },
+    {
+      "name": "Casa",
+      "description": "Per profumare e arredare"
+    },
+    {
+      "name": "San Valentino",
+      "description": "Per dire ti amo"
+    },
+    {
+      "name": "Altro",
+      "description": "Gift card e idee regalo"
+    }
+  ]
+}
