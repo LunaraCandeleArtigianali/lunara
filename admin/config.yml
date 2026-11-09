@@ -74,9 +74,6 @@ collections:
                 multiple: true
                 dropdown_threshold: 0
                 required: false
-                condition:
-                  field: fragrance_mode
-                  value: manual
               - label: Colori disponibili
                 name: colors
                 widget: relation
