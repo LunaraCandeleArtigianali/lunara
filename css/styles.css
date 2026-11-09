@@ -524,3 +524,24 @@ html,body{max-width:100%;overflow-x:clip}
 .cart-checkout:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
 .cart-disclaimer{font-size:11px;line-height:1.5;color:var(--mut);text-align:center}
 @media(max-width:700px){.cart-fab{right:14px;bottom:92px;padding:11px 14px}.cart-panel{padding:20px 16px}.cart-head h2{font-size:36px}}
+
+/* ---------- controlli rapidi catalogo ---------- */
+.pc-body .pc-foot{gap:10px;flex-wrap:wrap}
+.pc-quick{display:flex;align-items:center;gap:9px;margin-left:auto}
+.pc-stepper{display:flex;align-items:center;gap:5px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.pc-stepper button,.pc-add{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--txt);cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.pc-stepper button svg,.pc-add svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pc-stepper button:hover{background:var(--gold);border-color:var(--gold);color:#17120a}
+.pc-qty-value{min-width:16px;text-align:center;font:600 13px var(--f-mono);font-variant-numeric:tabular-nums}
+.pc-add{width:42px;height:42px;background:var(--gold);border-color:var(--gold);color:#17120a}
+.pc-add:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.pc-stepper button:focus-visible,.pc-add:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+@media(max-width:520px){
+  .pc-body{padding:15px 14px 17px}
+  .pc-body h3{font-size:24px}
+  .pc-foot{align-items:center}
+  .pc-quick{gap:6px}
+  .pc-stepper button{width:30px;height:30px}
+  .pc-add{width:38px;height:38px}
+  .price{font-size:18px}
+}
