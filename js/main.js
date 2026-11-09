@@ -33,7 +33,8 @@
   const CUSTOM_NOTE = '✨ Disponibile in diverse varianti – contattaci per personalizzazioni.';
   const OTHER = 'Altro (lo definiamo insieme)';
   const fragrancesOf = p => p?.fragrance_mode === 'all' ? (OPTS.fragrances || []).map(f => typeof f === 'string' ? f : f.name).filter(Boolean) : (p?.fragrances || []);
-  const optsOf = (p, k) => [...((k === 'fragrances' ? fragrancesOf(p) : p?.[k]) || []), ...(p ? [OTHER] : [])];
+  const colorsOf = p => p?.color_mode === 'all' ? (OPTS.colors || []).map(c => typeof c === 'string' ? c : c.name).filter(Boolean) : (p?.colors || []);
+  const optsOf = (p, k) => [...(k === 'fragrances' ? fragrancesOf(p) : k === 'colors' ? colorsOf(p) : (p?.[k] || [])), ...(p ? [OTHER] : [])];
   const keyOf = p => `${p.id}__${p.collection}`;
   const shuffle = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
 
@@ -253,7 +254,7 @@
     const q = search.value.trim().toLowerCase();
     let l = products.filter(p => col === 'Tutte' || colOf(p) === col);
     if (isBomb(col) && sub !== 'Tutte') l = l.filter(p => typeKey(p) === sub);
-    if (q) l = l.filter(p => [p.title, p.measures, p.description, p.collection, p.bomboniera_type, ...fragrancesOf(p), ...(p.colors || [])].some(s => (s || '').toLowerCase().includes(q)));
+    if (q) l = l.filter(p => [p.title, p.measures, p.description, p.collection, p.bomboniera_type, ...fragrancesOf(p), ...colorsOf(p)].some(s => (s || '').toLowerCase().includes(q)));
     if (sort.value === 'price-asc') l.sort((a, b) => (a.price || 0) - (b.price || 0));
     else if (sort.value === 'price-desc') l.sort((a, b) => (b.price || 0) - (a.price || 0));
     else if (sort.value === 'new-first') l.sort((a, b) => isTrue(b.is_new) - isTrue(a.is_new));
@@ -438,7 +439,7 @@
     const panes = $$('.atl-pane', root), stepBtns = $$('#atl-steps button', root);
     const LAST_PICK = 2; // dopo creazione, profumo e colore si passa da soli al passo successivo
     const hasReal = p => imgsOf(p)[0] && !imgsOf(p)[0].includes('placeholder');
-    const optCount = p => fragrancesOf(p).length + (p.colors || []).length;
+    const optCount = p => fragrancesOf(p).length + colorsOf(p).length;
     // elenco completo: stessa candela presente in più collezioni → tengo la scheda con più opzioni
     const allBases = () => [...products.reduce((m, p) => { const o = m.get(p.title); if (!o || optCount(p) > optCount(o)) m.set(p.title, p); return m; }, new Map()).values()];
 
@@ -477,7 +478,7 @@
       $('#cfg-col').innerHTML = sel.base ? cl.map((c, i) => { const hx = hexOf(c); return `<button type="button" role="radio" class="col" data-i="${i}" aria-checked="false" aria-label="${esc(c)}"><i class="${hx ? '' : 'any'}" style="${hx ? `--c:${esc(hx)}` : ''}"></i><span>${esc(c)}</span></button>`; }).join('') : '';
       $('#cfg-ext').innerHTML = ex.map(e => grpHtml(e.t, e.key, e.list)).join('');
       $('#hint-frag').textContent = sel.base && fragrancesOf(sel.base).length ? `Le fragranze di «${sel.base.title}».` : 'Per questa creazione definiamo il profumo insieme: scrivici cosa preferisci.';
-      $('#hint-col').textContent = sel.base && (sel.base.colors || []).length ? `I colori di «${sel.base.title}».` : 'Per questa creazione definiamo il colore insieme: scrivici cosa preferisci.';
+      $('#hint-col').textContent = sel.base && colorsOf(sel.base).length ? `I colori di «${sel.base.title}».` : 'Per questa creazione definiamo il colore insieme: scrivici cosa preferisci.';
       $('#hint-ext').textContent = !sel.base ? 'Scegli prima una creazione.' : ex.length ? 'Tutto facoltativo: se non sei sicuro, ne parliamo insieme.' : 'Per questa creazione questi extra non sono previsti: scrivici se hai richieste particolari.';
     }
     renderCats(); showGroup(null); renderOpts();
