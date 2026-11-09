@@ -317,7 +317,7 @@
         <p class="pd-desc">${esc(p.description)}</p>
         ${optBlock(p)}
         <div class="pd-act">
-          <button class="btn gold" id="pd-buy">Acquista</button>
+          <button class="btn gold" id="pd-buy">Aggiungi al carrello</button>
           <button class="btn" id="pd-info">Chiedi informazioni</button>
           <button class="btn" id="pd-share">Condividi</button>
         </div>
@@ -359,7 +359,8 @@
       pdSel[key] = was ? null : chipB.dataset.v; if (!was) chipB.setAttribute('aria-checked', 'true');
       return;
     }
-    if (t.closest('#pd-buy') || t.closest('#pd-info')) return openBuy();
+    if (t.closest('#pd-buy')) return addToCart();
+    if (t.closest('#pd-info')) return openBuy();
     if (t.closest('#pd-share')) return share();
     const c = t.closest('.pc'); if (c) return openProduct(c.dataset.k, false);
     if (t.closest('#gal-main')) $('#gal-main').classList.toggle('zoom');
@@ -400,6 +401,54 @@
     if (navigator.share) { try { await navigator.share(data); } catch {} return; }
     try { await navigator.clipboard.writeText(location.href); toast('Link copiato!'); } catch { prompt('Copia il link:', location.href); }
   }
+
+  /* ===== CARRELLO ===== */
+  const cartItems = [];
+  const cartRoot = $('#cart');
+  const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(value);
+  const cartOptions = (p, sel) => groupsOf(p).map(g => ({ label: g[0], value: sel[g[1]] || 'Da definire' }));
+  function renderCart() {
+    const count = cartItems.reduce((n, item) => n + item.qty, 0);
+    $('#cart-count').textContent = count;
+    $('#cart-items').innerHTML = cartItems.length ? cartItems.map((item, i) => `
+      <article class="cart-line"><div class="cart-line-top"><div><h3>${esc(item.title)}</h3><small>${money(item.price)} cad.</small></div><button class="cart-remove" type="button" data-cart-remove="${i}">Rimuovi</button></div>
+      <dl>${item.options.map(o => `<div><dt>${esc(o.label)}</dt><dd>${esc(o.value)}</dd></div>`).join('')}</dl>
+      <div class="cart-line-bottom"><div class="cart-qty"><button type="button" data-cart-qty="-1" data-cart-index="${i}">−</button><span>${item.qty}</span><button type="button" data-cart-qty="1" data-cart-index="${i}">+</button></div><strong>${money(item.price * item.qty)}</strong></div></article>`).join('') : '<p class="cart-empty">Il carrello è vuoto. Aggiungi le tue candele dal catalogo.</p>';
+    const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
+    $('#cart-total').textContent = money(total);
+    $('#cart-checkout').disabled = !cartItems.length;
+  }
+  function addToCart() {
+    if (!cur) return;
+    cartItems.push({ title: cur.title, price: Number(cur.price) || 0, options: cartOptions(cur, pdSel), qty: 1 });
+    renderCart(); closeProduct(false); openCart(); toast('Aggiunta al carrello');
+  }
+  function openCart() { cartRoot.classList.add('open'); cartRoot.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock'); }
+  function closeCart() { cartRoot.classList.remove('open'); cartRoot.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock'); }
+  $('#cart-open').addEventListener('click', openCart);
+  $('#cart-close').addEventListener('click', closeCart);
+  cartRoot.addEventListener('click', e => { if (e.target === cartRoot) closeCart(); });
+  $('#cart-items').addEventListener('click', e => {
+    const remove = e.target.closest('[data-cart-remove]');
+    if (remove) { cartItems.splice(+remove.dataset.cartRemove, 1); renderCart(); return; }
+    const qty = e.target.closest('[data-cart-qty]');
+    if (qty) { const i = +qty.dataset.cartIndex; cartItems[i].qty += +qty.dataset.cartQty; if (cartItems[i].qty <= 0) cartItems.splice(i, 1); renderCart(); }
+  });
+  $('#cart-checkout').addEventListener('click', () => {
+    if (!cartItems.length) return;
+    const lines = ['Ciao Lunara! Vorrei effettuare questo ordine:', ''];
+    cartItems.forEach((item, i) => {
+      lines.push(`${i + 1}. ${item.title} × ${item.qty} — ${money(item.price * item.qty)}`);
+      item.options.forEach(o => lines.push(`   ${o.label}: ${o.value}`));
+      lines.push('');
+    });
+    const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
+    lines.push(`TOTALE PRODOTTI: ${money(total)}`);
+    const note = $('#cart-note').value.trim();
+    if (note) lines.push('', `Note: ${note}`);
+    window.open(waLink(lines.join('\n')), '_blank', 'noopener');
+  });
+  renderCart();
 
   /* ===== MODAL ACQUISTO ===== */
   const buy = $('#buy');
