@@ -17,146 +17,131 @@ media_libraries:
           quality: 80
           width: 1200
           height: 1500
-collections:
-  - name: catalogo
+singletons:
+  - name: products
     label: Prodotti
-    files:
-      - name: products
-        label: Catalogo prodotti
-        file: /data/products.json
-        format: json
+    file: /data/products.json
+    format: json
+    fields:
+      - label: Prodotti (trascina per cambiare l'ordine)
+        name: items
+        widget: list
+        label_singular: prodotto
+        summary: "{{fields.title}} — {{fields.collection}}"
         fields:
-          - label: Prodotti (trascina per cambiare l'ordine)
-            name: items
-            widget: list
-            label_singular: prodotto
-            summary: "{{fields.title}} — {{fields.collection}}"
-            fields:
-              - { label: Codice interno, name: id, widget: hidden, required: false }
-              - { label: Nome, name: title, widget: string }
-              - label: Collezione
-                name: collection
-                widget: relation
-                collection: collezioni
-                file: collections
-                value_field: "{{items.*.name}}"
-                display_fields: ["{{items.*.name}}"]
-                dropdown_threshold: 0
-              - label: Tipologia (solo per le Bomboniere)
-                name: bomboniera_type
-                widget: relation
-                collection: tipologie
-                file: types
-                value_field: "{{items.*.name}}"
-                display_fields: ["{{items.*.name}}"]
-                dropdown_threshold: 0
-                required: false
-              - { label: "Misure e peso", name: measures, widget: string, required: false }
-              - { label: Descrizione, name: description, widget: text, required: false }
-              - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, required: false }
-              - { label: Novità, name: is_new, widget: boolean, default: false }
-              - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
-              - label: Disponibilità fragranze
-                name: fragrance_mode
-                widget: select
-                default: all
-                options:
-                  - { label: "Tutte le fragranze (anche quelle aggiunte in futuro)", value: all }
-                  - { label: "Selezione manuale", value: manual }
-              - label: Fragranze selezionate (usate solo con «Selezione manuale»)
-                name: fragrances
-                widget: relation
-                collection: fragranze
-                file: fragrances
-                value_field: "{{items.*.name}}"
-                display_fields: ["{{items.*.name}}"]
-                search_fields: ["{{items.*.name}}"]
-                multiple: true
-                dropdown_threshold: 0
-                required: false
-              - label: Disponibilità colori
-                name: color_mode
-                widget: select
-                default: all
-                options:
-                  - { label: "Tutti i colori (anche quelli aggiunti in futuro)", value: all }
-                  - { label: "Selezione manuale", value: manual }
-              - label: Colori selezionati (usati solo con «Selezione manuale»)
-                name: colors
-                widget: relation
-                collection: colori
-                file: colors
-                value_field: "{{items.*.name}}"
-                display_fields: ["{{items.*.name}}"]
-                multiple: true
-                dropdown_threshold: 0
-                required: false
-              - { label: "Nascondi la scelta di confetti / tag / confezione", name: no_extras, widget: boolean, default: false, required: false }
-              - label: Foto (la prima è la copertina; trascina per riordinare)
-                name: images
-                widget: image
-                multiple: true
-                required: false
-  - name: collezioni
+          - { label: Codice interno, name: id, widget: hidden, required: false }
+          - { label: Nome, name: title, widget: string }
+          - label: Collezione
+            name: collection
+            widget: relation
+            collection: _singletons
+            file: collections
+            value_field: "{{items.*.name}}"
+            display_fields: ["{{items.*.name}}"]
+            dropdown_threshold: 0
+          - label: Tipologia (solo per le Bomboniere)
+            name: bomboniera_type
+            widget: relation
+            collection: _singletons
+            file: types
+            value_field: "{{items.*.name}}"
+            display_fields: ["{{items.*.name}}"]
+            dropdown_threshold: 0
+            required: false
+          - { label: "Misure e peso", name: measures, widget: string, required: false }
+          - { label: Descrizione, name: description, widget: text, required: false }
+          - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, required: false }
+          - { label: Novità, name: is_new, widget: boolean, default: false }
+          - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
+          - label: Disponibilità fragranze
+            name: fragrance_mode
+            widget: select
+            default: all
+            options:
+              - { label: "Tutte le fragranze (anche quelle aggiunte in futuro)", value: all }
+              - { label: "Selezione manuale", value: manual }
+          - label: Fragranze selezionate (usate solo con «Selezione manuale»)
+            name: fragrances
+            widget: relation
+            collection: _singletons
+            file: fragrances
+            value_field: "{{items.*.name}}"
+            display_fields: ["{{items.*.name}}"]
+            search_fields: ["{{items.*.name}}"]
+            multiple: true
+            dropdown_threshold: 0
+            required: false
+          - label: Disponibilità colori
+            name: color_mode
+            widget: select
+            default: all
+            options:
+              - { label: "Tutti i colori (anche quelli aggiunti in futuro)", value: all }
+              - { label: "Selezione manuale", value: manual }
+          - label: Colori selezionati (usati solo con «Selezione manuale»)
+            name: colors
+            widget: relation
+            collection: _singletons
+            file: colors
+            value_field: "{{items.*.name}}"
+            display_fields: ["{{items.*.name}}"]
+            multiple: true
+            dropdown_threshold: 0
+            required: false
+          - { label: "Nascondi la scelta di confetti / tag / confezione", name: no_extras, widget: boolean, default: false, required: false }
+          - label: Foto (la prima è la copertina; trascina per riordinare)
+            name: images
+            widget: image
+            multiple: true
+            required: false
+  - name: collections
     label: Collezioni
-    files:
-      - name: collections
-        label: Elenco collezioni
-        file: /data/collections.json
-        format: json
+    file: /data/collections.json
+    format: json
+    fields:
+      - label: Collezioni (l'ordine qui è l'ordine nel sito)
+        name: items
+        widget: list
+        label_singular: collezione
+        summary: "{{fields.name}}"
         fields:
-          - label: Collezioni (l'ordine qui è l'ordine nel sito)
-            name: items
-            widget: list
-            label_singular: collezione
-            summary: "{{fields.name}}"
-            fields:
-              - { label: Nome, name: name, widget: string }
-              - { label: Descrizione breve, name: description, widget: string, required: false }
-  - name: tipologie
+          - { label: Nome, name: name, widget: string }
+          - { label: Descrizione breve, name: description, widget: string, required: false }
+  - name: types
     label: Tipologie bomboniere
-    files:
-      - name: types
-        label: Elenco tipologie
-        file: /data/types.json
-        format: json
+    file: /data/types.json
+    format: json
+    fields:
+      - label: Tipologie
+        name: items
+        widget: list
+        label_singular: tipologia
+        summary: "{{fields.name}}"
         fields:
-          - label: Tipologie
-            name: items
-            widget: list
-            label_singular: tipologia
-            summary: "{{fields.name}}"
-            fields:
-              - { label: Nome, name: name, widget: string }
-              - { label: Icona (facoltativa), name: icon, widget: string, required: false }
-  - name: colori
+          - { label: Nome, name: name, widget: string }
+          - { label: Icona (facoltativa), name: icon, widget: string, required: false }
+  - name: colors
     label: Colori
-    files:
-      - name: colors
-        label: Elenco colori
-        file: /data/colors.json
-        format: json
+    file: /data/colors.json
+    format: json
+    fields:
+      - label: Colori disponibili
+        name: items
+        widget: list
+        label_singular: colore
+        summary: "{{fields.name}} — {{fields.hex}}"
         fields:
-          - label: Colori disponibili
-            name: items
-            widget: list
-            label_singular: colore
-            summary: "{{fields.name}} — {{fields.hex}}"
-            fields:
-              - { label: Nome, name: name, widget: string }
-              - { label: Tinta, name: hex, widget: color }
-  - name: fragranze
+          - { label: Nome, name: name, widget: string }
+          - { label: Tinta, name: hex, widget: color }
+  - name: fragrances
     label: Fragranze
-    files:
-      - name: fragrances
-        label: Elenco fragranze
-        file: /data/fragrances.json
-        format: json
+    file: /data/fragrances.json
+    format: json
+    fields:
+      - label: Fragranze disponibili per tutte le candele
+        name: items
+        widget: list
+        label_singular: fragranza
+        summary: "{{fields.name}}"
         fields:
-          - label: Fragranze disponibili per tutte le candele
-            name: items
-            widget: list
-            label_singular: fragranza
-            summary: "{{fields.name}}"
-            fields:
-              - { label: Nome fragranza, name: name, widget: string }
+          - { label: Nome fragranza, name: name, widget: string }
