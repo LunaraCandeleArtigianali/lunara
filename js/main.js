@@ -283,7 +283,7 @@
   const newSel = () => ({ frag: null, col: null, confetti: null, tag: null, pack: null });
   let pdSel = newSel();
   // gruppi di scelta di un prodotto: fragranza e colore del prodotto + extra comuni
-  const groupsOf = p => [['Fragranza', 'frag', fragrancesOf(p)], ['Colore', 'col', p?.colors || []], ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
+  const groupsOf = p => [['Fragranza', 'frag', optsOf(p, 'fragrances')], ['Colore', 'col', optsOf(p, 'colors')], ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
   const chipsHtml = (key, list) => list.map(v => { const hx = key === 'col' ? hexOf(v) : null; return `<button type="button" role="radio" aria-checked="false" data-v="${esc(v)}" class="pd-chip">${key === 'col' ? `<i class="${hx ? '' : 'any'}" style="${hx ? `background:${esc(hx)}` : ''}"></i>` : ''}${esc(v)}</button>`; }).join('');
   const grpHtml = (t, key, list) => `<div class="pd-opt"><h4>${esc(t)}</h4><div class="pd-chips" data-k="${key}" role="radiogroup" aria-label="${esc(t)}">${chipsHtml(key, list)}</div></div>`;
   const grpSelectHtml = (title, key, list) => `<div class="pd-opt"><label for="pd-opt-${key}">${esc(title)}</label><select class="field pd-select" id="pd-opt-${key}" data-k="${key}"><option value="">Seleziona ${esc(title.toLowerCase())}</option>${list.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('')}</select></div>`;
