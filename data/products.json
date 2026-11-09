@@ -415,11 +415,18 @@
       "title": "CARILLON",
       "collection": "Bomboniere",
       "measures": "Ø9cm H 9cm 105gr",
-      "description": "",
-      "price": null,
+      "description": "Il Carillon Candela contiene 105gr di cera di soia colata con una delle fragranze piu preferite, è impreziosita da delicati fiori decorativi personalizzabili. Perfetta come bomboniera per battesimi o nascita. Ogni dettaglio è pensato per regalare eleganza, dolcezza e unicità. ✨ Personalizzabile nei colori e nei dettagli , per rendere unica e speciale ogni creazione.",
+      "price": 15,
       "is_new": true,
       "is_low_stock": false,
-      "fragrances": [],
+      "fragrances": [
+        "Fior di cotone",
+        "Latte di cocco",
+        "Noci e miele",
+        "Caramello al burro salato",
+        "Vaniglia",
+        "Cioccolato e nocciole"
+      ],
       "colors": [],
       "images": [
         "/assets/images/prodotti/img_5703.webp",
