@@ -386,7 +386,7 @@ html,body{max-width:100%;overflow-x:clip}
 .atl-chip[hidden]{display:none}
 .atl-chip i{width:14px;height:14px;border-radius:50%;border:1px solid #0003;background:conic-gradient(#e9b4c0,#fffaf0,#b3202d,#3f6b4a,#e9b4c0)}
 .atl-panel{display:flex;flex-direction:column;gap:22px;padding:clamp(20px,3vw,36px);border-radius:32px;background:var(--solid);border:1px solid var(--line)}
-.atl-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative}
+.atl-steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative}
 .atl-steps button{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px;background:none;border:0;border-radius:14px;font:600 10px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);min-height:56px}
 .atl-steps span{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid var(--line);background:var(--bg);transition:.3s}
 .atl-steps button.done span{background:color-mix(in srgb,var(--gold) 30%,#fff);border-color:var(--gold)}
@@ -455,3 +455,36 @@ html,body{max-width:100%;overflow-x:clip}
 .pd-chip:hover{border-color:var(--gold)}
 .pd-chip[aria-checked=true]{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 16%,var(--solid));box-shadow:0 0 0 3px #d4af3733}
 .pd-opt-hint{font-size:13px;color:var(--mut)}
+
+/* ---------- collezioni → tipologie (bomboniere) ---------- */
+.tools .seg.sub{flex-basis:100%;background:transparent;border-style:dashed;border-radius:22px;animation:fadeup .4s var(--ease) both}
+.seg.sub[hidden]{display:none}
+.seg.sub button{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-size:13px}
+.grp-h{grid-column:1/-1;display:flex;align-items:center;gap:12px;font:italic 400 clamp(26px,3vw,36px)/1.1 var(--f-serif);margin:18px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.grp-h:first-child{margin-top:0}
+.grp-h small{font:600 11px var(--f-mono);color:var(--mut);margin-left:auto}
+
+/* ---------- configuratore: collezioni con anteprima ---------- */
+.atl-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.cat{display:flex;flex-direction:column;gap:6px;text-align:left;padding:8px 8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--bg);transition:.3s var(--ease)}
+.cat:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cat-pv{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--card)}
+.cat-pv img{width:100%;height:100%;object-fit:cover}
+.cat-pv img:first-child{grid-row:1/3}
+.cat-pv img:only-child{grid-column:1/3}
+.cat-pv img:nth-child(2):last-child{grid-row:1/3}
+.cat b{font:italic 400 22px/1.1 var(--f-serif);padding:4px 6px 0}
+.cat small{color:var(--mut);font-size:12px;line-height:1.3;padding:0 6px}
+.atl-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.atl-back[hidden]{display:none}
+.atl-back:hover{border-color:var(--gold)}
+.atl-cats[hidden],.atl-bases[hidden]{display:none}
+.atl-grp{grid-column:1/-1;font:600 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:10px 0 0}
+.atl-grp:first-child{margin-top:0}
+.atl-ext{margin-top:0}
+.pd-custom{font-size:13px;color:var(--mut);font-style:italic;margin-top:4px}
+.atl-ext+.pd-custom{margin-top:16px}
+@media (max-width:620px){
+  .atl-cats{grid-template-columns:repeat(2,1fr)}
+  .atl-steps button{font-size:8px}
+}

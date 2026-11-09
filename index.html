@@ -97,11 +97,12 @@
         <div>
           <div class="kick rv"><b>01</b> Catalogo</div>
           <h2 class="rv" style="--i:1">Ogni candela, <em>una piccola storia</em></h2>
-          <p class="lead rv" style="--i:2">Sfoglia per collezione, apri un prodotto per il dettaglio e completa l'ordine via chat.</p>
+          <p class="lead rv" style="--i:2">Sfoglia per collezione (le bomboniere anche per occasione), apri un prodotto per il dettaglio e completa l'ordine via chat.</p>
         </div>
       </div>
       <div class="tools rv">
         <div class="seg" id="seg" role="tablist" aria-label="Collezioni"></div>
+        <div class="seg sub" id="subseg" aria-label="Tipologia di bomboniera" hidden></div>
         <input class="field grow" type="search" id="search" placeholder="Cerca fragranza, misura, colore…" aria-label="Cerca prodotti">
         <select class="field" id="sort" aria-label="Ordina per">
           <option value="default">Consigliati</option>
@@ -133,7 +134,7 @@
     <div class="wrap">
       <div class="kick rv"><b>03</b> Su misura</div>
       <h2 class="rv" style="--i:1">Crea la <em>tua candela</em></h2>
-      <p class="lead rv" style="--i:2">Quattro passi: parti da una nostra creazione, scegli profumo e colore. Poi ne parliamo su WhatsApp.</p>
+      <p class="lead rv" style="--i:2">Cinque passi: parti da una collezione, scegli la creazione, il profumo, il colore e i dettagli. Poi ne parliamo su WhatsApp.</p>
 
       <div class="atl rv" style="--i:3" id="atl">
         <div class="atl-stage" id="atl-stage" aria-hidden="true">
@@ -152,14 +153,17 @@
             <li><button type="button" data-s="0"><span>1</span>Creazione</button></li>
             <li><button type="button" data-s="1"><span>2</span>Profumo</button></li>
             <li><button type="button" data-s="2"><span>3</span>Colore</button></li>
-            <li><button type="button" data-s="3"><span>4</span>Riepilogo</button></li>
+            <li><button type="button" data-s="3"><span>4</span>Dettagli</button></li>
+            <li><button type="button" data-s="4"><span>5</span>Riepilogo</button></li>
           </ol>
 
           <div class="atl-body">
             <div class="atl-pane" data-p="0">
-              <h3>Da quale creazione parti?</h3>
-              <p class="atl-hint">Scegli quella che ti somiglia di più: la adattiamo insieme.</p>
-              <div class="atl-bases" id="cfg-base" role="radiogroup" aria-label="Creazione"></div>
+              <button type="button" class="atl-back" id="cfg-back" hidden><svg class="ic st" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Tutte le collezioni</button>
+              <h3 id="cfg-h-base">Da quale collezione parti?</h3>
+              <p class="atl-hint" id="cfg-hint-base"></p>
+              <div class="atl-cats" id="cfg-cats"></div>
+              <div class="atl-bases" id="cfg-base" role="radiogroup" aria-label="Creazione" hidden></div>
             </div>
             <div class="atl-pane" data-p="1" hidden>
               <h3>Che profumo vuoi?</h3>
@@ -172,11 +176,20 @@
               <div class="atl-cols" id="cfg-col" role="radiogroup" aria-label="Colore"></div>
             </div>
             <div class="atl-pane" data-p="3" hidden>
+              <h3>Ultimi dettagli</h3>
+              <p class="atl-hint" id="hint-ext"></p>
+              <div class="pd-opts atl-ext" id="cfg-ext"></div>
+              <p class="pd-custom">✨ Disponibile in diverse varianti – contattaci per personalizzazioni.</p>
+            </div>
+            <div class="atl-pane" data-p="4" hidden>
               <h3>La tua candela</h3>
               <dl class="atl-sum">
                 <div><dt>Creazione</dt><dd id="cfg-s-base"></dd></div>
                 <div><dt>Fragranza</dt><dd id="cfg-s-frag"></dd></div>
                 <div><dt>Colore</dt><dd id="cfg-s-col"></dd></div>
+                <div><dt>Confetti</dt><dd id="cfg-s-confetti"></dd></div>
+                <div><dt>Tag personalizzato</dt><dd id="cfg-s-tag"></dd></div>
+                <div><dt>Confezione</dt><dd id="cfg-s-pack"></dd></div>
               </dl>
               <label class="atl-note"><span>Vuoi aggiungere qualcosa? <small>(facoltativo)</small></span>
                 <textarea class="field" id="cfg-note" rows="3" maxlength="400" placeholder="Occasione, data, dedica, quantità…"></textarea></label>

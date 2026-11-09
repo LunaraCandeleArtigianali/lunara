@@ -1,0 +1,64 @@
+{
+  "collections": [
+    {
+      "name": "Bomboniere",
+      "description": "Per nascite, cerimonie e matrimoni"
+    },
+    {
+      "name": "Natale",
+      "description": "Atmosfere calde per le feste"
+    },
+    {
+      "name": "Casa",
+      "description": "Per profumare e arredare"
+    },
+    {
+      "name": "San Valentino",
+      "description": "Per dire ti amo"
+    },
+    {
+      "name": "Altro",
+      "description": "Gift card e idee regalo"
+    }
+  ],
+  "types": [
+    {
+      "name": "Nascita",
+      "icon": "🍼"
+    },
+    {
+      "name": "Comunione / Cresima",
+      "icon": "🕊️"
+    },
+    {
+      "name": "Matrimonio",
+      "icon": "💍"
+    }
+  ],
+  "colors": [
+    {
+      "name": "Rosa",
+      "hex": "#e9b4c0"
+    },
+    {
+      "name": "Bianco",
+      "hex": "#fffaf0"
+    },
+    {
+      "name": "Rosso",
+      "hex": "#b3202d"
+    },
+    {
+      "name": "Verde",
+      "hex": "#3f6b4a"
+    },
+    {
+      "name": "Azzurro",
+      "hex": "#a8cbe8"
+    },
+    {
+      "name": "Beige",
+      "hex": "#dccfb4"
+    }
+  ]
+}

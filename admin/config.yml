@@ -23,6 +23,7 @@ media_libraries:
           height: 1500
 
 collections:
+  # ---------- 1. Prodotti ----------
   - name: catalogo
     label: Catalogo
     files:
@@ -39,24 +40,98 @@ collections:
             fields:
               - { label: Codice interno, name: id, widget: hidden, required: false }
               - { label: Nome, name: title, widget: string }
-              - { label: "Collezione (es. Natale, San Valentino, Bomboniere, Casa)", name: collection, widget: string }
+              - label: Collezione
+                name: collection
+                widget: relation
+                collection: catalogo_impostazioni
+                file: options
+                value_field: "{{collections.*.name}}"
+                display_fields: ["{{collections.*.name}}"]
+                dropdown_threshold: 0
+              - label: "Tipologia (solo per le Bomboniere: Nascita, Comunione / Cresima, Matrimonio…)"
+                name: bomboniera_type
+                widget: relation
+                collection: catalogo_impostazioni
+                file: options
+                value_field: "{{types.*.name}}"
+                display_fields: ["{{types.*.name}}"]
+                dropdown_threshold: 0
+                required: false
               - { label: "Misure e peso (es. 14 x 12 cm • 280gr)", name: measures, widget: string, required: false }
               - { label: Descrizione, name: description, widget: text, required: false }
               - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, required: false }
               - { label: Novità, name: is_new, widget: boolean, default: false }
               - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
-              - label: "Fragranze disponibili per questo prodotto (una per riga di elenco; lascia vuoto se non scelte)"
+              - label: "Fragranze disponibili (menu a tendina: se manca, aggiungila da «Fragranze»)"
                 name: fragrances
-                widget: list
+                widget: relation
+                collection: fragranze
+                value_field: name
+                display_fields: [name]
+                search_fields: [name]
+                multiple: true
+                dropdown_threshold: 0
                 required: false
-                field: { label: Fragranza, name: fragrance, widget: string }
-              - label: "Colori disponibili per questo prodotto (es. Rosa, Bianco, Rosso)"
+              - label: "Colori disponibili (menu a tendina: se manca, aggiungilo da «Impostazioni»)"
                 name: colors
-                widget: list
+                widget: relation
+                collection: catalogo_impostazioni
+                file: options
+                value_field: "{{colors.*.name}}"
+                display_fields: ["{{colors.*.name}}"]
+                multiple: true
+                dropdown_threshold: 0
                 required: false
-                field: { label: Colore, name: color, widget: string }
+              - { label: "Nascondi la scelta di confetti / tag / confezione (es. Gift Card)", name: no_extras, widget: boolean, default: false, required: false }
               - label: "Foto (la prima è la copertina; trascina per riordinare)"
                 name: images
                 widget: image
                 multiple: true
                 required: false
+
+  # ---------- 2. Fragranze: una per file, così dal menu a tendina del prodotto si può aggiungerne di nuove ----------
+  - name: fragranze
+    label: Fragranze
+    label_singular: fragranza
+    folder: /data/fragranze
+    format: json
+    create: true
+    identifier_field: name
+    slug: "{{name}}"
+    summary: "{{name}}"
+    fields:
+      - { label: Nome fragranza, name: name, widget: string }
+
+  # ---------- 3. Impostazioni: collezioni (ordine del menu), tipologie bomboniere, colori ----------
+  - name: catalogo_impostazioni
+    label: Impostazioni
+    files:
+      - name: options
+        label: Collezioni, tipologie e colori
+        file: /data/options.json
+        format: json
+        fields:
+          - label: "Collezioni (l'ordine qui è l'ordine nel menu del sito; «Altro» tienila in fondo)"
+            name: collections
+            widget: list
+            label_singular: collezione
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Nome (se lo cambi, cambialo anche nei prodotti)", name: name, widget: string }
+              - { label: "Frase breve (appare nell'anteprima di «Crea la tua candela»)", name: description, widget: string, required: false }
+          - label: "Tipologie di bomboniera (es. Nascita, Comunione / Cresima, Matrimonio)"
+            name: types
+            widget: list
+            label_singular: tipologia
+            summary: "{{fields.icon}} {{fields.name}}"
+            fields:
+              - { label: Nome, name: name, widget: string }
+              - { label: "Emoji (facoltativa)", name: icon, widget: string, required: false }
+          - label: "Colori (nome + tinta del cerchietto sul sito)"
+            name: colors
+            widget: list
+            label_singular: colore
+            summary: "{{fields.name}} {{fields.hex}}"
+            fields:
+              - { label: Nome, name: name, widget: string }
+              - { label: Tinta, name: hex, widget: color }
