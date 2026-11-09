@@ -59,7 +59,7 @@ collections:
               - label: Disponibilità fragranze
                 name: fragrance_mode
                 widget: select
-                default: manual
+                default: all
                 options:
                   - { label: "Tutte le fragranze (anche quelle aggiunte in futuro)", value: all }
                   - { label: "Selezione manuale", value: manual }
@@ -74,7 +74,14 @@ collections:
                 multiple: true
                 dropdown_threshold: 0
                 required: false
-              - label: Colori disponibili
+              - label: Disponibilità colori
+                name: color_mode
+                widget: select
+                default: all
+                options:
+                  - { label: "Tutti i colori (anche quelli aggiunti in futuro)", value: all }
+                  - { label: "Selezione manuale", value: manual }
+              - label: Colori selezionati (usati solo con «Selezione manuale»)
                 name: colors
                 widget: relation
                 collection: colori
