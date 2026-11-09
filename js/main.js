@@ -238,16 +238,25 @@
     sub = b.dataset.t; renderSub(); renderGrid();
   });
 
+  const quickQty = new Map();
   function card(p, i) {
     const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">Ultimi pezzi</span>' : '';
     const im = imgsOf(p);
-    return `<article class="glass pc rv" style="--i:${Math.min(i % 8, 7)}" data-k="${esc(keyOf(p))}" tabindex="0" role="button" aria-label="${esc(p.title)} — dettagli">
+    const qty = quickQty.get(keyOf(p)) || 1;
+    return `<article class="glass pc rv" style="--i:${Math.min(i % 8, 7)}" data-k="${esc(keyOf(p))}" tabindex="0" aria-label="${esc(p.title)} — dettagli">
       <div class="pc-img"><span class="mini" aria-hidden="true"><svg class="flame" viewBox="0 0 40 76"><use href="#flame"/></svg></span>${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}${p.bomboniera_type && isBomb(p.collection) ? ' · ' + esc(p.bomboniera_type) : ''}</span>` : ''}
         <img src="${esc(im[0])}" alt="${esc(p.title)}" loading="lazy" decoding="async" width="400" height="500">
         ${im[1] ? `<img src="${esc(im[1])}" alt="" loading="lazy" decoding="async">` : ''}</div>
-      <div class="pc-body"><h3>${esc(p.title)}</h3><div class="m">${esc(p.measures)}</div>
+      <div class="pc-body"><h3>${esc(p.title)}</h3>
         <div class="pc-foot"><span class="price">${fmt(p.price)}</span>
-          <span class="pc-go"><svg class="ic st" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div>
+          <div class="pc-quick" aria-label="Aggiunta rapida al carrello">
+            <div class="pc-stepper">
+              <button type="button" data-quick-action="minus" aria-label="Diminuisci quantità di ${esc(p.title)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+              <span class="pc-qty-value" aria-live="polite">${qty}</span>
+              <button type="button" data-quick-action="plus" aria-label="Aumenta quantità di ${esc(p.title)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+            <button type="button" class="pc-add" data-quick-action="add" aria-label="Aggiungi ${esc(p.title)} al carrello"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L22 9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></button>
+          </div></div></div>
     </article>`;
   }
   function filtered() {
@@ -275,8 +284,32 @@
   search.addEventListener('input', renderGrid);
   sort.addEventListener('change', renderGrid);
   const openFromEl = el => { const c = el.closest('.pc'); if (c) openProduct(c.dataset.k); };
-  grid.addEventListener('click', e => openFromEl(e.target));
-  grid.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFromEl(e.target); } });
+  grid.addEventListener('click', e => {
+    const control = e.target.closest('[data-quick-action]');
+    if (control) {
+      e.stopPropagation();
+      const cardEl = control.closest('.pc');
+      const product = products.find(p => keyOf(p) === cardEl?.dataset.k);
+      if (!product) return;
+      const key = keyOf(product), action = control.dataset.quickAction;
+      if (action === 'minus' || action === 'plus') {
+        const next = Math.max(1, (quickQty.get(key) || 1) + (action === 'plus' ? 1 : -1));
+        quickQty.set(key, next);
+        $('.pc-qty-value', cardEl).textContent = next;
+        return;
+      }
+      if (action === 'add') {
+        addCardToCart(product, quickQty.get(key) || 1);
+        return;
+      }
+    }
+    openFromEl(e.target);
+  });
+  grid.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('pc')) {
+      e.preventDefault(); openFromEl(e.target);
+    }
+  });
 
   /* ===== SCHEDA PRODOTTO ===== */
   const pd = $('#pd'), pdBody = $('#pd-body');
@@ -417,6 +450,11 @@
     const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
     $('#cart-total').textContent = money(total);
     $('#cart-checkout').disabled = !cartItems.length;
+  }
+  function addCardToCart(product, qty) {
+    cartItems.push({ title: product.title, price: Number(product.price) || 0, options: cartOptions(product, newSel()), qty });
+    renderCart();
+    toast(qty === 1 ? 'Aggiunta al carrello' : `${qty} aggiunte al carrello`);
   }
   function addToCart() {
     if (!cur) return;
