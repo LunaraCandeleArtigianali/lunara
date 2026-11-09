@@ -19,7 +19,7 @@
   // il pannello può salvare percorsi con la barra iniziale ("/assets/..."): li rendo relativi alla cartella del sito
   const imgsOf = p => (p.images && p.images.length) ? p.images.map(s => String(s).replace(/^\/+/, '')) : [PLACEHOLDER];
   // collezioni, tipologie di bomboniera e colori vivono in data/options.json (modificabili da /admin)
-  let OPTS = { collections: [], types: [], colors: [] };
+  let OPTS = { collections: [], types: [], colors: [], fragrances: [] };
   const hexOf = n => { const k = String(n ?? '').trim().toLowerCase(); return ((OPTS.colors || []).find(c => String(c.name).trim().toLowerCase() === k) || {}).hex || null; };
   const colOf = p => (p.collection || '').trim() || 'Altro';
   const isBomb = c => String(c).toLowerCase() === 'bomboniere';
@@ -32,7 +32,8 @@
   const extrasOf = p => (p && !isTrue(p.no_extras)) ? EXTRAS : [];
   const CUSTOM_NOTE = '✨ Disponibile in diverse varianti – contattaci per personalizzazioni.';
   const OTHER = 'Altro (lo definiamo insieme)';
-  const optsOf = (p, k) => [...(p?.[k] || []), ...(p ? [OTHER] : [])];
+  const fragrancesOf = p => p?.fragrance_mode === 'all' ? (OPTS.fragrances || []).map(f => typeof f === 'string' ? f : f.name).filter(Boolean) : (p?.fragrances || []);
+  const optsOf = (p, k) => [...((k === 'fragrances' ? fragrancesOf(p) : p?.[k]) || []), ...(p ? [OTHER] : [])];
   const keyOf = p => `${p.id}__${p.collection}`;
   const shuffle = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
 
@@ -41,14 +42,18 @@
     const clean = items => (items || []).filter(p => p && p.title).map(p => ({ ...p, id: p.id || slug(p.title) }));
     const get = async u => { const r = await fetch(u, { cache: 'no-cache' }); if (!r.ok) throw 0; return r.json(); };
     try {
-      const [prods, opts] = await Promise.all([get('data/products.json'), get('data/options.json')]);
-      OPTS = { ...OPTS, ...opts };
+      const [prods, collections, types, colors, fragrances] = await Promise.all([
+        get('data/products.json'), get('data/collections.json'), get('data/types.json'),
+        get('data/colors.json'), get('data/fragrances.json')
+      ]);
+      OPTS = { collections: collections.items || [], types: types.items || [], colors: colors.items || [], fragrances: fragrances.items || [] };
       return clean(prods.items);
     } catch {
       // file:// o rete assente: uso la copia di riserva
       await new Promise(res => { const sc = document.createElement('script'); sc.src = 'js/products-fallback.js'; sc.onload = sc.onerror = res; document.head.appendChild(sc); });
       const fb = window.LUNARA_FALLBACK || {};
       OPTS = { ...OPTS, ...(fb.options || {}) };
+      OPTS.fragrances = [...new Set((fb.items || []).flatMap(p => p.fragrances || []))].map(name => ({ name }));
       return clean(fb.items);
     }
   }
@@ -278,12 +283,13 @@
   const newSel = () => ({ frag: null, col: null, confetti: null, tag: null, pack: null });
   let pdSel = newSel();
   // gruppi di scelta di un prodotto: fragranza e colore del prodotto + extra comuni
-  const groupsOf = p => [['Fragranza', 'frag', p?.fragrances || []], ['Colore', 'col', p?.colors || []], ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
+  const groupsOf = p => [['Fragranza', 'frag', fragrancesOf(p)], ['Colore', 'col', p?.colors || []], ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
   const chipsHtml = (key, list) => list.map(v => { const hx = key === 'col' ? hexOf(v) : null; return `<button type="button" role="radio" aria-checked="false" data-v="${esc(v)}" class="pd-chip">${key === 'col' ? `<i class="${hx ? '' : 'any'}" style="${hx ? `background:${esc(hx)}` : ''}"></i>` : ''}${esc(v)}</button>`; }).join('');
   const grpHtml = (t, key, list) => `<div class="pd-opt"><h4>${esc(t)}</h4><div class="pd-chips" data-k="${key}" role="radiogroup" aria-label="${esc(t)}">${chipsHtml(key, list)}</div></div>`;
+  const grpSelectHtml = (title, key, list) => `<div class="pd-opt"><label for="pd-opt-${key}">${esc(title)}</label><select class="field pd-select" id="pd-opt-${key}" data-k="${key}"><option value="">Seleziona ${esc(title.toLowerCase())}</option>${list.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('')}</select></div>`;
   function optBlock(p) {
     const gs = groupsOf(p);
-    return `<div class="pd-opts">${gs.map(g => grpHtml(...g)).join('')}${gs.length ? '<p class="pd-opt-hint">Scegli le opzioni: le includiamo nel messaggio WhatsApp.</p>' : ''}<p class="pd-custom">${CUSTOM_NOTE}</p></div>`;
+    return `<div class="pd-opts">${gs.map(g => grpSelectHtml(...g)).join('')}${gs.length ? '<p class="pd-opt-hint">Seleziona le varianti: le includeremo nel messaggio WhatsApp.</p>' : ''}<p class="pd-custom">${CUSTOM_NOTE}</p></div>`;
   }
   const selLines = (p, sel) => groupsOf(p).filter(g => sel[g[1]]).map(g => `${g[0]}: ${sel[g[1]]}`);
   const selText = () => selLines(cur, pdSel).join('\n');
@@ -336,6 +342,10 @@
     $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === gi));
     $('#gal-main')?.classList.remove('zoom'); $$('#gal-main img').forEach(im => im.style.transformOrigin = '');
   }
+  pdBody.addEventListener('change', e => {
+    const select = e.target.closest('.pd-select');
+    if (select) pdSel[select.dataset.k] = select.value || null;
+  });
   pdBody.addEventListener('click', e => {
     const t = e.target;
     if (t.closest('.gal-arrow.p')) return gal(gi - 1);
@@ -428,7 +438,7 @@
     const panes = $$('.atl-pane', root), stepBtns = $$('#atl-steps button', root);
     const LAST_PICK = 2; // dopo creazione, profumo e colore si passa da soli al passo successivo
     const hasReal = p => imgsOf(p)[0] && !imgsOf(p)[0].includes('placeholder');
-    const optCount = p => (p.fragrances || []).length + (p.colors || []).length;
+    const optCount = p => fragrancesOf(p).length + (p.colors || []).length;
     // elenco completo: stessa candela presente in più collezioni → tengo la scheda con più opzioni
     const allBases = () => [...products.reduce((m, p) => { const o = m.get(p.title); if (!o || optCount(p) > optCount(o)) m.set(p.title, p); return m; }, new Map()).values()];
 
@@ -466,7 +476,7 @@
       $('#cfg-frag').innerHTML = sel.base ? fl.map((f, i) => `<button type="button" role="radio" class="frag" data-i="${i}" aria-checked="false"><b>${esc(f)}</b></button>`).join('') : '<p class="atl-hint">Scegli prima una creazione.</p>';
       $('#cfg-col').innerHTML = sel.base ? cl.map((c, i) => { const hx = hexOf(c); return `<button type="button" role="radio" class="col" data-i="${i}" aria-checked="false" aria-label="${esc(c)}"><i class="${hx ? '' : 'any'}" style="${hx ? `--c:${esc(hx)}` : ''}"></i><span>${esc(c)}</span></button>`; }).join('') : '';
       $('#cfg-ext').innerHTML = ex.map(e => grpHtml(e.t, e.key, e.list)).join('');
-      $('#hint-frag').textContent = sel.base && (sel.base.fragrances || []).length ? `Le fragranze di «${sel.base.title}».` : 'Per questa creazione definiamo il profumo insieme: scrivici cosa preferisci.';
+      $('#hint-frag').textContent = sel.base && fragrancesOf(sel.base).length ? `Le fragranze di «${sel.base.title}».` : 'Per questa creazione definiamo il profumo insieme: scrivici cosa preferisci.';
       $('#hint-col').textContent = sel.base && (sel.base.colors || []).length ? `I colori di «${sel.base.title}».` : 'Per questa creazione definiamo il colore insieme: scrivici cosa preferisci.';
       $('#hint-ext').textContent = !sel.base ? 'Scegli prima una creazione.' : ex.length ? 'Tutto facoltativo: se non sei sicuro, ne parliamo insieme.' : 'Per questa creazione questi extra non sono previsti: scrivici se hai richieste particolari.';
     }
