@@ -1,1 +1,25 @@
-aa
+name: Estrai zip
+on:
+  push:
+    paths: ['upload/*.zip']
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Estrai e committa
+        run: |
+          shopt -s nullglob
+          files=(upload/*.zip)
+          [ ${#files[@]} -eq 0 ] && exit 0
+          for f in "${files[@]}"; do
+            unzip -o "$f" -d .
+            git rm -f "$f"
+          done
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Aggiornamento da zip [skip ci]"
+          git push
