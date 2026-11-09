@@ -50,7 +50,7 @@ singletons:
             required: false
           - { label: "Misure e peso", name: measures, widget: string, required: false }
           - { label: Descrizione, name: description, widget: text, required: false }
-          - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, required: false }
+          - { label: "Prezzo (€)", name: price, widget: number, value_type: int, min: 0, step: 1, required: false }
           - { label: Novità, name: is_new, widget: boolean, default: false }
           - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
           - label: Disponibilità fragranze
