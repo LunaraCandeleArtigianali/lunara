@@ -242,7 +242,7 @@
   function card(p, i) {
     const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">Ultimi pezzi</span>' : '';
     const im = imgsOf(p);
-    const qty = quickQty.get(keyOf(p)) || 1;
+    const qty = quickQty.get(keyOf(p)) ?? 0;
     return `<article class="glass pc rv" style="--i:${Math.min(i % 8, 7)}" data-k="${esc(keyOf(p))}" tabindex="0" aria-label="${esc(p.title)} — dettagli">
       <div class="pc-img"><span class="mini" aria-hidden="true"><svg class="flame" viewBox="0 0 40 76"><use href="#flame"/></svg></span>${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}${p.bomboniera_type && isBomb(p.collection) ? ' · ' + esc(p.bomboniera_type) : ''}</span>` : ''}
         <img src="${esc(im[0])}" alt="${esc(p.title)}" loading="lazy" decoding="async" width="400" height="500">
@@ -293,13 +293,15 @@
       if (!product) return;
       const key = keyOf(product), action = control.dataset.quickAction;
       if (action === 'minus' || action === 'plus') {
-        const next = Math.max(1, (quickQty.get(key) || 1) + (action === 'plus' ? 1 : -1));
+        const next = Math.max(0, (quickQty.get(key) ?? 0) + (action === 'plus' ? 1 : -1));
         quickQty.set(key, next);
         $('.pc-qty-value', cardEl).textContent = next;
         return;
       }
       if (action === 'add') {
-        addCardToCart(product, quickQty.get(key) || 1);
+        const qty = quickQty.get(key) ?? 0;
+        if (qty < 1) { toast('Seleziona prima la quantità'); return; }
+        addCardToCart(product, qty);
         return;
       }
     }
