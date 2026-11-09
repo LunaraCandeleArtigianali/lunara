@@ -435,6 +435,34 @@
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
       ]
+    },
+    {
+      "title": "Omino Pan di zenzero",
+      "collection": "Natale",
+      "measures": "5x7cm •50gr",
+      "description": "Omino Pan di zenzero in cera di oliva.\nUn piccolo dolce natalizio che porta con sé tutta la magia delle feste. ✨\n\nRealizzata artigianalmente in cera di oliva, questa candela prende la forma di un simpatico omino di pan di zenzero, con piccoli dettagli decorativi che lo rendono unico e irresistibilmente dolce.\n\nIl suo colore caldo e naturale e il suo design tenero lo rendono perfetto per decorare la casa, impreziosire la tavola delle feste o aggiungere un tocco speciale ai tuoi regali di Natale.\n\nOgni candela è realizzata a mano con cura e amore, personalizzabile sia nei colori sia nella fragranza preferita.\n\nUn piccolo pensiero natalizio, fatto per portare magia, calore e dolcezza in ogni casa. 🎅🏻",
+      "price": 8.5,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrances": [
+        "Vin brulé",
+        "Caramello al burro salato",
+        "Fior d'arancio",
+        "Arancia e cannella",
+        "Pan pepato",
+        "Mela caramellata",
+        "Croissant",
+        "Cioccolato e nocciole",
+        "Rocher pralinato",
+        "Cookies",
+        "Torta di natale",
+        "Cappuccino"
+      ],
+      "colors": [
+        "Bianco",
+        "Beige"
+      ],
+      "images": []
     }
   ]
 }
