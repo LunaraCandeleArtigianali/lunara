@@ -421,7 +421,7 @@
   function addToCart() {
     if (!cur) return;
     cartItems.push({ title: cur.title, price: Number(cur.price) || 0, options: cartOptions(cur, pdSel), qty: 1 });
-    renderCart(); closeProduct(false); openCart(); toast('Aggiunta al carrello');
+    renderCart(); closeProduct(false); toast('Aggiunta al carrello');
   }
   function openCart() { cartRoot.classList.add('open'); cartRoot.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock'); }
   function closeCart() { cartRoot.classList.remove('open'); cartRoot.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock'); }
