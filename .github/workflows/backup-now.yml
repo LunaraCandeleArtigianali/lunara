@@ -1,0 +1,65 @@
+name: Backup manuale Lunara
+
+on:
+  push:
+    paths:
+      - '.github/workflows/backup-now.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lunara-manual-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create ZIP backup and retain latest 3
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p external-upload/backups
+          STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          BACKUP="external-upload/backups/lunara-backup-${STAMP}-${SHORT_SHA}.zip"
+          python - "${BACKUP}" <<'PY'
+          import pathlib, subprocess, sys, zipfile
+          output = pathlib.Path(sys.argv[1])
+          tracked = subprocess.check_output(
+              ["git", "ls-tree", "-r", "--name-only", "HEAD"], text=True
+          ).splitlines()
+          with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+              for name in tracked:
+                  if name.startswith("external-upload/"):
+                      continue
+                  path = pathlib.Path(name)
+                  if path.is_file() and not path.is_symlink():
+                      zf.write(path, name)
+          if output.stat().st_size == 0:
+              raise SystemExit("Il backup generato è vuoto.")
+          with zipfile.ZipFile(output) as zf:
+              bad = zf.testzip()
+              if bad:
+                  raise SystemExit(f"ZIP non integro: {bad}")
+          print(f"Backup verificato: {output} ({output.stat().st_size} byte)")
+          PY
+          python - <<'PY'
+          import pathlib
+          backups = pathlib.Path("external-upload/backups")
+          old = sorted(backups.glob("lunara-backup-*.zip"), key=lambda p: p.name, reverse=True)
+          for path in old[3:]:
+              path.unlink()
+          PY
+          git add external-upload/backups
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Crea backup ZIP dello stato corrente di Lunara [skip ci]"
+          git push
