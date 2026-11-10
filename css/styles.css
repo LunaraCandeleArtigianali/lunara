@@ -88,9 +88,6 @@ main,.site-footer{position:relative;z-index:2}
 .brand{display:flex;align-items:center;gap:10px}
 .brand img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#faf6ee;padding:2px;box-shadow:0 0 0 1px var(--gold)}
 .brand span{font-family:var(--f-script);font-size:36px;line-height:1;background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .1em}
-/* Logo nero nella barra di navigazione */
-.hdr .brand img{box-shadow:0 0 0 1px #000}
-.hdr .brand span{background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:#000;color:#000}
 .nav{margin-left:auto;display:flex;gap:4px;align-items:center}
 .nav a{font:500 12px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:99px;color:var(--mut);transition:.25s}
 .nav a:hover,.nav a.on{color:var(--txt);background:var(--card)}
