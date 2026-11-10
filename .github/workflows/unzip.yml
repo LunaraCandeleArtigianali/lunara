@@ -1,25 +1,179 @@
-name: Estrai zip
+name: Pubblica sito da ZIP
+
 on:
   push:
-    paths: ['upload/*.zip']
+    paths:
+      - 'external-upload/*.zip'
+
 permissions:
   contents: write
+
+concurrency:
+  group: lunara-zip-deploy
+  cancel-in-progress: false
+
 jobs:
-  unzip:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Estrai e committa
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate uploaded ZIP
+        id: validate
+        shell: bash
         run: |
-          shopt -s nullglob
-          files=(upload/*.zip)
-          [ ${#files[@]} -eq 0 ] && exit 0
-          for f in "${files[@]}"; do
-            unzip -o "$f" -d .
-            git rm -f "$f"
-          done
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          set -euo pipefail
+          mapfile -t ZIP_FILES < <(find external-upload -maxdepth 1 -type f -name '*.zip' -print | sort)
+          if [ "${#ZIP_FILES[@]}" -ne 1 ]; then
+            echo "::error::Carica un solo file ZIP alla volta nella cartella external-upload."
+            exit 1
+          fi
+          echo "zip_path=${ZIP_FILES[0]}" >> "$GITHUB_OUTPUT"
+          python - "${ZIP_FILES[0]}" "$RUNNER_TEMP/lunara-unpacked" <<'PY'
+          import pathlib, shutil, stat, sys, zipfile
+          archive = pathlib.Path(sys.argv[1])
+          destination = pathlib.Path(sys.argv[2])
+          MAX_ENTRIES = 5000
+          MAX_TOTAL = 500 * 1024 * 1024
+          MAX_FILE = 100 * 1024 * 1024
+          required_files = {
+              "index.html",
+              ".github/workflows/unzip.yml",
+          }
+          required_dirs = ("admin/", "assets/", "css/", "data/", "js/")
+          try:
+              with zipfile.ZipFile(archive) as zf:
+                  entries = zf.infolist()
+                  if not entries or len(entries) > MAX_ENTRIES:
+                      raise ValueError("Numero di elementi ZIP non valido.")
+                  seen = {}
+                  total = 0
+                  for info in entries:
+                      raw = info.filename
+                      if not raw or raw.startswith("/") or "\\" in raw:
+                          raise ValueError(f"Percorso non consentito: {raw!r}")
+                      is_dir = info.is_dir()
+                      clean = raw[:-1] if is_dir and raw.endswith("/") else raw
+                      parts = clean.split("/")
+                      if not clean or any(p in ("", ".", "..") for p in parts):
+                          raise ValueError(f"Percorso non sicuro: {raw!r}")
+                      if parts[0].endswith(":") or any(p.lower() in (".git", "external-upload") for p in parts):
+                          raise ValueError(f"Percorso riservato: {raw!r}")
+                      if clean in seen:
+                          raise ValueError(f"Elemento duplicato: {clean}")
+                      seen[clean] = is_dir
+                      mode = info.external_attr >> 16
+                      kind = stat.S_IFMT(mode)
+                      if kind == stat.S_IFLNK or (kind and kind not in (stat.S_IFREG, stat.S_IFDIR)):
+                          raise ValueError(f"Tipo di file non consentito: {raw!r}")
+                      if not is_dir:
+                          if info.file_size > MAX_FILE:
+                              raise ValueError(f"File troppo grande: {raw!r}")
+                          total += info.file_size
+                          if total > MAX_TOTAL:
+                              raise ValueError("Dimensione totale estratta superiore a 500 MB.")
+                  for name in seen:
+                      parts = name.split("/")
+                      for i in range(1, len(parts)):
+                          parent = "/".join(parts[:i])
+                          if parent in seen and not seen[parent]:
+                              raise ValueError(f"Conflitto file/cartella: {parent}")
+                  for name in required_files:
+                      if name not in seen or seen[name]:
+                          raise ValueError(f"File obbligatorio mancante: {name}")
+                  for prefix in required_dirs:
+                      if not any(name.startswith(prefix) and not is_dir for name, is_dir in seen.items()):
+                          raise ValueError(f"Cartella obbligatoria vuota o mancante: {prefix}")
+                  shutil.rmtree(destination, ignore_errors=True)
+                  destination.mkdir(parents=True)
+                  for info in entries:
+                      clean = info.filename[:-1] if info.is_dir() and info.filename.endswith("/") else info.filename
+                      target = destination.joinpath(*clean.split("/"))
+                      if info.is_dir():
+                          target.mkdir(parents=True, exist_ok=True)
+                      else:
+                          target.parent.mkdir(parents=True, exist_ok=True)
+                          with zf.open(info) as source, target.open("wb") as output:
+                              shutil.copyfileobj(source, output)
+          except (zipfile.BadZipFile, OSError, ValueError) as exc:
+              print(f"ZIP non valido: {exc}", file=sys.stderr)
+              sys.exit(1)
+          print(f"ZIP valido: {len(entries)} elementi, {total} byte estratti.")
+          PY
+
+      - name: Create backup and retain the latest 3
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p external-upload/backups
+          STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          BACKUP="external-upload/backups/lunara-backup-${STAMP}-${SHORT_SHA}.zip"
+          python - "$BACKUP" <<'PY'
+          import pathlib, subprocess, sys, zipfile
+          output = pathlib.Path(sys.argv[1])
+          tracked = subprocess.check_output(
+              ["git", "ls-tree", "-r", "--name-only", "HEAD"], text=True
+          ).splitlines()
+          with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+              for name in tracked:
+                  if name.startswith("external-upload/"):
+                      continue
+                  path = pathlib.Path(name)
+                  if path.is_file() and not path.is_symlink():
+                      zf.write(path, name)
+          if output.stat().st_size == 0:
+              raise SystemExit("Il backup generato è vuoto: pubblicazione interrotta.")
+          print(f"Backup creato: {output} ({output.stat().st_size} byte)")
+          PY
+          python - <<'PY'
+          import pathlib
+          backups = pathlib.Path("external-upload/backups")
+          old = sorted(backups.glob("lunara-backup-*.zip"), key=lambda p: p.name, reverse=True)
+          for path in old[3:]:
+              path.unlink()
+          PY
+
+      - name: Replace site files, preserving backups
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "$RUNNER_TEMP/lunara-unpacked" <<'PY'
+          import pathlib, shutil, sys
+          source = pathlib.Path(sys.argv[1]).resolve()
+          root = pathlib.Path(".").resolve()
+          upload = root / "external-upload"
+          backups = upload / "backups"
+          backups.mkdir(parents=True, exist_ok=True)
+          for item in root.iterdir():
+              if item.name in (".git", "external-upload"):
+                  continue
+              if item.is_dir() and not item.is_symlink():
+                  shutil.rmtree(item)
+              else:
+                  item.unlink()
+          for item in upload.iterdir():
+              if item.name == "backups":
+                  continue
+              if item.is_dir() and not item.is_symlink():
+                  shutil.rmtree(item)
+              else:
+                  item.unlink()
+          for item in source.iterdir():
+              shutil.move(str(item), str(root / item.name))
+          (upload / "README.md").write_text(
+              "# Caricamento sito Lunara\n\nCarica qui un solo archivio ZIP completo del sito. "
+              "Il workflow crea automaticamente un backup prima di sostituire i file. "
+              "Gli ultimi 3 backup sono conservati in `backups/`.\n",
+              encoding="utf-8"
+          )
+          backups.mkdir(parents=True, exist_ok=True)
+          PY
           git add -A
-          git commit -m "Aggiornamento da zip [skip ci]"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Aggiornamento sito Lunara da ZIP [skip ci]"
           git push
