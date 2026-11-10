@@ -1,6 +1,27 @@
 {
   "items": [
     {
+      "id": "Candela_Gift_Card",
+      "title": "Gift Card",
+      "collection": "Altro",
+      "bomboniera_type": "",
+      "measures": "NA • NA",
+      "description": "Regalati o regala una Gift Card. Possibilità sia in formato digitale che carta fisica!",
+      "price": 0,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "manual",
+      "fragrances": [],
+      "colors": [],
+      "no_extras": true,
+      "images": [
+        "assets/images/Candela_Gift_Card/1.webp",
+        "assets/images/Candela_Gift_Card/2.webp",
+        "assets/images/Candela_Gift_Card/3.webp"
+      ],
+      "color_mode": "manual"
+    },
+    {
       "title": "Giardino Segreto",
       "collection": "Bomboniere",
       "bomboniera_type": "Matrimonio",
@@ -526,27 +547,6 @@
         "assets/images/Candela_Rosa_Incantata/5.webp"
       ],
       "color_mode": "all"
-    },
-    {
-      "id": "Candela_Gift_Card",
-      "title": "Gift Card",
-      "collection": "Altro",
-      "bomboniera_type": "",
-      "measures": "NA • NA",
-      "description": "Regalati o regala una Gift Card. Possibilità sia in formato digitale che carta fisica!",
-      "price": 0,
-      "is_new": true,
-      "is_low_stock": false,
-      "fragrance_mode": "manual",
-      "fragrances": [],
-      "colors": [],
-      "no_extras": true,
-      "images": [
-        "assets/images/Candela_Gift_Card/1.webp",
-        "assets/images/Candela_Gift_Card/2.webp",
-        "assets/images/Candela_Gift_Card/3.webp"
-      ],
-      "color_mode": "manual"
     }
   ]
 }
