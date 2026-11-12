@@ -759,6 +759,24 @@
       ],
       "no_extras": true,
       "images": []
+    },
+    {
+      "title": "Choco Tart",
+      "collection": "Casa",
+      "bomboniera_type": "",
+      "measures": "7,5H x 5,5 L cm 75gr",
+      "description": "",
+      "price": 8,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "manual",
+      "colors": [
+        "Bianco"
+      ],
+      "no_extras": true,
+      "images": []
     }
   ]
 }
