@@ -113,15 +113,15 @@
       ]
     },
     {
-      "title": "Omino Pan di zenzero",
+      "title": "Biscotto Pan di zenzero",
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "5x7cm •50gr",
-      "description": "Omino Pan di zenzero in cera di oliva.\nUn piccolo dolce natalizio che porta con sé tutta la magia delle feste. ✨\n\nRealizzata artigianalmente in cera di oliva, questa candela prende la forma di un simpatico omino di pan di zenzero, con piccoli dettagli decorativi che lo rendono unico e irresistibilmente dolce.\n\nIl suo colore caldo e naturale e il suo design tenero lo rendono perfetto per decorare la casa, impreziosire la tavola delle feste o aggiungere un tocco speciale ai tuoi regali di Natale.\n\nOgni candela è realizzata a mano con cura e amore, personalizzabile sia nei colori sia nella fragranza preferita.\n\nUn piccolo pensiero natalizio, fatto per portare magia, calore e dolcezza in ogni casa. 🎅🏻",
-      "price": 9,
+      "description": "Biscotto Pan di zenzero in cera di oliva.\nUn piccolo dolce natalizio che porta con sé tutta la magia delle feste. ✨\n\nRealizzata artigianalmente in cera di oliva, questa candela prende la forma di un simpatico omino di pan di zenzero, con piccoli dettagli decorativi che lo rendono unico e irresistibilmente dolce.\n\nIl suo colore caldo e naturale e il suo design tenero lo rendono perfetto per decorare la casa, impreziosire la tavola delle feste o aggiungere un tocco speciale ai tuoi regali di Natale.\n\nOgni candela è realizzata a mano con cura e amore, personalizzabile sia nei colori sia nella fragranza preferita.\n\nUn piccolo pensiero natalizio, fatto per portare magia, calore e dolcezza in ogni casa. 🎅🏻",
+      "price": 5,
       "is_new": true,
       "is_low_stock": false,
-      "fragrance_mode": "all",
+      "fragrance_mode": "manual",
       "fragrances": [
         "Vin brulé",
         "Caramello al burro salato",
@@ -134,14 +134,18 @@
         "Rocher pralinato",
         "Cookies",
         "Torta di natale",
-        "Cappuccino"
+        "Cappuccino",
+        "Vaniglia",
+        "Noci e miele",
+        "Mela e cannella",
+        "Arancia e cioccolato"
       ],
-      "color_mode": "all",
+      "color_mode": "manual",
       "colors": [
         "Bianco",
         "Beige"
       ],
-      "no_extras": false,
+      "no_extras": true,
       "images": []
     },
     {
