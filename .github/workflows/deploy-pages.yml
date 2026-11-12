@@ -1,0 +1,68 @@
+name: Pubblica Lunara (produzione + dev)
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: lunara-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout produzione
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: source-master
+
+      - name: Checkout sviluppo
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: source-dev
+
+      - name: Prepara i due ambienti
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/dev
+          rsync -a --exclude='.git' --exclude='.github' --exclude='external-upload' source-master/ public/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='external-upload' source-dev/ public/dev/
+          touch public/.nojekyll
+          test -s public/index.html
+          test -s public/dev/index.html
+          test -s public/admin/config.yml
+          test -s public/dev/admin/config.yml
+          grep -q 'branch: master' public/admin/config.yml
+          grep -q 'branch: dev' public/dev/admin/config.yml
+          echo "Produzione e ambiente dev preparati."
+
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Carica artifact Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Pubblica entrambi gli ambienti
+        id: deployment
+        uses: actions/deploy-pages@v4
