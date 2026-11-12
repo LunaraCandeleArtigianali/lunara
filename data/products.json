@@ -273,28 +273,42 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "9 x 12 cm • 140gr",
-      "description": "🎄 Alberello Natalizio in Cera d’oliva\n\nCandela realizzata interamente a mano a forma di albero di Natale, disponibile in rosso, bianco e verde.\n\nCon stoppino in cotone, ideale per creare atmosfere calde e accoglienti durante le feste.\n\nOttima anche come decorazione o dono elegante.\n\n(12x9 cm)\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
+      "description": "🎄 Alberello Natalizio in Cera d’oliva\n\nI nostri alberelli natalizi artigianali in cera di oliva sono pronti a portare un pizzico di magia nelle vostre case!\nDisponibili in diverse varianti di colori.",
       "price": 17,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "all",
-      "fragrances": [],
-      "color_mode": "all",
+      "fragrance_mode": "manual",
+      "fragrances": [
+        "Vaniglia",
+        "Vin brulé",
+        "Torta di natale",
+        "Pan pepato",
+        "Rocher pralinato",
+        "Noci e miele",
+        "Mela e cannella",
+        "Mela caramellata",
+        "Fior d'arancio",
+        "Croissant",
+        "Cookies",
+        "Cioccolato e nocciole",
+        "Caramello al burro salato",
+        "Cappuccino",
+        "Arancia e cioccolato",
+        "Arancia e cannella"
+      ],
+      "color_mode": "manual",
       "colors": [
         "Rosso",
         "Bianco",
         "Verde"
       ],
-      "no_extras": false,
+      "no_extras": true,
       "images": [
         "assets/images/Candela_Alberello/1.webp",
         "assets/images/Candela_Alberello/2.webp",
-        "assets/images/Candela_Alberello/3.webp",
-        "assets/images/Candela_Alberello/4.webp",
-        "assets/images/Candela_Alberello/5.webp",
-        "assets/images/Candela_Alberello/6.webp",
-        "assets/images/Candela_Alberello/7.webp",
-        "assets/images/Candela_Alberello/8.webp"
+        "/assets/images/prodotti/image1.webp",
+        "/assets/images/prodotti/image0.webp",
+        "/assets/images/prodotti/image2.webp"
       ]
     },
     {
