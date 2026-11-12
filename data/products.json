@@ -390,16 +390,39 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "8 x 9,5 x 2,5 cm • 70gr",
-      "description": "🎄Candele Natalizie Artigianali - Renna\n\nCandele lavorate a mano in cera d’oliva, disponibili nelle forme Renna (10×8 cm) o Fiocco di Neve (7×8 cm).\n\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o bruciaessenze.\n\nOttime idee regalo, confezionate con cura in scatola kraft.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
+      "description": "🎄Candele Natalizie Artigianali - Renna\n\nLa nostra dolcissima renna profumata, realizzata artigianalmente in cera di oliva, é pronta a portare un tocco di calore e originalità nelle vostre case.\nA completarla un elegante nastrino rosso con campanellino dorato.\nCera di oliva 100% naturale\nConfezionata con cura in una scatola kraft, perfetta anche come idea regalo!\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o brucia essenze.\nVUOI PORTARE A CASA LA TUA RENNA?",
       "price": 13,
       "is_new": false,
       "is_low_stock": false,
       "fragrance_mode": "all",
-      "fragrances": [],
+      "fragrances": [
+        "Arancia e cannella",
+        "Arancia e cioccolato",
+        "Caramello al burro salato",
+        "Cappuccino",
+        "Cioccolato e nocciole",
+        "Cookies",
+        "Croissant",
+        "Fior d'arancio",
+        "Mela caramellata",
+        "Mela e cannella",
+        "Noci e miele",
+        "Pan pepato",
+        "Rocher pralinato",
+        "Torta di natale",
+        "Vaniglia",
+        "Vin brulé"
+      ],
       "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
+      "colors": [
+        "Rosso",
+        "Bianco",
+        "Beige"
+      ],
+      "no_extras": true,
       "images": [
+        "/assets/images/prodotti/image5.webp",
+        "/assets/images/prodotti/image6.webp",
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp"
       ]
