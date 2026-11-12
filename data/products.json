@@ -317,27 +317,41 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "15 x 18 cm • 74gr",
-      "description": "🎄 Candela Albero in Ceramica Artigianale\n\nCandela natalizia in cera di soia racchiusa in un esclusivo contenitore di ceramica, fatto a mano.\n\nLo stoppino in legno di ciliegio dona un tocco autentico e raffinato.\n\n🎁 Splendido oggetto da collezione per la casa durante le festività al gusto di mela e cannella.\n\n(18x15 cm)\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
+      "description": "🎄 Candela Albero in Ceramica Artigianale\n\nCandela natalizia in cera di soia racchiusa in un esclusivo contenitore di ceramica, fatto a mano.\n\nLo stoppino in legno di ciliegio dona un tocco autentico e raffinato.\n\n🎁 Splendido oggetto da collezione per la casa durante le festività.\n\n(18x15 cm)",
       "price": 26,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "all",
+      "fragrance_mode": "manual",
       "fragrances": [
-        "Mela e cannella"
+        "Mela e cannella",
+        "Noci e miele",
+        "Pan pepato",
+        "Rocher pralinato",
+        "Vaniglia",
+        "Vin brulé",
+        "Torta di natale",
+        "Mela caramellata",
+        "Fior d'arancio",
+        "Croissant",
+        "Cookies",
+        "Cioccolato e nocciole",
+        "Caramello al burro salato",
+        "Cappuccino",
+        "Arancia e cioccolato",
+        "Arancia e cannella"
       ],
-      "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
+      "color_mode": "manual",
+      "colors": [
+        "Bianco"
+      ],
+      "no_extras": true,
       "images": [
-        "assets/images/Candela_Albero_in_contenitore/1.webp",
+        "/assets/images/prodotti/image4.webp",
         "assets/images/Candela_Albero_in_contenitore/2.webp",
         "assets/images/Candela_Albero_in_contenitore/3.webp",
         "assets/images/Candela_Albero_in_contenitore/4.webp",
         "assets/images/Candela_Albero_in_contenitore/5.webp",
-        "assets/images/Candela_Albero_in_contenitore/6.webp",
-        "assets/images/Candela_Albero_in_contenitore/7.webp",
-        "assets/images/Candela_Albero_in_contenitore/8.webp",
-        "assets/images/Candela_Albero_in_contenitore/9.webp"
+        "assets/images/Candela_Albero_in_contenitore/6.webp"
       ]
     },
     {
