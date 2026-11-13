@@ -329,12 +329,49 @@
   }
   const selLines = (p, sel) => groupsOf(p).filter(g => sel[g[1]]).map(g => `${g[0]}: ${sel[g[1]]}`);
   let customCandleName = '';
+  let nameCandle3D = null, nameCandle3DModule = null, nameCandle3DLoading = false;
+  function destroyNameCandle3D() {
+    nameCandle3D?.destroy?.();
+    nameCandle3D = null;
+    nameCandle3DLoading = false;
+  }
   function updateNameCandlePreview() {
     const preview = $('#name-candle-preview');
     if (!preview) return;
     const selected = pdSel?.col;
     const wax = selected && selected !== OTHER ? (hexOf(selected) || '#f4f0e8') : '#f4f0e8';
     preview.style.setProperty('--wax-color', wax);
+    const text = [...customCandleName].filter(ch => ch.trim()).join('');
+    const fallback = $('#name-candle-fallback');
+    const host = $('#name-candle-3d');
+    if (!text) {
+      destroyNameCandle3D();
+      if (fallback) fallback.hidden = false;
+      if (host) host.innerHTML = '';
+      return;
+    }
+    if (nameCandle3D) {
+      nameCandle3D.update(text, wax);
+      if (fallback) fallback.hidden = true;
+      return;
+    }
+    if (nameCandle3DLoading || !host) return;
+    nameCandle3DLoading = true;
+    (async () => {
+      try {
+        nameCandle3DModule ||= await import('./name-candle-3d.js');
+        if (!host.isConnected) return;
+        const instance = await nameCandle3DModule.mountNameCandlePreview(host, text, wax);
+        if (!host.isConnected) { instance?.destroy?.(); return; }
+        nameCandle3D = instance;
+        if (fallback) fallback.hidden = true;
+      } catch (error) {
+        console.warn('Anteprima 3D non disponibile, uso quella classica.', error);
+        if (fallback) fallback.hidden = false;
+      } finally {
+        nameCandle3DLoading = false;
+      }
+    })();
   }
   const selText = () => [ ...selLines(cur, pdSel), ...(cur?.name_candle && customCandleName.trim() ? ['Nome: ' + customCandleName.trim()] : []) ].join('\n');
   function openProduct(k, push = true) {
@@ -358,7 +395,7 @@
         <div class="pd-price"><span class="price" id="pd-price">${p.name_candle ? fmt(0) : fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
         <span class="ship">🚚 Spedizione gratuita da 50€</span>
         <p class="pd-desc">${esc(p.description)}</p>
-        ${p.name_candle ? `<div class="pd-opts name-candle-box"><label for="name-candle-input">Scrivi il nome da comporre</label><input class="field" id="name-candle-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA"><p class="pd-opt-hint">Una mini candela autonoma per ogni lettera. Gli spazi non si conteggiano.</p><div class="name-candle-total"><span id="name-candle-count">0 lettere</span><strong>${fmt(p.price)} / lettera</strong></div><div class="name-candle-preview-wrap"><div class="name-candle-preview-head"><span>ANTEPRIMA</span><small>Forma e colore indicativi: scegli la tonalità qui sotto</small></div><div class="name-candle-preview" id="name-candle-preview"><span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span></div></div>${optBlock(p)}</div>` : optBlock(p)}
+        ${p.name_candle ? `<div class="pd-opts name-candle-box"><label for="name-candle-input">Scrivi il nome da comporre</label><input class="field" id="name-candle-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA"><p class="pd-opt-hint">Una mini candela autonoma per ogni lettera. Gli spazi non si conteggiano.</p><div class="name-candle-total"><span id="name-candle-count">0 lettere</span><strong>${fmt(p.price)} / lettera</strong></div><div class="name-candle-preview-wrap"><div class="name-candle-preview-head"><span>ANTEPRIMA</span><small>Forma e colore indicativi: scegli la tonalità qui sotto</small></div><div class="name-candle-preview" id="name-candle-preview"><div class="name-candle-3d" id="name-candle-3d"></div><div class="name-candle-fallback" id="name-candle-fallback"><span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span></div></div></div>${optBlock(p)}</div>` : optBlock(p)}
         <div class="pd-act">
           <button class="btn gold" id="pd-buy">Aggiungi al carrello</button>
           <button class="btn" id="pd-info">Chiedi informazioni</button>
@@ -375,6 +412,7 @@
   }
   function closeProduct(fromPop) {
     if (!pd.classList.contains('open')) return;
+    destroyNameCandle3D();
     pd.classList.remove('open'); pd.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('lock'); document.title = 'Lunara — Candele artigianali italiane';
     if (!fromPop && location.hash.startsWith('#p=')) history.back();
@@ -391,7 +429,8 @@
     customCandleName = e.target.value.toUpperCase().replace(/[^\p{L}\p{N} ]/gu, '');
     const letters = [...customCandleName].filter(ch => ch.trim()).length;
     const preview = $('#name-candle-preview');
-    if (preview) preview.innerHTML = letters ? [...customCandleName].filter(ch => ch.trim()).map((ch, i) => '<span class="name-candle-letter" style="--letter-i:' + i + '">' + esc(ch) + '</span>').join('') : '<span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span>';
+    const fallback = $('#name-candle-fallback');
+    if (fallback) fallback.innerHTML = letters ? [...customCandleName].filter(ch => ch.trim()).map((ch, i) => '<span class="name-candle-letter" style="--letter-i:' + i + '">' + esc(ch) + '</span>').join('') : '<span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span>';
     updateNameCandlePreview();
     const count = $('#name-candle-count'); if (count) count.textContent = letters + (letters === 1 ? ' lettera' : ' lettere');
     const price = $('#pd-price'); if (price) price.textContent = fmt(letters * (Number(cur?.price) || 0));
