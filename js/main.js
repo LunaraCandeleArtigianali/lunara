@@ -650,14 +650,19 @@
   const wc = $('#wa-contact'); if (wc) wc.href = `https://wa.me/${WHATSAPP}`;
 
   /* ===== AVVIO ===== */
-  products = await loadProducts();
-  buildHero(); renderSeg(); renderGrid(); initConfigurator();
+  // Lo splash non deve attendere il download del catalogo: libera subito la homepage.
   const intro = $('#intro');
   if (intro) {
     const hideIntro = () => intro.classList.add('out');
     if (reduce || sessionStorage.getItem('lunara_intro')) intro.remove();
-    else { try { sessionStorage.setItem('lunara_intro', '1'); } catch {} setTimeout(hideIntro, 1700); setTimeout(() => intro.remove(), 3000); }
+    else {
+      try { sessionStorage.setItem('lunara_intro', '1'); } catch {}
+      setTimeout(hideIntro, 450);
+      setTimeout(() => intro.remove(), 850);
+    }
   }
+  products = await loadProducts();
+  buildHero(); renderSeg(); renderGrid(); initConfigurator();
   const h = location.hash.match(/^#p=(.+)/);
   if (h) openProduct(decodeURIComponent(h[1]), false);
 })();
