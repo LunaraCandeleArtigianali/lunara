@@ -89,7 +89,7 @@ export async function mountNameCandlePreview(host, text, waxColor) {
       wax.color.copy(nextColorObj); raisedWax.color.copy(nextColorObj).multiplyScalar(.84);
       if (!sameText) {
         while (group.children.length) {
-          const child = group.children.pop(); group.remove(child);
+          const child = group.children[group.children.length - 1]; group.remove(child);
           child.geometry?.dispose();
           if (child.material !== wax && child.material !== raisedWax) child.material?.dispose();
         }
