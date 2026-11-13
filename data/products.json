@@ -806,7 +806,8 @@
       "colors": [],
       "no_extras": false,
       "images": [
-        "assets/images/candela-lettere.webp"
+        "assets/images/candela-lettere.webp",
+        "assets/images/candela-lettere-reale.webp"
       ]
     }
   ]
