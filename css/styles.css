@@ -563,3 +563,13 @@ html,body{max-width:100%;overflow-x:clip}
 .name-candle-preview-wrap{background:linear-gradient(180deg,#fffefa 0%,#f6f0e5 100%);box-shadow:inset 0 1px 0 #fff,0 10px 24px -20px #59452c}
 .name-candle-preview-head small{max-width:38ch;margin:auto;line-height:1.4}
 .name-candle-placeholder{font:italic 16px var(--f-serif);color:var(--mut)}
+
+/* Anteprima tridimensionale interattiva della candela nome */
+.name-candle-preview{position:relative;min-height:220px;padding:10px 4px 14px;overflow:hidden}
+.name-candle-3d{width:100%;height:220px;min-width:0;overflow:hidden;border-radius:16px}
+.name-candle-3d canvas{display:block;width:100%;height:100%;border-radius:16px;cursor:grab;touch-action:pan-y}
+.name-candle-3d canvas:active{cursor:grabbing}
+.name-candle-fallback{display:flex;align-items:center;justify-content:center;gap:clamp(7px,1.8vw,13px);width:100%;min-height:170px;overflow-x:auto}
+.name-candle-fallback[hidden]{display:none}
+.name-candle-preview-wrap:has(.name-candle-3d canvas) .name-candle-preview-head small{color:#8a765d}
+@media(max-width:600px){.name-candle-preview{min-height:195px;padding:6px 0 10px}.name-candle-3d{height:195px}.name-candle-fallback{min-height:160px}}
