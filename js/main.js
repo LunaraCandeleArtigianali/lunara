@@ -381,7 +381,7 @@
   }
   pdBody.addEventListener('input', e => {
     if (e.target.id !== 'name-candle-input') return;
-    customCandleName = e.target.value.toUpperCase().replace(/[^\\p{L}\\p{N} ]/gu, '');
+    customCandleName = e.target.value.toUpperCase().replace(/[^\p{L}\p{N} ]/gu, '');
     const letters = [...customCandleName].filter(ch => ch.trim()).length;
     const preview = $('#name-candle-preview');
     if (preview) preview.innerHTML = letters ? [...customCandleName].filter(ch => ch.trim()).map((ch, i) => '<span class="name-candle-letter" style="--letter-i:' + i + '">' + esc(ch) + '</span>').join('') : '<span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span>';
