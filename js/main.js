@@ -117,7 +117,7 @@
         cx.beginPath(); cx.arc(p.x, p.y, p.r * (.5 + k * .7), 0, 6.28); cx.fill();
       }
       cx.globalAlpha = 1; cx.shadowBlur = 0;
-      requestAnimationFrame(tick);
+      if (cv.dataset.enabled === 'true') requestAnimationFrame(tick);
     })();
   }
 
