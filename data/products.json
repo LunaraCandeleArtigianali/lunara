@@ -362,24 +362,37 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "8 x 7 x 3 cm • 55gr",
-      "description": "❄️ Candele Natalizie Artigianali - Fiocco di Neve\n\nCandele lavorate a mano in cera d’oliva, disponibili nelle forme Renna (10×8 cm) o Fiocco di Neve (7×8 cm).\n\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o bruciaessenze.\n\n🎁 Ottime idee regalo, confezionate con cura in scatola kraft.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
+      "description": "❄️ Candele Natalizie Artigianali - Fiocco di Neve\n\n✨UN PICCOLO FIOCCO DI MAGIA PER IL TUO NATALE!✨\n\nDelicata, elegante e ricca di atmosfera… la nostra candela a forma di fiocco di neve è pronta a portare un tocco di magia nelle vostre case! 🤍\n\nUn piccolo dettaglio artigianale che richiama tutta la bellezza dell’inverno e la magia delle feste. \n\nConfezionata con cura in una scatola kraft, perfetta anche come idea regalo!\nPossibilità di realizzarle con stoppino oppure come essenza solida profumata per armadi o brucia essenze.\n\nPerfetta per:\n❄️ Decorare la tua casa durante il periodo natalizio\n🎁 Regalare un pensiero originale e speciale\n🤍 Creare un’atmosfera calda e accogliente\n🌱100% naturale in cera di oliva\n\n🎄 VUOI IL TUO FIOCCO DI NEVE?",
       "price": 12,
       "is_new": false,
       "is_low_stock": false,
-      "fragrance_mode": "all",
-      "fragrances": [],
-      "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
+      "fragrance_mode": "manual",
+      "fragrances": [
+        "Arancia e cannella",
+        "Arancia e cioccolato",
+        "Cappuccino",
+        "Caramello al burro salato",
+        "Cioccolato e nocciole",
+        "Cookies",
+        "Croissant",
+        "Fior d'arancio",
+        "Mela caramellata",
+        "Noci e miele",
+        "Mela e cannella",
+        "Pan pepato",
+        "Rocher pralinato",
+        "Torta di natale",
+        "Vaniglia",
+        "Vin brulé"
+      ],
+      "color_mode": "manual",
+      "colors": [
+        "Bianco"
+      ],
+      "no_extras": true,
       "images": [
-        "assets/images/Candela_Fiocco/1.webp",
-        "assets/images/Candela_Fiocco/2.webp",
-        "assets/images/Candela_Fiocco/3.webp",
-        "assets/images/Candela_Fiocco/4.webp",
-        "assets/images/Candela_Fiocco/5.webp",
-        "assets/images/Candela_Fiocco/6.webp",
-        "assets/images/Candela_Fiocco/7.webp",
-        "assets/images/Candela_Fiocco/8.webp"
+        "/assets/images/prodotti/untitled-design-8.webp",
+        "/assets/images/prodotti/untitled-design-9.webp"
       ]
     },
     {
