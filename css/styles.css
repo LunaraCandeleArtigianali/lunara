@@ -70,8 +70,8 @@ main,.site-footer{position:relative;z-index:2}
 .scandle .glow{position:absolute;top:-10px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#ffb34755,transparent 65%);animation:breathe 3s ease-in-out infinite}
 
 /* intro */
-#intro{position:fixed;inset:0;z-index:600;background:var(--bg);display:grid;place-content:center;justify-items:center;gap:6px;transition:clip-path 1s var(--ease),opacity .5s .6s;clip-path:circle(150% at 50% 50%)}
-#intro.out{clip-path:circle(0% at 50% 42%);opacity:0;pointer-events:none}
+#intro{position:fixed;inset:0;z-index:600;background:var(--bg);display:grid;place-content:center;justify-items:center;gap:6px;opacity:1;visibility:visible;transition:opacity .28s ease,visibility .28s ease}
+#intro.out{opacity:0;visibility:hidden;pointer-events:none}
 #intro .fl{position:relative;display:grid;place-items:center;width:120px;height:150px}
 #intro .fl .flame{width:56px;height:104px;animation:ignite 1s var(--ease) both,flick 2.6s 1s ease-in-out infinite}
 #intro .fl .halo{width:260px;height:260px;top:-20px;animation:none;opacity:0;animation:ign-h 1.2s .1s ease-out forwards}
@@ -557,5 +557,5 @@ html,body{max-width:100%;overflow-x:clip}
 .name-candle-preview-head span{font:600 10px var(--f-mono);letter-spacing:.16em;color:var(--mut)}
 .name-candle-preview-head small{font-size:11px;color:var(--mut)}
 .name-candle-preview{min-height:88px;display:flex;align-items:center;justify-content:center;gap:6px;overflow-x:auto;padding:12px 4px}
-.name-candle-letter{flex:0 0 auto;width:clamp(34px,9vw,54px);height:clamp(36px,9.5vw,57px);display:flex;align-items:center;justify-content:center;border-radius:11px;background:linear-gradient(145deg,#fff 0%,#f8f8f6 55%,#e7e7e3 100%);color:#fff;font:800 clamp(23px,6vw,36px)/1 Arial,sans-serif;text-shadow:1px 1px #fff,-1px -1px #d5d5d1,0 2px 2px #b9b9b2aa;box-shadow:inset 2px 2px 4px #fff,inset -3px -4px 5px #d6d6d088,2px 4px 5px #78664a33}
+.name-candle-letter{flex:0 0 auto;width:clamp(34px,9vw,54px);height:clamp(36px,9.5vw,57px);display:flex;align-items:center;justify-content:center;border-radius:11px;background:linear-gradient(145deg,#f5eddf 0%,#e9ddc9 58%,#d8c8ae 100%);border:1px solid #cbb99b;color:#766044;font:800 clamp(23px,6vw,36px)/1 Arial,sans-serif;text-shadow:0 1px 0 #fff9,0 1px 2px #a18b6c66;box-shadow:inset 2px 2px 4px #fff9,inset -3px -4px 5px #bca98a55,0 3px 7px #78664a44}
 .name-candle-placeholder{font:italic 16px var(--f-serif);color:var(--mut)}
