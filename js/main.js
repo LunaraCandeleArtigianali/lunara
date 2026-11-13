@@ -360,10 +360,13 @@
     (async () => {
       try {
         nameCandle3DModule ||= await import('./name-candle-3d.js');
-        if (!host.isConnected) return;
+        if (!host.isConnected || !pd.classList.contains('open')) return;
         const instance = await nameCandle3DModule.mountNameCandlePreview(host, text, wax);
-        if (!host.isConnected) { instance?.destroy?.(); return; }
+        if (!host.isConnected || !pd.classList.contains('open')) { instance?.destroy?.(); return; }
         nameCandle3D = instance;
+        const latestText = [...customCandleName].filter(ch => ch.trim()).join('');
+        const latestColor = (pdSel?.col && pdSel.col !== OTHER ? hexOf(pdSel.col) : null) || '#f4f0e8';
+        if (latestText) instance?.update?.(latestText, latestColor);
         if (fallback) fallback.hidden = true;
       } catch (error) {
         console.warn('Anteprima 3D non disponibile, uso quella classica.', error);
