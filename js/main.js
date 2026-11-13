@@ -328,10 +328,11 @@
     return `<div class="pd-opts">${gs.map(g => grpSelectHtml(...g)).join('')}${gs.length ? '<p class="pd-opt-hint">Seleziona le varianti: le includeremo nel messaggio WhatsApp.</p>' : ''}<p class="pd-custom">${CUSTOM_NOTE}</p></div>`;
   }
   const selLines = (p, sel) => groupsOf(p).filter(g => sel[g[1]]).map(g => `${g[0]}: ${sel[g[1]]}`);
-  const selText = () => selLines(cur, pdSel).join('\n');
+  let customCandleName = '';
+  const selText = () => [ ...selLines(cur, pdSel), ...(cur?.name_candle && customCandleName.trim() ? ['Nome: ' + customCandleName.trim()] : []) ].join('\n');
   function openProduct(k, push = true) {
     const p = products.find(x => keyOf(x) === k); if (!p) return;
-    cur = p; pdSel = newSel(); curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
+    cur = p; pdSel = newSel(); customCandleName = ''; curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
     const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">⚠ Ultimi pezzi</span>' : '';
     const rec = shuffle(products.filter(x => keyOf(x) !== k && x.id !== p.id && (x.collection || '') === (p.collection || ''))).slice(0, 8);
     const rec2 = rec.length ? rec : shuffle(products.filter(x => x.id !== p.id)).slice(0, 8);
@@ -347,10 +348,10 @@
         <div class="pd-flame" aria-hidden="true"><i class="halo"></i><svg class="flame" viewBox="0 0 40 76"><use href="#flame"/></svg></div>
         <div class="tags">${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}</span>` : ''}</div>
         <h1>${esc(p.title)}</h1>
-        <div class="pd-price"><span class="price">${fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
+        <div class="pd-price"><span class="price" id="pd-price">${p.name_candle ? fmt(0) : fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
         <span class="ship">🚚 Spedizione gratuita da 50€</span>
         <p class="pd-desc">${esc(p.description)}</p>
-        ${optBlock(p)}
+        ${p.name_candle ? `<div class="pd-opts name-candle-box"><label for="name-candle-input">Scrivi il nome da comporre</label><input class="field" id="name-candle-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA"><p class="pd-opt-hint">Una mini candela autonoma per ogni lettera. Gli spazi non si conteggiano.</p><div class="name-candle-total"><span id="name-candle-count">0 lettere</span><strong>${fmt(p.price)} / lettera</strong></div><div class="name-candle-preview-wrap"><div class="name-candle-preview-head"><span>ANTEPRIMA</span><small>Una candela bianca per ogni lettera</small></div><div class="name-candle-preview" id="name-candle-preview"><span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span></div></div></div>` : optBlock(p)}
         <div class="pd-act">
           <button class="btn gold" id="pd-buy">Aggiungi al carrello</button>
           <button class="btn" id="pd-info">Chiedi informazioni</button>
@@ -378,6 +379,15 @@
     $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === gi));
     $('#gal-main')?.classList.remove('zoom'); $$('#gal-main img').forEach(im => im.style.transformOrigin = '');
   }
+  pdBody.addEventListener('input', e => {
+    if (e.target.id !== 'name-candle-input') return;
+    customCandleName = e.target.value.toUpperCase().replace(/[^\\p{L}\\p{N} ]/gu, '');
+    const letters = [...customCandleName].filter(ch => ch.trim()).length;
+    const preview = $('#name-candle-preview');
+    if (preview) preview.innerHTML = letters ? [...customCandleName].filter(ch => ch.trim()).map((ch, i) => '<span class="name-candle-letter" style="--letter-i:' + i + '">' + esc(ch) + '</span>').join('') : '<span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span>';
+    const count = $('#name-candle-count'); if (count) count.textContent = letters + (letters === 1 ? ' lettera' : ' lettere');
+    const price = $('#pd-price'); if (price) price.textContent = fmt(letters * (Number(cur?.price) || 0));
+  });
   pdBody.addEventListener('change', e => {
     const select = e.target.closest('.pd-select');
     if (select) pdSel[select.dataset.k] = select.value || null;
@@ -460,7 +470,13 @@
   }
   function addToCart() {
     if (!cur) return;
-    cartItems.push({ title: cur.title, price: Number(cur.price) || 0, options: cartOptions(cur, pdSel), qty: 1 });
+    if (cur.name_candle) {
+      const name = customCandleName.trim();
+      const letters = [...name].filter(ch => ch.trim()).length;
+      if (!letters) { toast('Scrivi prima il nome da comporre'); $('#name-candle-input')?.focus(); return; }
+      const options = [...cartOptions(cur, pdSel), { label: 'Nome', value: name }, { label: 'Quantità', value: letters + ' lettere × ' + fmt(cur.price) + ' cad.' }];
+      cartItems.push({ title: cur.title + ' — ' + name, price: (Number(cur.price) || 0) * letters, options, qty: 1 });
+    } else cartItems.push({ title: cur.title, price: Number(cur.price) || 0, options: cartOptions(cur, pdSel), qty: 1 });
     renderCart(); toast('Aggiunta al carrello');
   }
   function openCart() { cartRoot.classList.add('open'); cartRoot.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock'); }
