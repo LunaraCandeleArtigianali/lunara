@@ -691,7 +691,7 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "6,5 H x 5L 30gr",
-      "description": "",
+      "description": "🦌🤍 Piccola o grande? Perché non scegliere entrambe?\n\nLe nostre renne sono disponibili in due diverse grandezze, perfette per creare un angolo profumato e magico, oppure per un dolcissimo regalo! ✨\n\nMa avete già conosciuto la nostra RENNA BABY?🥰\n\nPiccola, tenerissima e super profumata! È disponibile in diverse fragranze, così potete scegliere quella che più vi conquista. 🌸\n\nUn piccolo pensiero che racchiude tutta la magia e il profumo delle feste! 🎄\n\n🎁 Non lasciartela scappare!Scegli la tua fragranza preferita e acquista la tua Renna Baby.\n\n🌱100% naturale cera di oliva \n🎁Confezionata in un elegante sacchetto di organza rosso.",
       "price": 3,
       "is_new": true,
       "is_low_stock": false,
@@ -719,7 +719,10 @@
         "Bianco"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/progetto-senza-titolo-11.webp",
+        "/assets/images/prodotti/progetto-senza-titolo-10.webp"
+      ]
     },
     {
       "title": "Pupazzo di Neve",
