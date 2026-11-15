@@ -812,6 +812,23 @@
       ],
       "no_extras": true,
       "images": []
+    },
+    {
+      "id": "Prodotto_test_altro",
+      "title": "Piccolo Test Lunara",
+      "collection": "Altro",
+      "bomboniera_type": "Altro",
+      "measures": "Edizione di prova",
+      "description": "Un piccolo prodotto pensato per provare l’esperienza Lunara.\n\nSemplice, curato e realizzato con la stessa attenzione ai dettagli che accompagna ogni nostra creazione. Un test dal prezzo leggero, perfetto per esplorare il catalogo.",
+      "price": 3,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "no_extras": true,
+      "images": []
     }
   ]
 }
