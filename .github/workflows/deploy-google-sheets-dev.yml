@@ -1,0 +1,50 @@
+name: Deploy Google Sheets DEV
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - "integrations/google-sheets/**"
+      - ".github/workflows/deploy-google-sheets-dev.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lunara-google-sheets-dev
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Push and deploy Apps Script DEV
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: integrations/google-sheets
+    env:
+      CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+      GAS_DEV_DEPLOYMENT_ID: ${{ secrets.GAS_DEV_DEPLOYMENT_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate credentials
+        run: |
+          test -n "$CLASPRC_JSON" || { echo "Missing GitHub secret: CLASPRC_JSON"; exit 1; }
+          test -n "$GAS_DEV_DEPLOYMENT_ID" || { echo "Missing GitHub secret: GAS_DEV_DEPLOYMENT_ID"; exit 1; }
+          printf '%s' "$CLASPRC_JSON" > "$HOME/.clasprc.json"
+          chmod 600 "$HOME/.clasprc.json"
+
+      - name: Push Apps Script source
+        run: npx --yes @google/clasp@3 push --force
+
+      - name: Update existing DEV deployment
+        run: npx --yes @google/clasp@3 create-deployment --deploymentId "$GAS_DEV_DEPLOYMENT_ID" --description "GitHub DEV ${GITHUB_SHA::7}"
