@@ -684,7 +684,9 @@
         "Bianco"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_5890.webp"
+      ]
     },
     {
       "title": "Renna Baby",
@@ -757,7 +759,9 @@
         "Bianco"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_5896.webp"
+      ]
     },
     {
       "title": "Alberello Baby",
@@ -793,7 +797,9 @@
         "Verde"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_5899.webp"
+      ]
     },
     {
       "title": "Choco Tart",
@@ -811,7 +817,9 @@
         "Bianco"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_5940.webp"
+      ]
     }
   ]
 }
