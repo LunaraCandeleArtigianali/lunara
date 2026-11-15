@@ -269,16 +269,40 @@
     else if (sort.value === 'new-first') l.sort((a, b) => isTrue(b.is_new) - isTrue(a.is_new));
     return l;
   }
+  function productSections(items, counter) {
+    const fresh = items.filter(p => isTrue(p.is_new));
+    const rest = items.filter(p => !isTrue(p.is_new));
+    let html = '';
+    if (fresh.length) {
+      html += `<h3 class="grp-h catalog-section-title"><span aria-hidden="true">✦</span>Novità<small>${fresh.length}</small></h3>${fresh.map(p => card(p, counter.n++)).join('')}`;
+    }
+    if (rest.length) {
+      html += `<h3 class="grp-h catalog-section-title"><span aria-hidden="true">✧</span>Tutti i prodotti<small>${rest.length}</small></h3>${rest.map(p => card(p, counter.n++)).join('')}`;
+    }
+    return html;
+  }
   function renderGrid() {
     const l = filtered();
-    if (l.length && isBomb(col) && sub === 'Tutte' && subNames.length) {
-      // tutte le bomboniere: una sezione per tipologia
-      let n = 0;
-      grid.innerHTML = subNames.map(t => {
-        const g = l.filter(p => typeKey(p) === t); if (!g.length) return '';
-        return `<h3 class="grp-h rv"><span aria-hidden="true">${esc(typeIcon(t))}</span>${t === OTHER_TYPE ? 'Altre bomboniere' : esc(t)}<small>${g.length}</small></h3>${g.map(p => card(p, n++)).join('')}`;
+    const counter = { n: 0 };
+    if (!l.length) {
+      grid.innerHTML = '<div class="empty">Nessun prodotto trovato.</div>';
+    } else if (col === 'Tutte') {
+      // Nella vista completa, ogni collezione ha le proprie Novità e il proprio catalogo.
+      grid.innerHTML = collections().map(name => {
+        const group = l.filter(p => colOf(p) === name);
+        if (!group.length) return '';
+        return `<h2 class="grp-h catalog-category-title">${esc(name)}<small>${group.length}</small></h2>${productSections(group, counter)}`;
       }).join('');
-    } else grid.innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Nessun prodotto trovato.</div>';
+    } else if (isBomb(col) && sub === 'Tutte' && subNames.length) {
+      // Le bomboniere mantengono la suddivisione per tipologia, con Novità e prodotti restanti.
+      grid.innerHTML = subNames.map(type => {
+        const group = l.filter(p => typeKey(p) === type);
+        if (!group.length) return '';
+        return `<h3 class="grp-h catalog-category-title"><span aria-hidden="true">${esc(typeIcon(type))}</span>${type === OTHER_TYPE ? 'Altre bomboniere' : esc(type)}<small>${group.length}</small></h3>${productSections(group, counter)}`;
+      }).join('');
+    } else {
+      grid.innerHTML = productSections(l, counter);
+    }
     watch(grid);
   }
   search.addEventListener('input', renderGrid);
