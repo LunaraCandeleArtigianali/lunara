@@ -26,6 +26,36 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Lunara","logo":"assets/images/logo.jpeg","description":"Candele artigianali italiane in cera naturale con fragranze selezionate e packaging curato.","sameAs":["https://www.instagram.com/c.a.lunara/","https://www.tiktok.com/@lunara.candele","https://linktr.ee/LunaraCandeleArtigianali","https://www.vinted.it/member/313415363-calunara"],"contactPoint":{"@type":"ContactPoint","contactType":"customer service","telephone":"+39-348-3471201","availableLanguage":"it"}}
 </script>
+
+<!-- Google Consent Mode: statistiche disattivate fino al consenso -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  try {
+    if (localStorage.getItem('lunara_analytics_consent') === 'granted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+  } catch (_) {}
+</script>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TJ6N7FT5');
+</script>
+<!-- End Google Tag Manager -->
+<link rel="stylesheet" href="css/consent.css">
+<script src="js/consent.js" defer></script>
+
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -293,7 +323,7 @@
   <div class="wrap ft">
     <a class="brand" href="#hero"><img src="assets/images/logo_tras.png" alt="" width="38" height="38"><span>Lunara</span></a>
     <div>© Lunara — Candele artigianali · Made in Italy</div>
-    <nav><a href="privacy.html">Privacy</a><a href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a></nav>
+    <nav><a href="privacy.html">Privacy</a><button class="consent-settings" type="button" data-cookie-settings>Preferenze cookie</button><a href="https://www.instagram.com/c.a.lunara/" target="_blank" rel="noopener">Instagram</a></nav>
   </div>
 </footer>
 
