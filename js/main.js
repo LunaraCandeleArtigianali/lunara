@@ -270,16 +270,13 @@
     return l;
   }
   function productSections(items, counter) {
-    const fresh = items.filter(p => isTrue(p.is_new));
-    const rest = items.filter(p => !isTrue(p.is_new));
-    let html = '';
-    if (fresh.length) {
-      html += `<h3 class="grp-h catalog-section-title"><span aria-hidden="true">✦</span>Novità<small>${fresh.length}</small></h3>${fresh.map(p => card(p, counter.n++)).join('')}`;
-    }
-    if (rest.length) {
-      html += `<h3 class="grp-h catalog-section-title"><span aria-hidden="true">✧</span>Tutti i prodotti<small>${rest.length}</small></h3>${rest.map(p => card(p, counter.n++)).join('')}`;
-    }
-    return html;
+    // Prima i prodotti nuovi, poi tutti gli altri: un'unica griglia continua,
+    // senza intestazioni separate. Il badge "Novità" identifica già i nuovi arrivi.
+    const ordered = [
+      ...items.filter(p => isTrue(p.is_new)),
+      ...items.filter(p => !isTrue(p.is_new))
+    ];
+    return ordered.map(p => card(p, counter.n++)).join('');
   }
   function renderGrid() {
     const l = filtered();
