@@ -573,3 +573,10 @@ html,body{max-width:100%;overflow-x:clip}
 .name-candle-fallback[hidden]{display:none}
 .name-candle-preview-wrap:has(.name-candle-3d canvas) .name-candle-preview-head small{color:#8a765d}
 @media(max-width:600px){.name-candle-preview{min-height:195px;padding:6px 0 10px}.name-candle-3d{height:195px}.name-candle-fallback{min-height:160px}}
+
+
+/* Sezioni Novità e catalogo completo per ogni collezione */
+.grp-h.catalog-category-title{margin-top:34px;padding-top:12px;border-top:1px solid var(--line);font-style:italic}
+.grp-h.catalog-category-title:first-child{margin-top:0;padding-top:0;border-top:0}
+.grp-h.catalog-section-title{margin:12px 0 0;padding:8px 0;border-bottom:1px solid var(--line);font:600 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.grp-h.catalog-section-title small{font:600 10px var(--f-mono)}
