@@ -1,6 +1,36 @@
 <!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy — Lunara</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&family=Ms+Madi&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css"><link rel="icon" href="assets/images/logo.jpeg"></head><body>
+<link rel="stylesheet" href="css/styles.css"><link rel="icon" href="assets/images/logo.jpeg">
+<!-- Google Consent Mode: statistiche disattivate fino al consenso -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  try {
+    if (localStorage.getItem('lunara_analytics_consent') === 'granted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+  } catch (_) {}
+</script>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TJ6N7FT5');
+</script>
+<!-- End Google Tag Manager -->
+<link rel="stylesheet" href="css/consent.css">
+<script src="js/consent.js" defer></script>
+
+</head><body>
 <div id="bg"><i class="b1"></i><i class="b2"></i></div>
 <header class="hdr scrolled"><div class="hdr-in"><a class="brand" href="index.html"><img src="assets/images/logo_tras.png" alt="" width="38" height="38"><span>Lunara</span></a><nav class="nav"><a href="index.html#catalogo">Catalogo</a><a class="cta" href="index.html#contatti">Contatti</a></nav></div></header>
 <main class="legal">
@@ -20,11 +50,14 @@
       <h2>Perché li usiamo</h2>
       <ul>
         <li>Rispondere alle richieste inviate tramite il modulo contatti o tramite i nostri canali social.</li>
-        <li>Migliorare il sito e i contenuti offerti (statistiche anonime di base, se abilitate dal provider di hosting).</li>
+        <li>Analizzare l'utilizzo del sito e migliorarne contenuti ed esperienza tramite Google Analytics 4, esclusivamente se l'utente presta il consenso alle statistiche.</li>
       </ul>
 
-      <h2>Cookie</h2>
-      <p>Non utilizziamo cookie di profilazione. Eventuali cookie tecnici sono necessari al funzionamento del sito.</p>
+      <h2>Statistiche di navigazione</h2>
+      <p>Il sito utilizza Google Tag Manager per caricare Google Analytics 4. Se accetti le statistiche, Google Analytics può raccogliere informazioni sull'utilizzo del sito, come pagine visitate, interazioni, informazioni sul dispositivo e sul browser e provenienza della visita. Questi strumenti restano disattivati fino al consenso. Per maggiori informazioni consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy di Google</a>.</p>
+
+      <h2>Cookie e preferenze</h2>
+      <p>Alla prima visita puoi accettare o rifiutare le statistiche. La scelta viene memorizzata nel browser per ricordare la preferenza. Puoi modificarla in qualsiasi momento tramite il collegamento “Preferenze cookie” presente nel piè di pagina. Se rifiuti, Google Analytics non viene autorizzato a raccogliere dati statistici.</p>
 
       <h2>Conservazione</h2>
       <p>Conserviamo i dati per il tempo strettamente necessario a rispondere alla richiesta o per gli adempimenti di legge.</p>
@@ -32,7 +65,7 @@
       <h2>Diritti</h2>
       <p>Puoi chiederci in qualsiasi momento accesso, rettifica o cancellazione dei tuoi dati scrivendoci tramite i nostri contatti.</p>
 
-      <p style="opacity:.6">Ultimo aggiornamento: 12 gennaio 2026.</p>
+      <p style="opacity:.6">Ultimo aggiornamento: 15 novembre 2026.</p>
       <p><a class="back" href="index.html#catalogo">← Torna al catalogo</a></p>
     </div>
   </main>
