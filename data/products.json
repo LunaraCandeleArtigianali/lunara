@@ -820,6 +820,28 @@
       "images": [
         "/assets/images/prodotti/img_5940.webp"
       ]
+    },
+    {
+      "title": "Fiore di loto",
+      "collection": "Bomboniere",
+      "bomboniera_type": "Comunione / Cresima",
+      "measures": "Ø8 cm 37gr",
+      "description": "",
+      "price": 12,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "manual",
+      "colors": [],
+      "no_extras": false,
+      "images": [
+        "/assets/images/prodotti/img_5920.webp",
+        "/assets/images/prodotti/img_5923.webp",
+        "/assets/images/prodotti/img_5926.webp",
+        "/assets/images/prodotti/img_5925.webp",
+        "/assets/images/prodotti/img_5921.webp"
+      ]
     }
   ]
 }
