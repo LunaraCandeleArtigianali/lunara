@@ -167,7 +167,9 @@
         "Beige"
       ],
       "no_extras": true,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_6039.webp"
+      ]
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -213,12 +215,9 @@
       "colors": [],
       "no_extras": false,
       "images": [
+        "/assets/images/prodotti/progetto-senza-titolo-14.webp",
         "assets/images/Candela_Schiaccianoci/1.webp",
-        "assets/images/Candela_Schiaccianoci/2.webp",
-        "assets/images/Candela_Schiaccianoci/3.webp",
         "assets/images/Candela_Schiaccianoci/4.webp",
-        "assets/images/Candela_Schiaccianoci/5.webp",
-        "assets/images/Candela_Schiaccianoci/6.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
       ]
     },
@@ -731,7 +730,7 @@
       "collection": "Natale",
       "bomboniera_type": "",
       "measures": "4L x 6H cm 32gr",
-      "description": "⛄ **Pupazzo di Neve** ⛄\n\nUn piccolo concentrato di dolcezza e magia invernale! 🤍\n\nLa nostra candela Pupazzo di Neve conquista con la sua forma tenera e i suoi dettagli adorabili, portando in casa tutta l'atmosfera incantata del Natale.\n\nPerfetta per decorare i tuoi ambienti, arricchire un angolino speciale o diventare un pensierino originale da regalare a chi ami. 🎁\n\n✨ Realizzata con amore, per rendere ancora più magico il periodo più bello dell'anno.\n\nUn pizzico di magia, racchiuso in una piccola candela! ❄️",
+      "description": "⛄ Pupazzo di Neve⛄\n\nUn piccolo concentrato di dolcezza e magia invernale! 🤍\n\nLa nostra candela Pupazzo di Neve conquista con la sua forma tenera e i suoi dettagli adorabili, portando in casa tutta l'atmosfera incantata del Natale.\n\nPerfetta per decorare i tuoi ambienti, arricchire un angolino speciale o diventare un pensierino originale da regalare a chi ami. 🎁\n\n✨ Realizzata con amore, per rendere ancora più magico il periodo più bello dell'anno.\n\nUn pizzico di magia, racchiuso in una piccola candela! ❄️",
       "price": 3,
       "is_new": true,
       "is_low_stock": false,
@@ -760,7 +759,9 @@
       ],
       "no_extras": true,
       "images": [
-        "/assets/images/prodotti/img_5896.webp"
+        "/assets/images/prodotti/img_6042.webp",
+        "/assets/images/prodotti/img_5896.webp",
+        "/assets/images/prodotti/img_6043.webp"
       ]
     },
     {
@@ -798,7 +799,9 @@
       ],
       "no_extras": true,
       "images": [
-        "/assets/images/prodotti/img_5899.webp"
+        "/assets/images/prodotti/img_6048.webp",
+        "/assets/images/prodotti/img_5899.webp",
+        "/assets/images/prodotti/img_6049.webp"
       ]
     },
     {
