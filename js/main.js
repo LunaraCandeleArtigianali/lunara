@@ -29,7 +29,7 @@
   };
 
   const isTrue = v => v === true || (typeof v === 'string' && ['TRUE', 'VERO', 'Y', 'YES'].includes(v.trim().toUpperCase()));
-  const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Math.ceil(Number(p))) : 'NA';
+  const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(p)) : 'NA';
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const slug = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   // il pannello può salvare percorsi con la barra iniziale ("/assets/..."): li rendo relativi alla cartella del sito
@@ -541,7 +541,7 @@
   /* ===== CARRELLO ===== */
   const cartItems = [];
   const cartRoot = $('#cart');
-  const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(value);
+  const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
   const cartOptions = (p, sel) => groupsOf(p).map(g => ({ label: g[0], value: sel[g[1]] || 'Da definire' }));
   function renderCart() {
     const count = cartItems.reduce((n, item) => n + item.qty, 0);
