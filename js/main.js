@@ -414,7 +414,14 @@
     })();
   }
   const selText = () => [ ...selLines(cur, pdSel), ...(cur?.name_candle && customCandleName.trim() ? ['Nome: ' + customCandleName.trim()] : []) ].join('\n');
-  const selectedProductPrice = (p, sel) => (Number(p?.price) || 0) + (extrasOf(p).some(e => e.key === 'pack') && sel?.pack === 'Scatola' ? 1 : 0);
+  const packExtraFor = (p, sel) => extrasOf(p).some(e => e.key === 'pack') && sel?.pack === 'Scatola' ? 1 : 0;
+  const selectedProductPrice = (p, sel) => (Number(p?.price) || 0) + packExtraFor(p, sel);
+  function updateProductPrice() {
+    if (!cur || cur.name_candle) return;
+    const extra = packExtraFor(cur, pdSel), extraEl = $('#pd-pack-extra');
+    if (extraEl) { extraEl.hidden = !extra; extraEl.textContent = extra ? 'Scatola: +' + fmt(extra) : ''; }
+    const priceEl = $('#pd-price'); if (priceEl) priceEl.textContent = fmt(selectedProductPrice(cur, pdSel));
+  }
   function openProduct(k, push = true) {
     const p = products.find(x => keyOf(x) === k); if (!p) return;
     cur = p; pdSel = newSel(); customCandleName = ''; curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
@@ -435,6 +442,7 @@
         <div class="tags">${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}</span>` : ''}</div>
         <h1>${esc(p.title)}</h1>
         <div class="pd-price"><span class="price" id="pd-price">${p.name_candle ? fmt(0) : fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
+        <p class="pd-pack-extra" id="pd-pack-extra" hidden></p>
         <span class="ship">🚚 Spedizione gratuita da 50€</span>
         <p class="pd-desc">${esc(p.description)}</p>
         ${p.name_candle ? `<div class="pd-opts name-candle-box"><label for="name-candle-input">Scrivi il nome da comporre</label><input class="field" id="name-candle-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA"><p class="pd-opt-hint">Una mini candela autonoma per ogni lettera. Gli spazi non si conteggiano.</p><div class="name-candle-total"><span id="name-candle-count">0 lettere</span><strong>${fmt(p.price)} / lettera</strong></div><div class="name-candle-preview-wrap"><div class="name-candle-preview-head"><span>ANTEPRIMA</span><small>Trascina per ruotare la candela · scegli la tonalità qui sotto</small></div><div class="name-candle-preview" id="name-candle-preview"><div class="name-candle-3d" id="name-candle-3d"></div><div class="name-candle-fallback" id="name-candle-fallback"><span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span></div></div></div>${optBlock(p)}</div>` : optBlock(p)}
@@ -482,7 +490,7 @@
     if (select) {
       pdSel[select.dataset.k] = select.value || null;
       const priceEl = $('#pd-price');
-      if (priceEl && !cur?.name_candle) priceEl.textContent = fmt(selectedProductPrice(cur, pdSel));
+      if (priceEl && !cur?.name_candle) updateProductPrice();
       if (cur?.name_candle) updateNameCandlePreview();
     }
   });
@@ -496,6 +504,7 @@
       const g = chipB.parentElement, key = g.dataset.k, was = chipB.getAttribute('aria-checked') === 'true';
       $$('.pd-chip', g).forEach(x => x.setAttribute('aria-checked', 'false'));
       pdSel[key] = was ? null : chipB.dataset.v; if (!was) chipB.setAttribute('aria-checked', 'true');
+      if (key === 'pack') updateProductPrice();
       return;
     }
     if (t.closest('#pd-buy')) return addToCart();
@@ -551,6 +560,7 @@
     $('#cart-count').textContent = count;
     $('#cart-items').innerHTML = cartItems.length ? cartItems.map((item, i) => `
       <article class="cart-line"><div class="cart-line-top"><div><h3>${esc(item.title)}</h3><small>${money(item.price)} cad.</small></div><button class="cart-remove" type="button" data-cart-remove="${i}">Rimuovi</button></div>
+      ${item.packExtra ? `<div class="cart-price-breakdown"><div><span>Prodotto</span><span>${money(item.basePrice)}</span></div><div><span>Scatola</span><span>+${money(item.packExtra)}</span></div></div>` : ''}
       <dl>${item.options.map(o => `<div><dt>${esc(o.label)}</dt><dd>${esc(o.value)}</dd></div>`).join('')}</dl>
       <div class="cart-line-bottom"><div class="cart-qty"><button type="button" data-cart-qty="-1" data-cart-index="${i}">−</button><span>${item.qty}</span><button type="button" data-cart-qty="1" data-cart-index="${i}">+</button></div><strong>${money(item.price * item.qty)}</strong></div></article>`).join('') : '<p class="cart-empty">Il carrello è vuoto. Aggiungi le tue candele dal catalogo.</p>';
     const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
@@ -574,7 +584,10 @@
       itemTitle = cur.title + ' — ' + name;
       itemPrice = (Number(cur.price) || 0) * letters;
       cartItems.push({ id: cur.id || slug(cur.title), category: colOf(cur), title: itemTitle, price: itemPrice, options, qty: 1 });
-    } else cartItems.push({ id: cur.id || slug(cur.title), category: colOf(cur), title: itemTitle, price: itemPrice, options: cartOptions(cur, pdSel), qty: 1 });
+    } else {
+      const basePrice = Number(cur.price) || 0, packExtra = packExtraFor(cur, pdSel);
+      cartItems.push({ id: cur.id || slug(cur.title), category: colOf(cur), title: itemTitle, price: itemPrice, basePrice, packExtra, options: cartOptions(cur, pdSel), qty: 1 });
+    }
     renderCart();
     trackEvent('add_to_cart', { currency: 'EUR', value: itemPrice, items: [{ ...gaItem(cur, 1, itemPrice), item_name: itemTitle }] });
     toast('Aggiunta al carrello');
@@ -610,6 +623,10 @@
     const lines = ['Ciao Lunara! Vorrei effettuare questo ordine:', ''];
     cartItems.forEach((item, i) => {
       lines.push(`${i + 1}. ${item.title} × ${item.qty} — ${money(item.price * item.qty)}`);
+      if (item.packExtra) {
+        lines.push(`   Prodotto: ${money(item.basePrice)}`);
+        lines.push(`   Scatola: +${money(item.packExtra)}`);
+      }
       item.options.forEach(o => lines.push(`   ${o.label}: ${o.value}`));
       lines.push('');
     });
