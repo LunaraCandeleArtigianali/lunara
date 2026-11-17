@@ -43,7 +43,7 @@
   const EXTRAS = [
     { key: 'confetti', t: 'Confetti', list: ['Sì', 'No'] },
     { key: 'tag', t: 'Tag personalizzato', list: ['Sì', 'No'] },
-    { key: 'pack', t: 'Confezione', list: ['Sacchetto', 'Scatola'] }
+    { key: 'pack', t: 'Confezione', list: ['Sacchetto organza', 'Scatola'] }
   ];
   const extrasOf = p => (p && !isTrue(p.no_extras)) ? EXTRAS : [];
   const CUSTOM_NOTE = '✨ Disponibile in diverse varianti – contattaci per personalizzazioni.';
