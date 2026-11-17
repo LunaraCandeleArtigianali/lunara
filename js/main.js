@@ -414,6 +414,7 @@
     })();
   }
   const selText = () => [ ...selLines(cur, pdSel), ...(cur?.name_candle && customCandleName.trim() ? ['Nome: ' + customCandleName.trim()] : []) ].join('\n');
+  const selectedProductPrice = (p, sel) => (Number(p?.price) || 0) + (extrasOf(p).some(e => e.key === 'pack') && sel?.pack === 'Scatola' ? 1 : 0);
   function openProduct(k, push = true) {
     const p = products.find(x => keyOf(x) === k); if (!p) return;
     cur = p; pdSel = newSel(); customCandleName = ''; curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
@@ -480,6 +481,8 @@
     const select = e.target.closest('.pd-select');
     if (select) {
       pdSel[select.dataset.k] = select.value || null;
+      const priceEl = $('#pd-price');
+      if (priceEl && !cur?.name_candle) priceEl.textContent = fmt(selectedProductPrice(cur, pdSel));
       if (cur?.name_candle) updateNameCandlePreview();
     }
   });
@@ -562,7 +565,7 @@
   }
   function addToCart() {
     if (!cur) return;
-    let itemTitle = cur.title, itemPrice = Number(cur.price) || 0;
+    let itemTitle = cur.title, itemPrice = selectedProductPrice(cur, pdSel);
     if (cur.name_candle) {
       const name = customCandleName.trim();
       const letters = [...name].filter(ch => ch.trim()).length;
