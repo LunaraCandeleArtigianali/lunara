@@ -438,31 +438,6 @@
       ]
     },
     {
-      "id": "Candela_Palla_natale",
-      "title": "Palla natale",
-      "collection": "Natale",
-      "bomboniera_type": "",
-      "measures": "8 x 9 cm • 65gr",
-      "description": "🕯️ Candela Palla di Natale in Ceramica 🎁\n\nUna sfera di ceramica decorata a mano che nasconde una cera di soia naturale profumata alla mela e cannella, con vere spezie all’interno.\nStoppino in legno di ciliegio o cotone.\n\nPerfetta per creare atmostera durante le feste, come decorazione natalizia, ideale come centro tavola elegante o regalo originale.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
-      "price": 25,
-      "is_new": false,
-      "is_low_stock": false,
-      "fragrance_mode": "all",
-      "fragrances": [],
-      "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
-      "images": [
-        "assets/images/Candela_Palla_natale/1.webp",
-        "assets/images/Candela_Palla_natale/2.webp",
-        "assets/images/Candela_Palla_natale/3.webp",
-        "assets/images/Candela_Palla_natale/4.webp",
-        "assets/images/Candela_Palla_natale/5.webp",
-        "assets/images/Candela_Palla_natale/6.webp",
-        "assets/images/Candela_Palla_natale/7.webp"
-      ]
-    },
-    {
       "id": "Candela_Renna",
       "title": "Renna",
       "collection": "Natale",
@@ -503,6 +478,31 @@
         "/assets/images/prodotti/image6.webp",
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp"
+      ]
+    },
+    {
+      "id": "Candela_Palla_natale",
+      "title": "Palla natale",
+      "collection": "Natale",
+      "bomboniera_type": "",
+      "measures": "8 x 9 cm • 65gr",
+      "description": "🕯️ Candela Palla di Natale in Ceramica 🎁\n\nUna sfera di ceramica decorata a mano che nasconde una cera di soia naturale profumata alla mela e cannella, con vere spezie all’interno.\nStoppino in legno di ciliegio o cotone.\n\nPerfetta per creare atmostera durante le feste, come decorazione natalizia, ideale come centro tavola elegante o regalo originale.\n\nDisponibili anche altre fragranze, scrivici per il catalogo completo!",
+      "price": 25,
+      "is_new": false,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "no_extras": false,
+      "images": [
+        "assets/images/Candela_Palla_natale/1.webp",
+        "assets/images/Candela_Palla_natale/2.webp",
+        "assets/images/Candela_Palla_natale/3.webp",
+        "assets/images/Candela_Palla_natale/4.webp",
+        "assets/images/Candela_Palla_natale/5.webp",
+        "assets/images/Candela_Palla_natale/6.webp",
+        "assets/images/Candela_Palla_natale/7.webp"
       ]
     },
     {
