@@ -1,27 +1,6 @@
 {
   "items": [
     {
-      "id": "Candela_Nome_in_cera",
-      "title": "Il tuo nome in cera",
-      "collection": "Altro",
-      "bomboniera_type": "",
-      "measures": "1 mini candela per ogni lettera",
-      "description": "Componi un nome con tante piccole candele, una per ogni lettera.\n\nScrivi il nome che desideri: il totale viene calcolato automaticamente in base al numero di lettere.\n\nPrezzo: 2 € per ogni lettera. Gli spazi non vengono conteggiati.\n\nPuoi scegliere fragranza e colore secondo le opzioni disponibili.",
-      "price": 2,
-      "is_new": true,
-      "is_low_stock": false,
-      "fragrance_mode": "all",
-      "fragrances": [],
-      "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
-      "images": [
-        "assets/images/candela-lettere.webp",
-        "/assets/images/prodotti/img_0750.webp"
-      ],
-      "name_candle": true
-    },
-    {
       "id": "Candela_Gift_Card",
       "title": "Gift Card",
       "collection": "Altro",
@@ -41,6 +20,27 @@
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
       ]
+    },
+    {
+      "id": "Candela_Nome_in_cera",
+      "title": "Il tuo nome in cera",
+      "collection": "Altro",
+      "bomboniera_type": "",
+      "measures": "1 mini candela per ogni lettera",
+      "description": "Componi un nome con tante piccole candele, una per ogni lettera.\n\nScrivi il nome che desideri: il totale viene calcolato automaticamente in base al numero di lettere.\n\nPrezzo: 2 € per ogni lettera. Gli spazi non vengono conteggiati.\n\nPuoi scegliere fragranza e colore secondo le opzioni disponibili.",
+      "price": 2,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "no_extras": false,
+      "images": [
+        "assets/images/candela-lettere.webp",
+        "/assets/images/prodotti/img_0750.webp"
+      ],
+      "name_candle": true
     },
     {
       "title": "Giardino Segreto",
