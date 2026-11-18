@@ -84,6 +84,27 @@
       ]
     },
     {
+      "id": "Candela_Essenza_di_Cuore",
+      "title": "Essenza di Cuore",
+      "collection": "Bomboniere",
+      "bomboniera_type": "Matrimonio",
+      "measures": "14 x 12 x 5 cm • 280gr",
+      "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
+      "price": 25,
+      "is_new": false,
+      "is_low_stock": true,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "no_extras": false,
+      "images": [
+        "assets/images/Candela_Essenza_di_Cuore/1.webp",
+        "assets/images/Candela_Essenza_di_Cuore/2.webp",
+        "assets/images/Candela_Essenza_di_Cuore/3.webp"
+      ]
+    },
+    {
       "title": "CARILLON",
       "collection": "Bomboniere",
       "bomboniera_type": "Comunione / Cresima",
@@ -110,27 +131,6 @@
         "/assets/images/prodotti/img_5705.webp",
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
-      ]
-    },
-    {
-      "id": "Candela_Essenza_di_Cuore",
-      "title": "Essenza di Cuore",
-      "collection": "Bomboniere",
-      "bomboniera_type": "Matrimonio",
-      "measures": "14 x 12 x 5 cm • 280gr",
-      "description": "Contenitore in ceramica a forma di cuore, una colata di cera di soia, decorazioni in cera di oliva a forma di tulipano rosso\n\nConfezionato in scatola Kraft bianca e nastro rosso in chiffon",
-      "price": 25,
-      "is_new": false,
-      "is_low_stock": true,
-      "fragrance_mode": "all",
-      "fragrances": [],
-      "color_mode": "all",
-      "colors": [],
-      "no_extras": false,
-      "images": [
-        "assets/images/Candela_Essenza_di_Cuore/1.webp",
-        "assets/images/Candela_Essenza_di_Cuore/2.webp",
-        "assets/images/Candela_Essenza_di_Cuore/3.webp"
       ]
     },
     {
