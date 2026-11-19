@@ -837,6 +837,35 @@
       "images": [
         "/assets/images/prodotti/img_5940.webp"
       ]
+    },
+    {
+      "title": "Rosa Incantata",
+      "collection": "Bomboniere",
+      "bomboniera_type": "",
+      "measures": "5 x 5 cm 50gr",
+      "description": "Un regalo che non appassisce mai! \nUna candela artigianale in cera di oliva, elegante e profumata. \nPersonalizzabile a partire dal colore della rosa, al fiocco e al packaging.",
+      "price": 10,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [
+        "Bianco",
+        "Rosso",
+        "Azzurro",
+        "Beige",
+        "Rosa",
+        "Verde"
+      ],
+      "no_extras": false,
+      "images": [
+        "/assets/images/prodotti/image2-2.webp",
+        "/assets/images/prodotti/image3-1.webp",
+        "/assets/images/prodotti/image4-1.webp",
+        "/assets/images/prodotti/image0-2.webp",
+        "/assets/images/prodotti/image1-1-1.webp"
+      ]
     }
   ]
 }
