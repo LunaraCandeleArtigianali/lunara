@@ -50,7 +50,7 @@ singletons:
             required: false
           - { label: "Misure e peso", name: measures, widget: string, required: false }
           - { label: Descrizione, name: description, widget: text, required: false }
-          - { label: "Prezzo (€)", name: price, widget: number, value_type: int, min: 0, step: 1, required: false }
+          - { label: "Prezzo (€)", name: price, widget: number, value_type: float, min: 0, step: 0.01, required: false }
           - { label: Novità, name: is_new, widget: boolean, default: false }
           - { label: Ultimi pezzi, name: is_low_stock, widget: boolean, default: false }
           - label: Disponibilità fragranze
@@ -88,7 +88,14 @@ singletons:
             multiple: true
             dropdown_threshold: 0
             required: false
-          - { label: "Nascondi la scelta di confetti / tag / confezione", name: no_extras, widget: boolean, default: false, required: false }
+          - label: Forme disponibili (solo per Tart profumate)
+            name: shapes
+            widget: list
+            field: { label: Forma, name: shape, widget: string }
+            required: false
+          - { label: "Mostra scelta confetti", name: confetti_enabled, widget: boolean, default: true, required: false }
+          - { label: "Mostra scelta tag personalizzato", name: tag_enabled, widget: boolean, default: true, required: false }
+          - { label: "Mostra scelta confezione", name: pack_enabled, widget: boolean, default: true, required: false }
           - label: Foto (la prima è la copertina; trascina per riordinare)
             name: images
             widget: image
