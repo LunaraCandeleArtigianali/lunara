@@ -883,7 +883,13 @@
       "color_mode": "all",
       "colors": [],
       "no_extras": false,
-      "images": []
+      "images": [
+        "/assets/images/prodotti/img_5910.webp",
+        "/assets/images/prodotti/img_5908.webp",
+        "/assets/images/prodotti/img_5909.webp",
+        "/assets/images/prodotti/img_5913.webp",
+        "/assets/images/prodotti/img_5914.webp"
+      ]
     }
   ]
 }
