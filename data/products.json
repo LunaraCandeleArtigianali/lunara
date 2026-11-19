@@ -27,7 +27,10 @@
         "assets/images/Candela_Bouquet_fiori_(Natale)/7.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/8.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/9.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Albero_in_contenitore",
@@ -70,7 +73,10 @@
         "assets/images/Candela_Albero_in_contenitore/4.webp",
         "assets/images/Candela_Albero_in_contenitore/5.webp",
         "assets/images/Candela_Albero_in_contenitore/6.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Palla_natale",
@@ -93,7 +99,10 @@
         "/assets/images/prodotti/9daddef3-01c5-485c-b454-96ea2e8b7fa4.webp",
         "assets/images/Candela_Palla_natale/1.webp",
         "assets/images/Candela_Palla_natale/2.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Alberello",
@@ -135,7 +144,10 @@
         "/assets/images/prodotti/image1.webp",
         "/assets/images/prodotti/image0.webp",
         "/assets/images/prodotti/image2.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Gnomo",
@@ -178,7 +190,10 @@
         "assets/images/Candela_Gnomo/2.webp",
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Schiaccianoci",
@@ -200,7 +215,10 @@
         "assets/images/Candela_Schiaccianoci/1.webp",
         "assets/images/Candela_Schiaccianoci/4.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Renna Baby",
@@ -238,7 +256,10 @@
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-11.webp",
         "/assets/images/prodotti/progetto-senza-titolo-10.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Renna",
@@ -281,7 +302,10 @@
         "/assets/images/prodotti/image6.webp",
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Fiocco",
@@ -320,7 +344,10 @@
       "images": [
         "/assets/images/prodotti/untitled-design-8.webp",
         "/assets/images/prodotti/untitled-design-9.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "title": "Biscotto Pan di zenzero",
@@ -358,7 +385,10 @@
       "no_extras": true,
       "images": [
         "/assets/images/prodotti/image1-2.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "title": "Alberello Baby",
@@ -398,7 +428,10 @@
         "/assets/images/prodotti/progetto-senza-titolo-17.webp",
         "/assets/images/prodotti/image0-1.webp",
         "/assets/images/prodotti/image1-1.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "title": "Fiocco di Natale Baby",
@@ -435,7 +468,10 @@
       "no_extras": true,
       "images": [
         "/assets/images/prodotti/img_5890.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "title": "Pupazzo di Neve",
@@ -472,7 +508,10 @@
       "no_extras": true,
       "images": [
         "/assets/images/prodotti/image2-1.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Ghirlanda",
@@ -494,7 +533,10 @@
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-14-1.webp",
         "/assets/images/prodotti/progetto-senza-titolo-15.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Gift_Card",
@@ -515,7 +557,10 @@
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "id": "Candela_Bouquet_fiori_(S.Valentino)",
@@ -539,7 +584,10 @@
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/4.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Rosa_in_cupola",
@@ -562,7 +610,10 @@
         "assets/images/Candela_Rosa_in_cupola/3.webp",
         "assets/images/Candela_Rosa_in_cupola/4.webp",
         "assets/images/Candela_Rosa_in_cupola/5.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -583,7 +634,10 @@
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -611,7 +665,10 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Cuori_Accesi",
@@ -633,7 +690,10 @@
         "assets/images/Candela_Cuori_Accesi/2.webp",
         "assets/images/Candela_Cuori_Accesi/3.webp",
         "assets/images/Candela_Cuori_Accesi/4.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Rosa_Incantata",
@@ -656,7 +716,10 @@
         "assets/images/Candela_Rosa_Incantata/3.webp",
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Nome_in_cera",
@@ -677,7 +740,10 @@
         "assets/images/candela-lettere.webp",
         "/assets/images/prodotti/img_0750.webp"
       ],
-      "name_candle": true
+      "name_candle": true,
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Big Teddy",
@@ -700,7 +766,10 @@
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5689.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "CARILLON",
@@ -729,7 +798,10 @@
         "/assets/images/prodotti/img_5705.webp",
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Giardino Segreto",
@@ -747,7 +819,10 @@
       "no_extras": false,
       "images": [
         "/assets/images/prodotti/img_5688.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -768,7 +843,10 @@
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -796,7 +874,10 @@
         "assets/images/Candela_Orsetto_di_roselline/4.webp",
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Fiore di loto",
@@ -818,7 +899,10 @@
         "/assets/images/prodotti/img_5926.webp",
         "/assets/images/prodotti/img_5925.webp",
         "/assets/images/prodotti/img_5921.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Choco Tart",
@@ -838,7 +922,10 @@
       "no_extras": true,
       "images": [
         "/assets/images/prodotti/img_5940.webp"
-      ]
+      ],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false
     },
     {
       "title": "Rosa Incantata",
@@ -867,7 +954,10 @@
         "/assets/images/prodotti/image4-1.webp",
         "/assets/images/prodotti/image0-2.webp",
         "/assets/images/prodotti/image1-1-1.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     },
     {
       "title": "Tart profumate",
@@ -889,7 +979,10 @@
         "/assets/images/prodotti/img_5909.webp",
         "/assets/images/prodotti/img_5913.webp",
         "/assets/images/prodotti/img_5914.webp"
-      ]
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true
     }
   ]
 }
