@@ -88,6 +88,11 @@ singletons:
             multiple: true
             dropdown_threshold: 0
             required: false
+          - label: Forme disponibili (solo per Tart profumate)
+            name: shapes
+            widget: list
+            field: { label: Forma, name: shape, widget: string }
+            required: false
           - { label: "Mostra scelta confetti", name: confetti_enabled, widget: boolean, default: true, required: false }
           - { label: "Mostra scelta tag personalizzato", name: tag_enabled, widget: boolean, default: true, required: false }
           - { label: "Mostra scelta confezione", name: pack_enabled, widget: boolean, default: true, required: false }
