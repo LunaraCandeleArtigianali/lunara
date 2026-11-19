@@ -803,7 +803,7 @@
     const count = $('#name-builder-count'), price = $('#name-builder-price'), preview = $('#name-builder-preview'), wa = $('#name-builder-wa');
     const fill = (select, values) => values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; select.appendChild(o); });
     fill(frag, fragrancesOf(product)); fill(color, colorsOf(product));
-    const clean = value => value.toUpperCase().replace(/[^\\p{L}\\p{N} ]/gu, '');
+    const clean = value => value.toUpperCase().replace(/[^\p{L}\p{N} ]/gu, '');
     const update = () => {
       const name = clean(input.value);
       if (input.value !== name) input.value = name;
@@ -815,7 +815,7 @@
       preview.style.setProperty('--wax-color', color.value ? (hexOf(color.value) || '#f4f0e8') : '#f4f0e8');
       const valid = letters > 0;
       wa.setAttribute('aria-disabled', String(!valid));
-      wa.href = valid ? waLink(['Ciao Lunara! Vorrei ordinare il nome in cera.', '', `Nome: ${name.trim()}`, `Lettere: ${letters}`, `Prezzo indicativo: ${fmt(total)}`, `Fragranza: ${frag.value || 'Da definire'}`, `Colore: ${color.value || 'Da definire'}`].join('\\n')) : '#';
+      wa.href = valid ? waLink(['Ciao Lunara! Vorrei ordinare il nome in cera.', '', `Nome: ${name.trim()}`, `Lettere: ${letters}`, `Prezzo indicativo: ${fmt(total)}`, `Fragranza: ${frag.value || 'Da definire'}`, `Colore: ${color.value || 'Da definire'}`].join('\n')) : '#';
     };
     input.addEventListener('input', update);
     frag.addEventListener('change', update);
