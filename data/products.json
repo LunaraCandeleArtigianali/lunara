@@ -982,7 +982,16 @@
       ],
       "confetti_enabled": true,
       "tag_enabled": true,
-      "pack_enabled": true
+      "pack_enabled": true,
+      "shapes": [
+        "Nuvolette",
+        "Cuoricini",
+        "Tavolette di cioccolato",
+        "Lamponi",
+        "Fragole",
+        "Mirtilli",
+        "Altra forma (da concordare)"
+      ]
     }
   ]
 }
