@@ -794,6 +794,40 @@
     $('#atl-prev').addEventListener('click', () => go(step - 1));
     go(0); paint();
   }
+  /* ===== PERSONALIZZAZIONE NOME IN CERA ===== */
+  function initNameCandleBuilder() {
+    const root = $('#name-builder'); if (!root) return;
+    const product = products.find(p => p.name_candle);
+    if (!product) { root.hidden = true; return; }
+    const input = $('#name-builder-input'), frag = $('#name-builder-frag'), color = $('#name-builder-col');
+    const count = $('#name-builder-count'), price = $('#name-builder-price'), preview = $('#name-builder-preview'), wa = $('#name-builder-wa');
+    const fill = (select, values) => values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; select.appendChild(o); });
+    fill(frag, fragrancesOf(product)); fill(color, colorsOf(product));
+    const clean = value => value.toUpperCase().replace(/[^\\p{L}\\p{N} ]/gu, '');
+    const update = () => {
+      const name = clean(input.value);
+      if (input.value !== name) input.value = name;
+      const letters = [...name].filter(ch => ch.trim()).length;
+      const total = letters * (Number(product.price) || 0);
+      count.textContent = letters + (letters === 1 ? ' lettera' : ' lettere');
+      price.textContent = fmt(total);
+      preview.innerHTML = name.trim() ? [...name].filter(ch => ch.trim()).map((ch, i) => `<span class="name-candle-letter" style="--letter-i:${i}">${esc(ch)}</span>`).join('') : '<small>Il tuo nome prenderà forma qui</small>';
+      preview.style.setProperty('--wax-color', color.value ? (hexOf(color.value) || '#f4f0e8') : '#f4f0e8');
+      const valid = letters > 0;
+      wa.setAttribute('aria-disabled', String(!valid));
+      wa.href = valid ? waLink(['Ciao Lunara! Vorrei ordinare il nome in cera.', '', `Nome: ${name.trim()}`, `Lettere: ${letters}`, `Prezzo indicativo: ${fmt(total)}`, `Fragranza: ${frag.value || 'Da definire'}`, `Colore: ${color.value || 'Da definire'}`].join('\\n')) : '#';
+    };
+    input.addEventListener('input', update);
+    frag.addEventListener('change', update);
+    color.addEventListener('change', update);
+    wa.addEventListener('click', () => {
+      const name = clean(input.value), letters = [...name].filter(ch => ch.trim()).length;
+      if (!letters) { update(); input.focus(); return; }
+      trackEvent('custom_name_candle_request', { currency: 'EUR', value: letters * (Number(product.price) || 0), items: [gaItem(product)] });
+    });
+    update();
+  }
+
   const wc = $('#wa-contact'); if (wc) wc.href = `https://wa.me/${WHATSAPP}`;
 
   /* ===== AVVIO ===== */
@@ -809,7 +843,7 @@
     }
   }
   products = await loadProducts();
-  buildHero(); renderSeg(); renderGrid(); initConfigurator();
+  buildHero(); renderSeg(); renderGrid(); initConfigurator(); initNameCandleBuilder();
   const h = location.hash.match(/^#p=(.+)/);
   if (h) openProduct(decodeURIComponent(h[1]), false);
 })();
