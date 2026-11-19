@@ -45,7 +45,12 @@
     { key: 'tag', t: 'Tag personalizzato', list: ['Sì', 'No'] },
     { key: 'pack', t: 'Confezione', list: ['Sacchetto organza', 'Scatola'] }
   ];
-  const extrasOf = p => (p && !isTrue(p.no_extras)) ? EXTRAS : [];
+  // Ogni personalizzazione è indipendente. I vecchi prodotti restano compatibili:
+  // in assenza dei nuovi campi si usa il valore storico no_extras.
+  const extrasOf = p => p ? EXTRAS.filter(e => {
+    const field = e.key + '_enabled';
+    return Object.prototype.hasOwnProperty.call(p, field) ? isTrue(p[field]) : !isTrue(p.no_extras);
+  }) : [];
   const CUSTOM_NOTE = '✨ Disponibile in diverse varianti – contattaci per personalizzazioni.';
   const OTHER = 'Altro (lo definiamo insieme)';
   const fragrancesOf = p => p?.fragrance_mode === 'all' ? (OPTS.fragrances || []).map(f => typeof f === 'string' ? f : f.name).filter(Boolean) : (p?.fragrances || []);
