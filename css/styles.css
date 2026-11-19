@@ -580,3 +580,26 @@ html,body{max-width:100%;overflow-x:clip}
 .grp-h.catalog-category-title:first-child{margin-top:0;padding-top:0;border-top:0}
 .grp-h.catalog-section-title{margin:12px 0 0;padding:8px 0;border-bottom:1px solid var(--line);font:600 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .grp-h.catalog-section-title small{font:600 10px var(--f-mono)}
+
+
+/* Configuratore dedicato: nome in cera */
+.name-builder{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(260px,.95fr);gap:clamp(24px,5vw,64px);align-items:center;margin:36px 0 54px;padding:clamp(22px,4vw,44px);border:1px solid var(--line);border-radius:30px;background:linear-gradient(135deg,#fffefa 0%,#f5eee2 100%);box-shadow:0 24px 60px -45px #59452c}
+.name-builder[hidden]{display:none}
+.name-builder-kicker,.name-builder-preview-wrap>span{font:600 10px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.name-builder-copy h3{font:italic 400 clamp(30px,3.5vw,44px)/1.05 var(--f-serif);margin:10px 0}
+.name-builder-copy h3 em{color:var(--gold2)}
+.name-builder-copy>p{color:var(--mut);line-height:1.6;margin-bottom:22px}
+.name-builder-copy>label,.name-builder-options label{display:grid;gap:8px;font:600 11px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.name-builder-copy>.field,.name-builder-options .field{width:100%;border-radius:13px;background:#fff}
+.name-builder-hint{font-size:12px!important;margin:8px 0 18px!important}
+.name-builder-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.name-builder-total{display:flex;justify-content:space-between;align-items:center;margin:22px 0;font:600 12px var(--f-mono);color:var(--mut)}
+.name-builder-total strong{font:600 24px var(--f-serif);color:var(--txt)}
+.name-builder-copy>.btn{width:100%;justify-content:center;text-align:center}
+.name-builder-copy>.btn[aria-disabled=true]{opacity:.55}
+.name-builder-preview-wrap{min-width:0;padding:22px;border:1px solid #e8dfd0;border-radius:22px;background:#fffefa;text-align:center;box-shadow:inset 0 1px 0 #fff,0 12px 30px -24px #59452c}
+.name-builder-preview{min-height:210px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(5px,1.2vw,12px);padding:20px 6px;overflow-wrap:anywhere}
+.name-builder-preview .name-candle-letter{font-size:clamp(34px,5vw,58px)}
+.name-builder-preview small{font:italic 17px var(--f-serif);color:var(--mut)}
+.name-builder-preview-wrap>p{font-size:12px;color:var(--mut);margin:0}
+@media(max-width:760px){.name-builder{grid-template-columns:1fr;margin:28px 0 40px;border-radius:24px}.name-builder-preview{min-height:150px}.name-builder-options{grid-template-columns:1fr}}
