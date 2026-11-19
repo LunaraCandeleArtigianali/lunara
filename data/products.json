@@ -866,6 +866,22 @@
         "/assets/images/prodotti/image0-2.webp",
         "/assets/images/prodotti/image1-1-1.webp"
       ]
+    },
+    {
+      "title": "Tart profumate",
+      "collection": "Casa",
+      "bomboniera_type": "",
+      "measures": "15H x 10L 53gr",
+      "description": "Tart profumate in cera di oliva 100% naturale.✨\n\nTrasforma ogni ambiente in un piccolo angolo di magia! 🥰\n\nLe nostre tart profumate sono deliziose creazioni da sciogliere nel brucia essenze: basta inserire una tart nell'apposito bruciatore per lasciarsi avvolgere da una nuvola di profumo che si diffonderà delicatamente in tutta la stanza. 🕯️💕\n\nOgni fragranza è un'esperienza tutta da vivere, capace di regalare atmosfera, dolcezza e una piacevole sensazione di benessere.\n\n🍓 Disponibili in tantissime forme deliziose:\n\n- Nuvolette ☁️\n- Cuoricini ❤️\n- Tavolette di cioccolato 🍫\n- Lamponi\n- Fragole 🍓\n- Mirtilli 🫐\n- E tante altre simpatiche creazioni!\n\nScegli la tua forma preferita e soprattutto la fragranza che più ti conquista\\! 💗\nPerché anche la tua casa merita di profumare di felicità! ✨",
+      "price": 5,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "no_extras": false,
+      "images": []
     }
   ]
 }
