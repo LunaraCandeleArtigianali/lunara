@@ -172,6 +172,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <h2 class="rv" style="--i:1">Crea la <em>tua candela</em></h2>
       <p class="lead rv" style="--i:2">Cinque passi: parti da una collezione, scegli la creazione, il profumo, il colore e i dettagli. Poi ne parliamo su WhatsApp.</p>
 
+      <div class="name-builder rv" id="name-builder">
+        <div class="name-builder-copy">
+          <span class="name-builder-kicker">Una creazione speciale</span>
+          <h3>Il tuo nome <em>in cera</em></h3>
+          <p>Componi un nome o una parola con mini candele, una per ogni lettera. Il prezzo si aggiorna mentre scrivi.</p>
+          <label for="name-builder-input">Il nome da realizzare</label>
+          <input class="field" id="name-builder-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA">
+          <p class="name-builder-hint">Puoi usare lettere, numeri e spazi. Gli spazi non vengono conteggiati.</p>
+          <div class="name-builder-options">
+            <label>Fragranza<select class="field" id="name-builder-frag"><option value="">Da definire</option></select></label>
+            <label>Colore<select class="field" id="name-builder-col"><option value="">Da definire</option></select></label>
+          </div>
+          <div class="name-builder-total"><span id="name-builder-count">0 lettere</span><strong id="name-builder-price">0,00 €</strong></div>
+          <a class="btn gold" id="name-builder-wa" href="#" target="_blank" rel="noopener" aria-disabled="true">Richiedi il tuo nome su WhatsApp</a>
+        </div>
+        <div class="name-builder-preview-wrap">
+          <span>ANTEPRIMA</span>
+          <div class="name-builder-preview" id="name-builder-preview" aria-live="polite"><small>Il tuo nome prenderà forma qui</small></div>
+          <p>Una mini candela per ogni lettera</p>
+        </div>
+      </div>
+
       <div class="atl rv" style="--i:3" id="atl">
         <div class="atl-stage" id="atl-stage" aria-hidden="true">
           <div class="atl-aura"></div>
