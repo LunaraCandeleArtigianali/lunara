@@ -12,8 +12,24 @@
   const PLACEHOLDER = 'assets/images/placeholder.jpeg';
   let products = [];
 
+  // Eventi GA4: vengono inviati solo dopo il consenso esplicito alle statistiche.
+  const analyticsAllowed = () => {
+    try { return localStorage.getItem('lunara_analytics_consent') === 'granted'; } catch (_) { return false; }
+  };
+  const gaItem = (p, quantity = 1, price = p?.price) => ({
+    item_id: String(p?.id || slug(p?.title)),
+    item_name: String(p?.title || ''),
+    item_category: colOf(p),
+    price: Number(price) || 0,
+    quantity
+  });
+  const trackEvent = (name, params = {}) => {
+    if (!analyticsAllowed() || typeof window.gtag !== 'function') return;
+    window.gtag('event', name, params);
+  };
+
   const isTrue = v => v === true || (typeof v === 'string' && ['TRUE', 'VERO', 'Y', 'YES'].includes(v.trim().toUpperCase()));
-  const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Math.ceil(Number(p))) : 'NA';
+  const fmt = p => (p != null && p !== '') ? new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(p)) : 'NA';
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const slug = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   // il pannello può salvare percorsi con la barra iniziale ("/assets/..."): li rendo relativi alla cartella del sito
@@ -27,9 +43,14 @@
   const EXTRAS = [
     { key: 'confetti', t: 'Confetti', list: ['Sì', 'No'] },
     { key: 'tag', t: 'Tag personalizzato', list: ['Sì', 'No'] },
-    { key: 'pack', t: 'Confezione', list: ['Sacchetto', 'Scatola'] }
+    { key: 'pack', t: 'Confezione', list: ['Sacchetto organza', 'Scatola'] }
   ];
-  const extrasOf = p => (p && !isTrue(p.no_extras)) ? EXTRAS : [];
+  // Ogni personalizzazione è indipendente. I vecchi prodotti restano compatibili:
+  // in assenza dei nuovi campi si usa il valore storico no_extras.
+  const extrasOf = p => p ? EXTRAS.filter(e => {
+    const field = e.key + '_enabled';
+    return Object.prototype.hasOwnProperty.call(p, field) ? isTrue(p[field]) : !isTrue(p.no_extras);
+  }) : [];
   const CUSTOM_NOTE = '✨ Disponibile in diverse varianti – contattaci per personalizzazioni.';
   const OTHER = 'Altro (lo definiamo insieme)';
   const fragrancesOf = p => p?.fragrance_mode === 'all' ? (OPTS.fragrances || []).map(f => typeof f === 'string' ? f : f.name).filter(Boolean) : (p?.fragrances || []);
@@ -269,16 +290,37 @@
     else if (sort.value === 'new-first') l.sort((a, b) => isTrue(b.is_new) - isTrue(a.is_new));
     return l;
   }
+  function productSections(items, counter) {
+    // Prima i prodotti nuovi, poi tutti gli altri: un'unica griglia continua,
+    // senza intestazioni separate. Il badge "Novità" identifica già i nuovi arrivi.
+    const ordered = [
+      ...items.filter(p => isTrue(p.is_new)),
+      ...items.filter(p => !isTrue(p.is_new))
+    ];
+    return ordered.map(p => card(p, counter.n++)).join('');
+  }
   function renderGrid() {
     const l = filtered();
-    if (l.length && isBomb(col) && sub === 'Tutte' && subNames.length) {
-      // tutte le bomboniere: una sezione per tipologia
-      let n = 0;
-      grid.innerHTML = subNames.map(t => {
-        const g = l.filter(p => typeKey(p) === t); if (!g.length) return '';
-        return `<h3 class="grp-h rv"><span aria-hidden="true">${esc(typeIcon(t))}</span>${t === OTHER_TYPE ? 'Altre bomboniere' : esc(t)}<small>${g.length}</small></h3>${g.map(p => card(p, n++)).join('')}`;
+    const counter = { n: 0 };
+    if (!l.length) {
+      grid.innerHTML = '<div class="empty">Nessun prodotto trovato.</div>';
+    } else if (col === 'Tutte') {
+      // Nella vista completa, ogni collezione ha le proprie Novità e il proprio catalogo.
+      grid.innerHTML = collections().map(name => {
+        const group = l.filter(p => colOf(p) === name);
+        if (!group.length) return '';
+        return `<h2 class="grp-h catalog-category-title">${esc(name)}<small>${group.length}</small></h2>${productSections(group, counter)}`;
       }).join('');
-    } else grid.innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Nessun prodotto trovato.</div>';
+    } else if (isBomb(col) && sub === 'Tutte' && subNames.length) {
+      // Le bomboniere mantengono la suddivisione per tipologia, con Novità e prodotti restanti.
+      grid.innerHTML = subNames.map(type => {
+        const group = l.filter(p => typeKey(p) === type);
+        if (!group.length) return '';
+        return `<h3 class="grp-h catalog-category-title"><span aria-hidden="true">${esc(typeIcon(type))}</span>${type === OTHER_TYPE ? 'Altre bomboniere' : esc(type)}<small>${group.length}</small></h3>${productSections(group, counter)}`;
+      }).join('');
+    } else {
+      grid.innerHTML = productSections(l, counter);
+    }
     watch(grid);
   }
   search.addEventListener('input', renderGrid);
@@ -319,7 +361,7 @@
   const newSel = () => ({ frag: null, col: null, confetti: null, tag: null, pack: null });
   let pdSel = newSel();
   // gruppi di scelta di un prodotto: fragranza e colore del prodotto + extra comuni
-  const groupsOf = p => [['Fragranza', 'frag', optsOf(p, 'fragrances')], ['Colore', 'col', optsOf(p, 'colors')], ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
+  const groupsOf = p => [['Fragranza', 'frag', optsOf(p, 'fragrances')], ...(p?.id === 'tart-profumate' ? [['Forma', 'shape', p.shapes || []]] : [['Colore', 'col', optsOf(p, 'colors')]]), ...extrasOf(p).map(e => [e.t, e.key, e.list])].filter(g => g[2].length);
   const chipsHtml = (key, list) => list.map(v => { const hx = key === 'col' ? hexOf(v) : null; return `<button type="button" role="radio" aria-checked="false" data-v="${esc(v)}" class="pd-chip">${key === 'col' ? `<i class="${hx ? '' : 'any'}" style="${hx ? `background:${esc(hx)}` : ''}"></i>` : ''}${esc(v)}</button>`; }).join('');
   const grpHtml = (t, key, list) => `<div class="pd-opt"><h4>${esc(t)}</h4><div class="pd-chips" data-k="${key}" role="radiogroup" aria-label="${esc(t)}">${chipsHtml(key, list)}</div></div>`;
   const grpSelectHtml = (title, key, list) => `<div class="pd-opt"><label for="pd-opt-${key}">${esc(title)}</label><select class="field pd-select" id="pd-opt-${key}" data-k="${key}"><option value="">Seleziona ${esc(title.toLowerCase())}</option>${list.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('')}</select></div>`;
@@ -377,9 +419,18 @@
     })();
   }
   const selText = () => [ ...selLines(cur, pdSel), ...(cur?.name_candle && customCandleName.trim() ? ['Nome: ' + customCandleName.trim()] : []) ].join('\n');
+  const packExtraFor = (p, sel) => extrasOf(p).some(e => e.key === 'pack') && sel?.pack === 'Scatola' ? 1 : 0;
+  const selectedProductPrice = (p, sel) => (Number(p?.price) || 0) + packExtraFor(p, sel);
+  function updateProductPrice() {
+    if (!cur || cur.name_candle) return;
+    const extra = packExtraFor(cur, pdSel), extraEl = $('#pd-pack-extra');
+    if (extraEl) { extraEl.hidden = !extra; extraEl.textContent = extra ? 'Scatola: +' + fmt(extra) : ''; }
+    const priceEl = $('#pd-price'); if (priceEl) priceEl.textContent = fmt(selectedProductPrice(cur, pdSel));
+  }
   function openProduct(k, push = true) {
     const p = products.find(x => keyOf(x) === k); if (!p) return;
     cur = p; pdSel = newSel(); customCandleName = ''; curImgs = imgsOf(p); gi = 0; lastFocus = document.activeElement;
+    trackEvent('view_item', { currency: 'EUR', value: Number(p.price) || 0, items: [gaItem(p)] });
     const badge = isTrue(p.is_new) ? '<span class="tag gold">Novità</span>' : isTrue(p.is_low_stock) ? '<span class="tag">⚠ Ultimi pezzi</span>' : '';
     const rec = shuffle(products.filter(x => keyOf(x) !== k && x.id !== p.id && (x.collection || '') === (p.collection || ''))).slice(0, 8);
     const rec2 = rec.length ? rec : shuffle(products.filter(x => x.id !== p.id)).slice(0, 8);
@@ -396,6 +447,7 @@
         <div class="tags">${badge}${p.collection ? `<span class="pc-col">${esc(p.collection)}</span>` : ''}</div>
         <h1>${esc(p.title)}</h1>
         <div class="pd-price"><span class="price" id="pd-price">${p.name_candle ? fmt(0) : fmt(p.price)}</span><span class="m">${esc(p.measures)}</span></div>
+        <p class="pd-pack-extra" id="pd-pack-extra" hidden></p>
         <span class="ship">🚚 Spedizione gratuita da 50€</span>
         <p class="pd-desc">${esc(p.description)}</p>
         ${p.name_candle ? `<div class="pd-opts name-candle-box"><label for="name-candle-input">Scrivi il nome da comporre</label><input class="field" id="name-candle-input" type="text" maxlength="30" autocomplete="off" placeholder="Es. LUNA"><p class="pd-opt-hint">Una mini candela autonoma per ogni lettera. Gli spazi non si conteggiano.</p><div class="name-candle-total"><span id="name-candle-count">0 lettere</span><strong>${fmt(p.price)} / lettera</strong></div><div class="name-candle-preview-wrap"><div class="name-candle-preview-head"><span>ANTEPRIMA</span><small>Trascina per ruotare la candela · scegli la tonalità qui sotto</small></div><div class="name-candle-preview" id="name-candle-preview"><div class="name-candle-3d" id="name-candle-3d"></div><div class="name-candle-fallback" id="name-candle-fallback"><span class="name-candle-placeholder">Il tuo nome prenderà forma qui</span></div></div></div>${optBlock(p)}</div>` : optBlock(p)}
@@ -442,6 +494,8 @@
     const select = e.target.closest('.pd-select');
     if (select) {
       pdSel[select.dataset.k] = select.value || null;
+      const priceEl = $('#pd-price');
+      if (priceEl && !cur?.name_candle) updateProductPrice();
       if (cur?.name_candle) updateNameCandlePreview();
     }
   });
@@ -455,6 +509,7 @@
       const g = chipB.parentElement, key = g.dataset.k, was = chipB.getAttribute('aria-checked') === 'true';
       $$('.pd-chip', g).forEach(x => x.setAttribute('aria-checked', 'false'));
       pdSel[key] = was ? null : chipB.dataset.v; if (!was) chipB.setAttribute('aria-checked', 'true');
+      if (key === 'pack') updateProductPrice();
       return;
     }
     if (t.closest('#pd-buy')) return addToCart();
@@ -503,13 +558,14 @@
   /* ===== CARRELLO ===== */
   const cartItems = [];
   const cartRoot = $('#cart');
-  const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 }).format(value);
+  const money = value => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
   const cartOptions = (p, sel) => groupsOf(p).map(g => ({ label: g[0], value: sel[g[1]] || 'Da definire' }));
   function renderCart() {
     const count = cartItems.reduce((n, item) => n + item.qty, 0);
     $('#cart-count').textContent = count;
     $('#cart-items').innerHTML = cartItems.length ? cartItems.map((item, i) => `
       <article class="cart-line"><div class="cart-line-top"><div><h3>${esc(item.title)}</h3><small>${money(item.price)} cad.</small></div><button class="cart-remove" type="button" data-cart-remove="${i}">Rimuovi</button></div>
+      ${item.packExtra ? `<div class="cart-price-breakdown"><div><span>Prodotto</span><span>${money(item.basePrice)}</span></div><div><span>Scatola</span><span>+${money(item.packExtra)}</span></div></div>` : ''}
       <dl>${item.options.map(o => `<div><dt>${esc(o.label)}</dt><dd>${esc(o.value)}</dd></div>`).join('')}</dl>
       <div class="cart-line-bottom"><div class="cart-qty"><button type="button" data-cart-qty="-1" data-cart-index="${i}">−</button><span>${item.qty}</span><button type="button" data-cart-qty="1" data-cart-index="${i}">+</button></div><strong>${money(item.price * item.qty)}</strong></div></article>`).join('') : '<p class="cart-empty">Il carrello è vuoto. Aggiungi le tue candele dal catalogo.</p>';
     const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
@@ -517,41 +573,70 @@
     $('#cart-checkout').disabled = !cartItems.length;
   }
   function addCardToCart(product, qty) {
-    cartItems.push({ title: product.title, price: Number(product.price) || 0, options: cartOptions(product, newSel()), qty });
+    cartItems.push({ id: product.id || slug(product.title), category: colOf(product), title: product.title, price: Number(product.price) || 0, options: cartOptions(product, newSel()), qty });
     renderCart();
+    trackEvent('add_to_cart', { currency: 'EUR', value: (Number(product.price) || 0) * qty, items: [gaItem(product, qty)] });
     toast(qty === 1 ? 'Aggiunta al carrello' : `${qty} aggiunte al carrello`);
   }
   function addToCart() {
     if (!cur) return;
+    let itemTitle = cur.title, itemPrice = selectedProductPrice(cur, pdSel);
     if (cur.name_candle) {
       const name = customCandleName.trim();
       const letters = [...name].filter(ch => ch.trim()).length;
       if (!letters) { toast('Scrivi prima il nome da comporre'); $('#name-candle-input')?.focus(); return; }
       const options = [...cartOptions(cur, pdSel), { label: 'Nome', value: name }, { label: 'Quantità', value: letters + ' lettere × ' + fmt(cur.price) + ' cad.' }];
-      cartItems.push({ title: cur.title + ' — ' + name, price: (Number(cur.price) || 0) * letters, options, qty: 1 });
-    } else cartItems.push({ title: cur.title, price: Number(cur.price) || 0, options: cartOptions(cur, pdSel), qty: 1 });
-    renderCart(); toast('Aggiunta al carrello');
+      itemTitle = cur.title + ' — ' + name;
+      itemPrice = (Number(cur.price) || 0) * letters;
+      cartItems.push({ id: cur.id || slug(cur.title), category: colOf(cur), title: itemTitle, price: itemPrice, options, qty: 1 });
+    } else {
+      const basePrice = Number(cur.price) || 0, packExtra = packExtraFor(cur, pdSel);
+      cartItems.push({ id: cur.id || slug(cur.title), category: colOf(cur), title: itemTitle, price: itemPrice, basePrice, packExtra, options: cartOptions(cur, pdSel), qty: 1 });
+    }
+    renderCart();
+    trackEvent('add_to_cart', { currency: 'EUR', value: itemPrice, items: [{ ...gaItem(cur, 1, itemPrice), item_name: itemTitle }] });
+    toast('Aggiunta al carrello');
   }
-  function openCart() { cartRoot.classList.add('open'); cartRoot.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock'); }
+  function openCart() {
+    cartRoot.classList.add('open'); cartRoot.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock');
+    if (cartItems.length) trackEvent('view_cart', { currency: 'EUR', value: cartItems.reduce((n, item) => n + item.price * item.qty, 0), items: cartItems.map(item => ({ item_id: item.id || slug(item.title), item_name: item.title, item_category: item.category || '', price: item.price, quantity: item.qty })) });
+  }
   function closeCart() { cartRoot.classList.remove('open'); cartRoot.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock'); }
   $('#cart-open').addEventListener('click', openCart);
   $('#cart-close').addEventListener('click', closeCart);
   cartRoot.addEventListener('click', e => { if (e.target === cartRoot) closeCart(); });
   $('#cart-items').addEventListener('click', e => {
     const remove = e.target.closest('[data-cart-remove]');
-    if (remove) { cartItems.splice(+remove.dataset.cartRemove, 1); renderCart(); return; }
+    if (remove) {
+      const item = cartItems[+remove.dataset.cartRemove];
+      if (item) trackEvent('remove_from_cart', { currency: 'EUR', value: item.price * item.qty, items: [{ item_id: item.id || slug(item.title), item_name: item.title, item_category: item.category || '', price: item.price, quantity: item.qty }] });
+      cartItems.splice(+remove.dataset.cartRemove, 1); renderCart(); return;
+    }
     const qty = e.target.closest('[data-cart-qty]');
-    if (qty) { const i = +qty.dataset.cartIndex; cartItems[i].qty += +qty.dataset.cartQty; if (cartItems[i].qty <= 0) cartItems.splice(i, 1); renderCart(); }
+    if (qty) {
+      const i = +qty.dataset.cartIndex, item = cartItems[i], delta = +qty.dataset.cartQty;
+      if (item) {
+        trackEvent(delta > 0 ? 'add_to_cart' : 'remove_from_cart', { currency: 'EUR', value: item.price, items: [{ item_id: item.id || slug(item.title), item_name: item.title, item_category: item.category || '', price: item.price, quantity: 1 }] });
+        item.qty += delta;
+        if (item.qty <= 0) cartItems.splice(i, 1);
+      }
+      renderCart();
+    }
   });
   $('#cart-checkout').addEventListener('click', () => {
     if (!cartItems.length) return;
     const lines = ['Ciao Lunara! Vorrei effettuare questo ordine:', ''];
     cartItems.forEach((item, i) => {
       lines.push(`${i + 1}. ${item.title} × ${item.qty} — ${money(item.price * item.qty)}`);
+      if (item.packExtra) {
+        lines.push(`   Prodotto: ${money(item.basePrice)}`);
+        lines.push(`   Scatola: +${money(item.packExtra)}`);
+      }
       item.options.forEach(o => lines.push(`   ${o.label}: ${o.value}`));
       lines.push('');
     });
     const total = cartItems.reduce((n, item) => n + item.price * item.qty, 0);
+    trackEvent('whatsapp_order_start', { currency: 'EUR', value: total, items: cartItems.map(item => ({ item_id: item.id || slug(item.title), item_name: item.title, item_category: item.category || '', price: item.price, quantity: item.qty })) });
     lines.push(`TOTALE PRODOTTI: ${money(total)}`);
     const note = $('#cart-note').value.trim();
     if (note) lines.push('', `Note: ${note}`);
@@ -565,7 +650,10 @@
   function closeBuy() { buy.classList.remove('open'); buy.setAttribute('aria-hidden', 'true'); }
   $('#buy-x').addEventListener('click', closeBuy);
   buy.addEventListener('click', e => { if (e.target === buy) closeBuy(); });
-  $('#b-wa').addEventListener('click', () => { open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Ciao! Vorrei acquistare: ' + (cur?.title || '') + (selText() ? '\n' + selText() : ''))}`, '_blank', 'noopener'); closeBuy(); });
+  $('#b-wa').addEventListener('click', () => {
+    if (cur) trackEvent('whatsapp_product_contact', { currency: 'EUR', value: Number(cur.price) || 0, items: [gaItem(cur)] });
+    open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Ciao! Vorrei acquistare: ' + (cur?.title || '') + (selText() ? '\n' + selText() : ''))}`, '_blank', 'noopener'); closeBuy();
+  });
   $('#b-ig').addEventListener('click', () => { open(IG, '_blank', 'noopener'); closeBuy(); });
   $('#b-tt').addEventListener('click', () => { open(TT, '_blank', 'noopener'); closeBuy(); });
   addEventListener('keydown', e => {
@@ -583,7 +671,9 @@
     const ok = $('#form-ok'), ko = $('#form-ko'); ok.classList.remove('show'); ko.classList.remove('show');
     try {
       const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-      if (!r.ok) throw 0; form.reset(); ok.classList.add('show');
+      if (!r.ok) throw 0;
+      trackEvent('generate_lead', { method: 'contact_form' });
+      form.reset(); ok.classList.add('show');
     } catch { ko.classList.add('show'); }
   });
 
@@ -695,11 +785,49 @@
       const k = c.parentElement.dataset.k; sel[k] = sel[k] === c.dataset.v ? null : c.dataset.v; paint();
     });
     $('#cfg-note').addEventListener('input', paint);
+    $('#cfg-wa').addEventListener('click', () => {
+      const p = sel.base;
+      trackEvent('custom_candle_request', { currency: 'EUR', value: Number(p?.price) || 0, items: p ? [gaItem(p)] : [] });
+    });
     stepBtns.forEach(b => b.addEventListener('click', () => go(+b.dataset.s)));
     $('#atl-next').addEventListener('click', () => go(step + 1));
     $('#atl-prev').addEventListener('click', () => go(step - 1));
     go(0); paint();
   }
+  /* ===== PERSONALIZZAZIONE NOME IN CERA ===== */
+  function initNameCandleBuilder() {
+    const root = $('#name-builder'); if (!root) return;
+    const product = products.find(p => p.name_candle);
+    if (!product) { root.hidden = true; return; }
+    const input = $('#name-builder-input'), frag = $('#name-builder-frag'), color = $('#name-builder-col');
+    const count = $('#name-builder-count'), price = $('#name-builder-price'), preview = $('#name-builder-preview'), wa = $('#name-builder-wa');
+    const fill = (select, values) => values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; select.appendChild(o); });
+    fill(frag, fragrancesOf(product)); fill(color, colorsOf(product));
+    const clean = value => value.toUpperCase().replace(/[^\p{L}\p{N} ]/gu, '');
+    const update = () => {
+      const name = clean(input.value);
+      if (input.value !== name) input.value = name;
+      const letters = [...name].filter(ch => ch.trim()).length;
+      const total = letters * (Number(product.price) || 0);
+      count.textContent = letters + (letters === 1 ? ' lettera' : ' lettere');
+      price.textContent = fmt(total);
+      preview.innerHTML = name.trim() ? [...name].filter(ch => ch.trim()).map((ch, i) => `<span class="name-candle-letter" style="--letter-i:${i}">${esc(ch)}</span>`).join('') : '<small>Il tuo nome prenderà forma qui</small>';
+      preview.style.setProperty('--wax-color', color.value ? (hexOf(color.value) || '#f4f0e8') : '#f4f0e8');
+      const valid = letters > 0;
+      wa.setAttribute('aria-disabled', String(!valid));
+      wa.href = valid ? waLink(['Ciao Lunara! Vorrei ordinare il nome in cera.', '', `Nome: ${name.trim()}`, `Lettere: ${letters}`, `Prezzo indicativo: ${fmt(total)}`, `Fragranza: ${frag.value || 'Da definire'}`, `Colore: ${color.value || 'Da definire'}`].join('\n')) : '#';
+    };
+    input.addEventListener('input', update);
+    frag.addEventListener('change', update);
+    color.addEventListener('change', update);
+    wa.addEventListener('click', () => {
+      const name = clean(input.value), letters = [...name].filter(ch => ch.trim()).length;
+      if (!letters) { update(); input.focus(); return; }
+      trackEvent('custom_name_candle_request', { currency: 'EUR', value: letters * (Number(product.price) || 0), items: [gaItem(product)] });
+    });
+    update();
+  }
+
   const wc = $('#wa-contact'); if (wc) wc.href = `https://wa.me/${WHATSAPP}`;
 
   /* ===== AVVIO ===== */
@@ -715,7 +843,7 @@
     }
   }
   products = await loadProducts();
-  buildHero(); renderSeg(); renderGrid(); initConfigurator();
+  buildHero(); renderSeg(); renderGrid(); initConfigurator(); initNameCandleBuilder();
   const h = location.hash.match(/^#p=(.+)/);
   if (h) openProduct(decodeURIComponent(h[1]), false);
 })();
