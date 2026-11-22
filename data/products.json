@@ -14,7 +14,10 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/untitled-design.webp",
         "/assets/images/prodotti/progetto-senza-titolo-25.webp",
@@ -28,9 +31,7 @@
         "assets/images/Candela_Bouquet_fiori_(Natale)/8.webp",
         "assets/images/Candela_Bouquet_fiori_(Natale)/9.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Albero_in_contenitore",
@@ -65,7 +66,10 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image4.webp",
         "assets/images/Candela_Albero_in_contenitore/2.webp",
@@ -74,9 +78,7 @@
         "assets/images/Candela_Albero_in_contenitore/5.webp",
         "assets/images/Candela_Albero_in_contenitore/6.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Palla_natale",
@@ -92,7 +94,10 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-21.webp",
         "/assets/images/prodotti/progetto-senza-titolo-22.webp",
@@ -100,9 +105,7 @@
         "assets/images/Candela_Palla_natale/1.webp",
         "assets/images/Candela_Palla_natale/2.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Alberello",
@@ -139,15 +142,16 @@
         "Bianco",
         "Verde"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image1.webp",
         "/assets/images/prodotti/image0.webp",
         "/assets/images/prodotti/image2.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Gnomo",
@@ -183,7 +187,10 @@
         "Bianco",
         "Rosso"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image3.webp",
         "assets/images/Candela_Gnomo/1.webp",
@@ -191,9 +198,7 @@
         "assets/images/Candela_Gnomo/3.webp",
         "assets/images/Candela_Gnomo/4.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Schiaccianoci",
@@ -209,16 +214,17 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-14.webp",
         "assets/images/Candela_Schiaccianoci/1.webp",
         "assets/images/Candela_Schiaccianoci/4.webp",
         "assets/images/Candela_Schiaccianoci/7.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Renna Baby",
@@ -252,14 +258,15 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-11.webp",
         "/assets/images/prodotti/progetto-senza-titolo-10.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Renna",
@@ -296,16 +303,17 @@
         "Bianco",
         "Beige"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image5.webp",
         "/assets/images/prodotti/image6.webp",
         "assets/images/Candela_Renna/3.webp",
         "assets/images/Candela_Renna/4.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Fiocco",
@@ -340,14 +348,15 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/untitled-design-8.webp",
         "/assets/images/prodotti/untitled-design-9.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "title": "Biscotto Pan di zenzero",
@@ -382,13 +391,14 @@
         "Bianco",
         "Beige"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image1-2.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "title": "Alberello Baby",
@@ -423,15 +433,16 @@
         "Bianco",
         "Verde"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-17.webp",
         "/assets/images/prodotti/image0-1.webp",
         "/assets/images/prodotti/image1-1.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "title": "Fiocco di Natale Baby",
@@ -465,13 +476,14 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/img_5890.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "title": "Pupazzo di Neve",
@@ -505,13 +517,14 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/image2-1.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Ghirlanda",
@@ -529,14 +542,15 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/progetto-senza-titolo-14-1.webp",
         "/assets/images/prodotti/progetto-senza-titolo-15.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Gift_Card",
@@ -552,15 +566,16 @@
       "fragrances": [],
       "color_mode": "manual",
       "colors": [],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "assets/images/Candela_Gift_Card/1.webp",
         "assets/images/Candela_Gift_Card/2.webp",
         "assets/images/Candela_Gift_Card/3.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "id": "Candela_Bouquet_fiori_(S.Valentino)",
@@ -576,7 +591,10 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/1.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/2.webp",
@@ -585,9 +603,7 @@
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/5.webp",
         "assets/images/Candela_Bouquet_fiori_(S.Valentino)/6.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Rosa_in_cupola",
@@ -603,7 +619,10 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Rosa_in_cupola/1.webp",
         "assets/images/Candela_Rosa_in_cupola/2.webp",
@@ -611,9 +630,7 @@
         "assets/images/Candela_Rosa_in_cupola/4.webp",
         "assets/images/Candela_Rosa_in_cupola/5.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -629,15 +646,16 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -657,7 +675,10 @@
         "Bianco",
         "Rosso"
       ],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Orsetto_di_roselline/1.webp",
         "assets/images/Candela_Orsetto_di_roselline/2.webp",
@@ -666,9 +687,7 @@
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Cuori_Accesi",
@@ -684,16 +703,17 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Cuori_Accesi/1.webp",
         "assets/images/Candela_Cuori_Accesi/2.webp",
         "assets/images/Candela_Cuori_Accesi/3.webp",
         "assets/images/Candela_Cuori_Accesi/4.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Rosa_Incantata",
@@ -709,7 +729,10 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Rosa_Incantata/1.webp",
         "assets/images/Candela_Rosa_Incantata/2.webp",
@@ -717,9 +740,7 @@
         "assets/images/Candela_Rosa_Incantata/4.webp",
         "assets/images/Candela_Rosa_Incantata/5.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Nome_in_cera",
@@ -735,15 +756,16 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/candela-lettere.webp",
         "/assets/images/prodotti/img_0750.webp"
       ],
       "name_candle": true,
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Big Teddy",
@@ -763,13 +785,14 @@
         "Azzurro",
         "Beige"
       ],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/img_5689.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "CARILLON",
@@ -791,7 +814,10 @@
       ],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/img_5703.webp",
         "/assets/images/prodotti/img_5704.webp",
@@ -799,9 +825,7 @@
         "/assets/images/prodotti/img_5706.webp",
         "/assets/images/prodotti/img_5707.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Giardino Segreto",
@@ -816,13 +840,14 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/img_5688.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Essenza_di_Cuore",
@@ -838,15 +863,16 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Essenza_di_Cuore/1.webp",
         "assets/images/Candela_Essenza_di_Cuore/2.webp",
         "assets/images/Candela_Essenza_di_Cuore/3.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "id": "Candela_Orsetto_di_roselline",
@@ -866,7 +892,10 @@
         "Bianco",
         "Rosso"
       ],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "assets/images/Candela_Orsetto_di_roselline/1.webp",
         "assets/images/Candela_Orsetto_di_roselline/2.webp",
@@ -875,9 +904,7 @@
         "assets/images/Candela_Orsetto_di_roselline/5.webp",
         "assets/images/Candela_Orsetto_di_roselline/6.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Fiore di loto",
@@ -892,7 +919,10 @@
       "fragrances": [],
       "color_mode": "manual",
       "colors": [],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/img_5920.webp",
         "/assets/images/prodotti/img_5923.webp",
@@ -900,9 +930,7 @@
         "/assets/images/prodotti/img_5925.webp",
         "/assets/images/prodotti/img_5921.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Choco Tart",
@@ -919,13 +947,14 @@
       "colors": [
         "Bianco"
       ],
-      "no_extras": true,
+      "shapes": [],
+      "confetti_enabled": false,
+      "tag_enabled": false,
+      "pack_enabled": false,
       "images": [
         "/assets/images/prodotti/img_5940.webp"
       ],
-      "confetti_enabled": false,
-      "tag_enabled": false,
-      "pack_enabled": false
+      "no_extras": true
     },
     {
       "title": "Rosa Incantata",
@@ -947,7 +976,10 @@
         "Rosa",
         "Verde"
       ],
-      "no_extras": false,
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
       "images": [
         "/assets/images/prodotti/image2-2.webp",
         "/assets/images/prodotti/image3-1.webp",
@@ -955,9 +987,7 @@
         "/assets/images/prodotti/image0-2.webp",
         "/assets/images/prodotti/image1-1-1.webp"
       ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true
+      "no_extras": false
     },
     {
       "title": "Tart profumate",
@@ -972,17 +1002,6 @@
       "fragrances": [],
       "color_mode": "all",
       "colors": [],
-      "no_extras": false,
-      "images": [
-        "/assets/images/prodotti/img_5910.webp",
-        "/assets/images/prodotti/img_5908.webp",
-        "/assets/images/prodotti/img_5909.webp",
-        "/assets/images/prodotti/img_5913.webp",
-        "/assets/images/prodotti/img_5914.webp"
-      ],
-      "confetti_enabled": true,
-      "tag_enabled": true,
-      "pack_enabled": true,
       "shapes": [
         "Nuvolette",
         "Cuoricini",
@@ -991,6 +1010,42 @@
         "Fragole",
         "Mirtilli",
         "Altra forma (da concordare)"
+      ],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": true,
+      "images": [
+        "/assets/images/prodotti/img_5910.webp",
+        "/assets/images/prodotti/img_5908.webp",
+        "/assets/images/prodotti/img_5909.webp",
+        "/assets/images/prodotti/img_5913.webp",
+        "/assets/images/prodotti/img_5914.webp"
+      ],
+      "no_extras": false
+    },
+    {
+      "title": "Boccetta in vetro piccola",
+      "collection": "Bomboniere",
+      "bomboniera_type": "",
+      "measures": "4,5ø 6H cm • 40 gr",
+      "description": "Un piccolo dono, un grande ricordo da custodire nel tempo 🤍\nLe nostre nuove candele artigianali con delicati fiori decorativi sono perfette per rendere ancora più speciali i vostri momenti importanti: lauree, matrimoni, battesimi, anniversari e qualsiasi altro evento da celebrare. 🌸\nOgni candela può essere personalizzata con un'etichetta dedicata, riportando la data del vostro evento, e il fiore può essere realizzato nel colore che preferite, per creare una bomboniera unica e coordinata al vostro giorno speciale.\nUn pensiero elegante, delicato e personalizzato, pensato per lasciare un ricordo prezioso a chi amate.",
+      "price": 10,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": false,
+      "images": [
+        "/assets/images/prodotti/untitled-design-4-1.webp",
+        "/assets/images/prodotti/c55d5c6c-3575-46c1-a652-627e29e663d2.webp",
+        "/assets/images/prodotti/untitled-design-1-1.webp",
+        "/assets/images/prodotti/untitled-design-5.webp",
+        "/assets/images/prodotti/untitled-design-2-1.webp"
       ]
     }
   ]
