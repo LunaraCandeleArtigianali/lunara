@@ -1047,6 +1047,31 @@
         "/assets/images/prodotti/untitled-design-5.webp",
         "/assets/images/prodotti/untitled-design-2-1.webp"
       ]
+    },
+    {
+      "title": "Boccetta in vetro grande",
+      "collection": "Bomboniere",
+      "bomboniera_type": "",
+      "measures": "5ø 7H cm • 100gr",
+      "description": "Un piccolo dono, un grande ricordo da custodire nel tempo 🤍\nLe nostre nuove candele artigianali con delicati fiori decorativi sono perfette per rendere ancora più speciali i vostri momenti importanti: lauree, matrimoni, battesimi, anniversari e qualsiasi altro evento da celebrare. 🌸\nOgni candela può essere personalizzata con un'etichetta dedicata, riportando la data del vostro evento, e il fiore può essere realizzato nel colore che preferite, per creare una bomboniera unica e coordinata al vostro giorno speciale.\nUn pensiero elegante, delicato e personalizzato, pensato per lasciare un ricordo prezioso a chi amate. 🕯️",
+      "price": 15,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": false,
+      "images": [
+        "/assets/images/prodotti/untitled-design-3-1.webp",
+        "/assets/images/prodotti/90066906-21bf-492b-9e73-1cc9c8060b90.webp",
+        "/assets/images/prodotti/untitled-design-1-1.webp",
+        "/assets/images/prodotti/untitled-design-2-1.webp",
+        "/assets/images/prodotti/untitled-design-5.webp"
+      ]
     }
   ]
 }
