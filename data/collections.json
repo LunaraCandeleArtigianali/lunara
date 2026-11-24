@@ -19,6 +19,10 @@
     {
       "name": "Altro",
       "description": "Gift card e idee regalo"
+    },
+    {
+      "name": "Segnaposti",
+      "description": ""
     }
   ]
 }
