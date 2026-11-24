@@ -1072,6 +1072,27 @@
         "/assets/images/prodotti/untitled-design-2-1.webp",
         "/assets/images/prodotti/untitled-design-5.webp"
       ]
+    },
+    {
+      "title": "Segnaposto Hibiscus",
+      "collection": "Segnaposti",
+      "bomboniera_type": "Comunione / Cresima",
+      "measures": "",
+      "description": "🌸 Un elegante segnaposto a forma di fiore, delicato e perfetto per impreziosire la tavola con un tocco romantico e raffinato.\n\nIdeale per matrimoni, cerimonie ed eventi speciali, ma anche come piccolo dono profumato.\n\n✨ Tre modi per utilizzarlo:\n\n• Come segnaposto per rendere speciale ogni tavola.\n•Come TART da sciogliere nel brucia essenze, per profumare gli ambienti.\n•Come profuma cassetti, per donare una delicata fragranza a biancheria e armadi.\n\n💌 Ogni dettaglio è personalizzabile!\n\nOgni segnaposto può essere accompagnato da un cartoncino con una frase speciale e, se desiderato, il nome dell’ospite.\n\nPotrai scegliere e personalizzare:\n\n•Colore del fiore\n• Fragranza\n•Cartoncino e relativa grafica\n•Frase da inserire\n•Nome da abbinare al segnaposto\n\nUn piccolo pensiero realizzato su misura, per raccontare il tuo stile e lasciare agli ospiti un ricordo speciale. 🤍",
+      "price": null,
+      "is_new": true,
+      "is_low_stock": false,
+      "fragrance_mode": "all",
+      "fragrances": [],
+      "color_mode": "all",
+      "colors": [],
+      "shapes": [],
+      "confetti_enabled": true,
+      "tag_enabled": true,
+      "pack_enabled": false,
+      "images": [
+        "/assets/images/prodotti/42f6c410-b1fd-4120-9dcc-390d667e1bff.webp"
+      ]
     }
   ]
 }
